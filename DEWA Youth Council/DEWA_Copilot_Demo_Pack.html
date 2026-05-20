@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Microsoft 365 Copilot — DEWA Demo Pack</title>
+<style>
+  :root {
+    --primary: #1F4E78;
+    --primary-dark: #143752;
+    --accent: #2E7D32;
+    --accent-light: #4CAF50;
+    --bg: #F4F7FB;
+    --card: #FFFFFF;
+    --border: #E1E8EF;
+    --text: #1A2733;
+    --muted: #6B7785;
+    --code-bg: #F8FAFC;
+    --highlight: #FFF8E1;
+    --success: #2E7D32;
+    --shadow: 0 2px 8px rgba(31, 78, 120, 0.08);
+    --shadow-hover: 0 4px 16px rgba(31, 78, 120, 0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ---------- Header / Hero ---------- */
+  header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 48px 24px 40px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  header .brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  header .brand-row .badge {
+    background: rgba(255,255,255,0.18);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  header h1 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  header h1 .accent {
+    background: linear-gradient(90deg, #82C7E0, #B8E0EC);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  header p.subtitle {
+    font-size: 18px;
+    opacity: 0.92;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  header .author {
+    margin-top: 24px;
+    font-size: 13px;
+    opacity: 0.75;
+    font-style: italic;
+  }
+
+  /* ---------- Nav tabs ---------- */
+  nav.tabs {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .tabs-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .tab {
+    padding: 16px 22px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .tab:hover { color: var(--primary); background: var(--bg); }
+  .tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+  .tab .count {
+    display: inline-block;
+    background: var(--bg);
+    color: var(--primary);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    margin-left: 6px;
+  }
+  .tab.active .count { background: var(--primary); color: white; }
+
+  /* ---------- Main content ---------- */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .section { display: none; animation: fadeIn 0.3s ease; }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-header h2 {
+    color: var(--primary);
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  .section-header p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 800px;
+  }
+
+  /* ---------- Companion files banner ---------- */
+  .files-banner {
+    background: linear-gradient(135deg, #E8F5E9, #F1F8E9);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .files-banner h3 {
+    color: var(--accent);
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .files-banner ul {
+    list-style: none;
+    padding: 0;
+  }
+  .files-banner li {
+    padding: 6px 0;
+    font-size: 14px;
+  }
+  .files-banner li strong { color: var(--text); }
+
+  /* ---------- Prompt card ---------- */
+  .prompt-card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+    border: 1px solid var(--border);
+  }
+  .prompt-card:hover { box-shadow: var(--shadow-hover); }
+
+  .prompt-header {
+    background: linear-gradient(90deg, #EAF1F8, #F4F7FB);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .prompt-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .prompt-title .num {
+    background: var(--primary);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .copy-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s, transform 0.1s;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  .copy-btn:hover { background: var(--primary-dark); }
+  .copy-btn:active { transform: scale(0.96); }
+  .copy-btn.copied {
+    background: var(--success);
+  }
+  .copy-btn svg { width: 14px; height: 14px; }
+
+  .prompt-body {
+    padding: 20px 24px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: #2C3E50;
+    font-style: italic;
+  }
+
+  .prompt-tag {
+    display: inline-block;
+    background: var(--highlight);
+    color: #8B6914;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-left: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-style: normal;
+  }
+
+  /* ---------- Lite Agent cards ---------- */
+  .agent-card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .agent-card-header {
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    color: white;
+    padding: 20px 24px;
+  }
+  .agent-card-header h3 {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .agent-card-header .agent-type {
+    font-size: 12px;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .agent-card-body { padding: 24px; }
+  .agent-field {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .agent-field:last-child { border-bottom: none; }
+  .agent-field-label {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .agent-field-value { font-size: 14.5px; line-height: 1.7; }
+  .agent-field-value ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .agent-field-value li {
+    margin-bottom: 6px;
+  }
+  @media (max-width: 640px) {
+    .agent-field { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120%);
+    background: var(--success);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--primary-dark);
+    color: white;
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.95;
+  }
+  footer p { opacity: 0.85; margin-bottom: 6px; }
+
+  /* ---------- Search ---------- */
+  .search-box {
+    background: white;
+    border-radius: 8px;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .search-box input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    font-family: inherit;
+    background: transparent;
+  }
+  .search-box svg { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand-row">
+    <span class="badge">Microsoft 365 Copilot</span>
+    <span>Demo Content Pack</span>
+  </div>
+  <h1>Copilot for <span class="accent">DEWA</span></h1>
+  <p class="subtitle">Ready-to-use demo prompts tailored for Dubai Electricity &amp; Water Authority. Click any prompt to copy it instantly.</p>
+  <div class="author">Prepared by Mai Lootah · Microsoft Solution Engineer</div>
+</header>
+
+<nav class="tabs">
+  <div class="tabs-inner">
+    <button class="tab active" data-target="researcher">Researcher Agent <span class="count">4</span></button>
+    <button class="tab" data-target="analyst">Analyst Agent <span class="count">4</span></button>
+    <button class="tab" data-target="cowork-multi">Cowork — Multi-step <span class="count">2</span></button>
+    <button class="tab" data-target="cowork-scheduled">Cowork — Scheduled <span class="count">2</span></button>
+    <button class="tab" data-target="lite-agents">Lite Agents <span class="count">2</span></button>
+  </div>
+</nav>
+
+<main>
+  <div class="search-box">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="text" id="search" placeholder="Search prompts (e.g. 'solar', 'outage', 'tariff')..." />
+  </div>
+
+  <!-- ============== Researcher Agent ============== -->
+  <section class="section active" id="researcher">
+    <div class="section-header">
+      <h2>Researcher Agent</h2>
+      <p>The Researcher Agent combines deep web reasoning with the user's M365 tenant content. Use these prompts to demonstrate cited briefs in minutes — policy benchmarking, technology landscape, and competitive analysis.</p>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">1</span>Global benchmarking on net-zero utility roadmaps</div>
+        <button class="copy-btn" data-prompt="r1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="r1">Research how leading global utilities — EDF, Iberdrola, Enel, NEEA, and ENGIE — are tracking against their net-zero 2040–2050 commitments. Compare their renewable capacity additions, green hydrogen pilots, and grid decarbonization investments over the last 24 months. Summarize the top three strategic plays DEWA could adopt to accelerate the Dubai Clean Energy Strategy 2050 and the Net Zero 2050 roadmap. Cite all sources and include a one-page executive summary.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">2</span>Solar PV technology and storage outlook</div>
+        <button class="copy-btn" data-prompt="r2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="r2">Investigate the latest advances in utility-scale solar PV (bifacial, perovskite tandem, agrivoltaics) and battery energy storage (LFP, sodium-ion, long-duration storage) released in the past 18 months. Assess maturity, levelized cost trends, and suitability for desert climates similar to Dubai. Recommend which technologies are ready for the next phase of the Mohammed bin Rashid Al Maktoum Solar Park, and which warrant a pilot. Output a structured comparison table with sources.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">3</span>Smart water network &amp; non-revenue water reduction</div>
+        <button class="copy-btn" data-prompt="r3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="r3">Research how international water utilities have reduced non-revenue water (NRW) below 5% using AI-driven leak detection, acoustic sensors, and digital twins. Profile case studies from Singapore PUB, Tokyo Bureau of Waterworks, and Thames Water. Map each lever to DEWA's existing smart water network program and identify which initiatives would yield the fastest measurable impact in the next 12 months. Provide cited examples and quantified outcomes.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">4</span>Customer experience benchmarks for regional utilities</div>
+        <button class="copy-btn" data-prompt="r4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="r4">Compile a competitive benchmark of customer experience innovation across regional utilities (DEWA, ADDC, EWEC, SEWA, FEWA, Kahramaa, SEC). Cover digital self-service penetration, time-to-resolution for high-priority outages, AI-powered chatbots, and proactive billing communications. Highlight where DEWA leads, where the gaps are, and surface three quick wins from outside the region (e.g., E.ON, Octopus Energy) that could be adopted in the DEWA app. Include all sources.</div>
+    </div>
+  </section>
+
+  <!-- ============== Analyst Agent ============== -->
+  <section class="section" id="analyst">
+    <div class="section-header">
+      <h2>Analyst Agent</h2>
+      <p>The Analyst Agent reasons over structured data using code interpretation and visualization. Pair these prompts with the two companion Excel files below.</p>
+    </div>
+
+    <div class="files-banner">
+      <h3>📂 Companion Excel Files for the Demo</h3>
+      <ul>
+        <li><strong>DEWA_Network_Operations_Data.xlsx</strong> — 20 substations, 12 months of consumption by segment, 18-incident outage log</li>
+        <li><strong>DEWA_Customer_Sustainability_Data.xlsx</strong> — 25 sample bills, 30 service tickets, 12-month sustainability KPI tracker</li>
+      </ul>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">1</span>Substation utilization &amp; asset risk<span class="prompt-tag">Network Ops file</span></div>
+        <button class="copy-btn" data-prompt="a1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="a1">Analyze the Substation_Performance sheet. Identify substations operating above 90% utilization and any with a Transformer Health Index below 80. Cross-reference with last maintenance date and flag the top 5 stations that pose the highest combined load and reliability risk over the coming summer peak. Produce a prioritized maintenance shortlist with reasoning, and visualize utilization vs. health index as a scatter chart.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">2</span>Outage root cause &amp; reliability trends<span class="prompt-tag">Network Ops file</span></div>
+        <button class="copy-btn" data-prompt="a2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="a2">Using the Outage_Log sheet, analyze the last 12 months of incidents. Show monthly incident frequency, total customer-minutes lost, and a breakdown of root causes (cable fault, transformer overload, equipment failure, weather, third-party). Identify which areas and which restoration crews have the longest average response times. Recommend three actions to improve SAIDI and SAIFI for next year, supported by the data.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">3</span>Customer billing segmentation &amp; tariff analysis<span class="prompt-tag">Customer &amp; Sustainability file</span></div>
+        <button class="copy-btn" data-prompt="a3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="a3">From the Customer_Bills sheet, segment customers by type (Residential, Commercial, Industrial, Government) and compute the average electricity and water bill, total revenue contribution, and unit price per kWh and per IG. Identify the top 5 highest-billing accounts and any residential customers in the top consumption slab who could be candidates for an energy-efficiency outreach campaign. Visualize segment revenue mix as a donut chart.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">4</span>Service experience &amp; sustainability progress<span class="prompt-tag">Customer &amp; Sustainability file</span></div>
+        <button class="copy-btn" data-prompt="a4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="a4">Analyze the Service_Requests and Sustainability_KPIs sheets together. For service requests: compute average response time by priority and channel, and identify which request types have the highest SLA breach risk. For sustainability: chart monthly solar generation and renewable share, and the cumulative smart meter rollout curve. Produce a one-page operational scorecard combining customer service health and clean energy progress.</div>
+    </div>
+  </section>
+
+  <!-- ============== Cowork — Multi-step ============== -->
+  <section class="section" id="cowork-multi">
+    <div class="section-header">
+      <h2>Copilot Cowork — Detailed Multi-Step Prompts</h2>
+      <p>Cowork shines on long-running, cross-tool tasks that span email, Teams, calendar, files, and external research. These prompts demonstrate planning, parallel sub-agents, and consolidated deliverables.</p>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">1</span>Quarterly stakeholder update for senior leadership</div>
+        <button class="copy-btn" data-prompt="cm1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="cm1">Prepare my Q4 stakeholder update for the Executive Vice President of Distribution Power. (1) Pull all emails, Teams messages and meeting transcripts I have exchanged with the network operations, customer happiness, and sustainability teams in the last 90 days. (2) Identify the three biggest wins, the three open risks, and the upcoming milestones for each function. (3) Cross-check the metrics against the latest substation performance and sustainability KPI files in my OneDrive. (4) Draft a four-page Word brief with an executive summary, a section per function, and a forward-looking ask. (5) Build a matching 8-slide PowerPoint deck I can present in the steering committee. (6) Draft an email to the EVP attaching both files with a 5-line summary and a request for 30 minutes on his calendar next week.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">2</span>End-to-end response to a major outage post-mortem</div>
+        <button class="copy-btn" data-prompt="cm2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="cm2">There was a major distribution outage in Business Bay last week affecting 4,200 customers. Run a full post-mortem workflow: (1) Search my email and Teams for any chat threads, incident reports, and customer complaints related to the Business Bay incident. (2) Pull the relevant rows from the Outage_Log in my Network Operations file and summarize the timeline, root cause, and restoration actions. (3) Research best-practice post-incident communication templates from other global utilities. (4) Draft three deliverables: a one-page internal incident report for the operations leadership team, a customer-facing apology and compensation note in English and Arabic for the DEWA app, and a regulator notification letter. (5) Create a follow-up Teams channel post inviting the response team to a 30-minute lessons-learned session, with a calendar invite for next Tuesday at 14:00 GST.</div>
+    </div>
+  </section>
+
+  <!-- ============== Cowork — Scheduled ============== -->
+  <section class="section" id="cowork-scheduled">
+    <div class="section-header">
+      <h2>Copilot Cowork — Scheduled Prompts</h2>
+      <p>Scheduled Cowork tasks run automatically at the configured cadence. These are designed for DEWA leaders who need a recurring, low-effort pulse on operations and sustainability.</p>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">1</span>Daily morning operations briefing<span class="prompt-tag">Every weekday · 07:30 GST</span></div>
+        <button class="copy-btn" data-prompt="cs1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="cs1">Every weekday at 07:30 Dubai time, prepare my morning operations briefing and send it to me in Teams. Include: (a) any high-priority emails received overnight from the network operations, customer happiness, or regulatory affairs teams; (b) any Teams messages I am tagged in that I have not yet responded to; (c) my calendar for the day with attendee context for the first three meetings; (d) any new outage incidents logged since 18:00 the previous day with affected area and customers; (e) a one-line sustainability pulse showing yesterday's solar generation against forecast. Keep the brief under 250 words and lead with anything that needs a decision before 09:00.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-header">
+        <div class="prompt-title"><span class="num">2</span>Weekly sustainability KPI digest<span class="prompt-tag">Every Sunday · 08:00 GST</span></div>
+        <button class="copy-btn" data-prompt="cs2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="prompt-body" id="cs2">Every Sunday at 08:00 Dubai time, generate the weekly sustainability digest for the Clean Energy and Diversification leadership group. Pull the latest data from the Sustainability_KPIs sheet in my OneDrive and add: (a) week-on-week and year-on-year change for solar generation, renewable share, CO₂ avoided, and desalinated water; (b) cumulative smart meter rollout against the 100% target; (c) any related news from major regional utilities in the past week using a quick web scan. Render the digest as a clean dashboard, save a PDF copy to my OneDrive 'Weekly Reports' folder, and email it to the leadership distribution list with a 3-bullet executive summary.</div>
+    </div>
+  </section>
+
+  <!-- ============== Lite Agents ============== -->
+  <section class="section" id="lite-agents">
+    <div class="section-header">
+      <h2>Lite Agent Use-Case Inspirations</h2>
+      <p>Lite Agents are purpose-built, narrowly scoped Copilot agents created without code. The two examples below are designed for high-volume, repeatable DEWA scenarios.</p>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-card-header">
+        <div class="agent-type">Lite Agent · 01</div>
+        <h3>DEWA Tariff &amp; Billing Concierge</h3>
+      </div>
+      <div class="agent-card-body">
+        <div class="agent-field">
+          <div class="agent-field-label">Purpose</div>
+          <div class="agent-field-value">An internal agent that helps DEWA customer service representatives answer tariff, slab, fuel surcharge, and bill-calculation questions consistently and in under 30 seconds — freeing agents to focus on empathy and resolution.</div>
+        </div>
+        <div class="agent-field">
+          <div class="agent-field-label">Instructions</div>
+          <div class="agent-field-value">
+            <ul>
+              <li>Always answer based on the most recent tariff schedule, slab structure, and fuel surcharge published by DEWA. Do not improvise rates.</li>
+              <li>When a customer scenario is described, walk through the calculation step-by-step and show the breakdown for electricity (per kWh slab) and water (per IG slab) separately.</li>
+              <li>If the question involves green tariff, EV charging, solar net metering (Shams Dubai) or rooftop PV credit, surface the relevant program rules and current incentives.</li>
+              <li>Translate any numeric answer into both English and Arabic on request, and use AED with two decimal places.</li>
+              <li>If the question is outside scope (complaints, outages, account changes), redirect the representative to the correct channel and do not attempt to answer.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="agent-field">
+          <div class="agent-field-label">Data Sources</div>
+          <div class="agent-field-value">
+            <ul>
+              <li>DEWA Tariff Schedule and Slab Tables (SharePoint, Customer Operations site)</li>
+              <li>Fuel Surcharge bulletins (monthly, published on internal portal)</li>
+              <li>Shams Dubai program rulebook (SharePoint)</li>
+              <li>EV Green Charger tariff guide (SharePoint)</li>
+              <li>Internal billing FAQ knowledge base</li>
+            </ul>
+          </div>
+        </div>
+        <div class="agent-field">
+          <div class="agent-field-label">Sample Instructions</div>
+          <div class="agent-field-value" style="display: flex; gap: 12px; align-items: flex-start;">
+            <div style="font-style: italic; color: #2C3E50; flex: 1;" id="la1">You are the DEWA Tariff &amp; Billing Concierge. Help customer service representatives answer billing and tariff questions accurately and in under 30 seconds. Always use the latest tariff slabs and never improvise rates. Show calculations step-by-step in AED with two decimals, and offer Arabic translation on request. If asked anything outside billing scope, redirect to the correct internal channel.</div>
+            <button class="copy-btn" data-prompt="la1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-card-header">
+        <div class="agent-type">Lite Agent · 02</div>
+        <h3>Field Crew Pre-Shift Safety Briefer</h3>
+      </div>
+      <div class="agent-card-body">
+        <div class="agent-field">
+          <div class="agent-field-label">Purpose</div>
+          <div class="agent-field-value">An agent supervisors use 10 minutes before each shift to generate a tailored safety briefing for restoration and maintenance crews — pulling from recent incidents, weather, and the work scope of the day.</div>
+        </div>
+        <div class="agent-field">
+          <div class="agent-field-label">Instructions</div>
+          <div class="agent-field-value">
+            <ul>
+              <li>Ask the supervisor for the crew name, the work locations planned for the shift, and the type of work (overhead lines, underground cables, transformer maintenance, substation switching, water network).</li>
+              <li>Generate a one-page briefing including: top three relevant incidents in those locations from the last 30 days; today's weather and heat-stress index for Dubai with hydration guidance; specific PPE and lockout-tagout requirements for the work type; and a 30-second toolbox talk on the most common recent failure mode.</li>
+              <li>Always end with three numbered safety questions the supervisor must verbally confirm with the crew before dispatch.</li>
+              <li>Tone is direct and practical. No corporate language. Bullet points only.</li>
+              <li>If a serious incident has occurred in the same area in the past 7 days, escalate with a red-banner warning at the top.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="agent-field">
+          <div class="agent-field-label">Data Sources</div>
+          <div class="agent-field-value">
+            <ul>
+              <li>Incident &amp; Outage Log (SharePoint / internal HSE system)</li>
+              <li>DEWA Safety &amp; PPE Standards manual (SharePoint)</li>
+              <li>Daily weather feed for Dubai (web)</li>
+              <li>Crew shift roster and work-order system (export to OneDrive or live connector)</li>
+              <li>Lessons-learned database from past incidents</li>
+            </ul>
+          </div>
+        </div>
+        <div class="agent-field">
+          <div class="agent-field-label">Sample Instructions</div>
+          <div class="agent-field-value" style="display: flex; gap: 12px; align-items: flex-start;">
+            <div style="font-style: italic; color: #2C3E50; flex: 1;" id="la2">You are the Field Crew Pre-Shift Safety Briefer for DEWA. Before each shift, ask the supervisor for the crew name, work locations, and work type. Produce a one-page briefing covering recent incidents in those locations, today's Dubai weather with heat-stress guidance, PPE and lockout-tagout requirements, and a 30-second toolbox talk. End with three numbered safety questions the supervisor must verbally confirm with the crew. Use direct, practical language and bullet points only. Add a red-banner warning if any serious incident occurred in the same area in the last 7 days.</div>
+            <button class="copy-btn" data-prompt="la2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+  Prompt copied to clipboard
+</div>
+
+<footer>
+  <p><strong>Microsoft 365 Copilot — DEWA Demo Pack</strong></p>
+  <p>Prepared by Mai Lootah · Microsoft Solution Engineer · ME HQ-Spec Sales</p>
+</footer>
+
+<script>
+  // ---------- Tab switching ----------
+  const tabs = document.querySelectorAll('.tab');
+  const sections = document.querySelectorAll('.section');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.target;
+      tabs.forEach(t => t.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      window.scrollTo({ top: document.querySelector('nav.tabs').offsetTop, behavior: 'smooth' });
+    });
+  });
+
+  // ---------- Copy to clipboard ----------
+  const toast = document.getElementById('toast');
+  let toastTimeout;
+  function showToast() {
+    toast.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.dataset.prompt;
+      const text = document.getElementById(targetId).innerText.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      const originalHTML = btn.innerHTML;
+      btn.classList.add('copied');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied';
+      showToast();
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = originalHTML;
+      }, 1800);
+    });
+  });
+
+  // ---------- Search ----------
+  const search = document.getElementById('search');
+  search.addEventListener('input', e => {
+    const q = e.target.value.toLowerCase().trim();
+    // Search across all sections
+    document.querySelectorAll('.prompt-card, .agent-card').forEach(card => {
+      const text = card.innerText.toLowerCase();
+      card.style.display = (!q || text.includes(q)) ? '' : 'none';
+    });
+    if (q) {
+      // Show all sections when searching
+      sections.forEach(s => s.classList.add('active'));
+      tabs.forEach(t => t.classList.remove('active'));
+    } else {
+      sections.forEach(s => s.classList.remove('active'));
+      tabs.forEach(t => t.classList.remove('active'));
+      tabs[0].classList.add('active');
+      sections[0].classList.add('active');
+    }
+  });
+</script>
+
+</body>
+</html>
