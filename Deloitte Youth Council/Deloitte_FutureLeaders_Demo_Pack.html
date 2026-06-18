@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Deloitte Future Leaders — Copilot &amp; Cowork Demo Prompts</title>
+<style>
+  :root {
+    --del-green: #86BC25;
+    --del-green-dark: #6B961D;
+    --del-deep: #043223;
+    --del-accent: #00A3E0;
+    --del-ink: #1A1A1A;
+    --del-black: #000000;
+    --del-bg: #F5F8F1;
+    --del-card: #FFFFFF;
+    --del-line: #E5E7EB;
+    --del-muted: #5B5F6A;
+    --del-success: #1E8E5A;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--del-bg);
+    color: var(--del-ink);
+    line-height: 1.55;
+  }
+  header.hero {
+    background: linear-gradient(135deg, var(--del-green) 0%, #1A1A1A 100%);
+    color: white;
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header.hero::after {
+    content: "";
+    position: absolute;
+    right: -120px;
+    top: -120px;
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, rgba(134, 188, 37, 0.45), transparent 65%);
+    border-radius: 50%;
+  }
+  header.hero h1 {
+    font-size: 36px;
+    margin: 0 0 10px;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 2;
+  }
+  header.hero h1 .dot {
+    color: var(--del-green);
+    font-size: 38px;
+    line-height: 0;
+  }
+  header.hero .subtitle {
+    font-size: 17px;
+    opacity: 0.95;
+    margin: 0 0 8px;
+    position: relative;
+    z-index: 2;
+  }
+  header.hero .meta {
+    font-size: 14px;
+    opacity: 0.82;
+    margin-top: 14px;
+    position: relative;
+    z-index: 2;
+  }
+  header.hero .accent-bar {
+    width: 60px;
+    height: 4px;
+    background: var(--del-green);
+    margin: 18px auto 0;
+    border-radius: 2px;
+    position: relative;
+    z-index: 2;
+  }
+  /* sticky tab nav */
+  nav.tabs {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--del-line);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+  nav.tabs .tabs-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 6px 12px;
+    scrollbar-width: thin;
+  }
+  nav.tabs a {
+    flex: 0 0 auto;
+    text-decoration: none;
+    color: var(--del-muted);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 13px 12px;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  nav.tabs a:hover { color: var(--del-green-dark); }
+  nav.tabs a.active {
+    color: var(--del-deep);
+    border-bottom-color: var(--del-green);
+  }
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .intro {
+    background: var(--del-card);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    border-left: 5px solid var(--del-green);
+    box-shadow: 0 2px 14px rgba(4, 50, 35, 0.06);
+  }
+  .intro h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    color: var(--del-deep);
+  }
+  .intro p {
+    margin: 0;
+    color: var(--del-muted);
+    font-size: 15px;
+  }
+  .cheat-sheet {
+    background: var(--del-card);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+    border-left: 5px solid var(--del-black);
+    box-shadow: 0 2px 14px rgba(4, 50, 35, 0.06);
+  }
+  .cheat-sheet h2 {
+    margin: 0 0 14px;
+    font-size: 20px;
+    color: var(--del-deep);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cheat-sheet h2 .icon {
+    background: var(--del-green);
+    color: var(--del-black);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .tip-card {
+    background: #FBFDF7;
+    border: 1px solid var(--del-line);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .tip-card .tip-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--del-green-dark);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--del-ink);
+    margin-bottom: 4px;
+  }
+  .tip-card .tip-body {
+    font-size: 13px;
+    color: var(--del-muted);
+    line-height: 1.5;
+  }
+  section.section {
+    background: var(--del-card);
+    border-radius: 14px;
+    padding: 28px 28px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 14px rgba(4, 50, 35, 0.06);
+    border: 1px solid var(--del-line);
+    scroll-margin-top: 66px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .section-num {
+    background: var(--del-green);
+    color: var(--del-black);
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .section-num.cowork { background: var(--del-black); color: var(--del-green); }
+  .section-title {
+    font-size: 22px;
+    margin: 0;
+    color: var(--del-ink);
+    font-weight: 700;
+  }
+  .badge {
+    background: #EAF4D8;
+    color: #3C5A12;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .badge.cowork { background: #E5F6FC; color: #064A63; }
+  .section .what-it-is {
+    color: var(--del-ink);
+    font-size: 15px;
+    margin: 0 0 10px;
+    line-height: 1.6;
+  }
+  .section .why {
+    color: var(--del-muted);
+    font-size: 14px;
+    margin: 0 0 18px;
+    font-style: italic;
+  }
+  .prompt-card {
+    background: #FBFDF7;
+    border: 1px solid var(--del-line);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .prompt-card .prompt-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--del-green-dark);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .prompt-card pre {
+    margin: 0;
+    padding: 12px;
+    background: white;
+    border: 1px solid var(--del-line);
+    border-radius: 8px;
+    font-family: "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    font-size: 13.5px;
+    color: var(--del-ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.55;
+    max-height: 360px;
+    overflow-y: auto;
+  }
+  .copy-btn {
+    background: var(--del-green);
+    color: var(--del-black);
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  .copy-btn:hover { background: var(--del-green-dark); color: white; }
+  .copy-btn.copied { background: var(--del-success); color: white; }
+  .tips {
+    background: #F3F8EA;
+    border-left: 3px solid var(--del-green);
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    margin-top: 12px;
+    color: #3F4A2C;
+  }
+  .tips strong { color: var(--del-ink); }
+  .tips ul { margin: 6px 0 0 18px; padding: 0; }
+  .tips li { margin-bottom: 4px; }
+  .what-shows {
+    background: #EEF8FC;
+    border-left: 3px solid var(--del-accent);
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    margin-top: 10px;
+    color: #0A4458;
+  }
+  .what-shows strong { color: #063b4d; }
+  .what-shows ul { margin: 6px 0 0 18px; padding: 0; }
+  .what-shows li { margin-bottom: 4px; }
+  footer {
+    text-align: center;
+    color: var(--del-muted);
+    font-size: 13px;
+    padding: 30px 20px 50px;
+  }
+  footer .logo-line {
+    color: var(--del-deep);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  footer .logo-line .dot { color: var(--del-green); }
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(40px);
+    background: var(--del-success);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    opacity: 0;
+    transition: all 0.25s ease;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 8px 24px rgba(30, 142, 90, 0.4);
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  @media (max-width: 640px) {
+    header.hero h1 { font-size: 26px; }
+    main { padding: 24px 14px 60px; }
+    section.section { padding: 20px 18px; }
+    .section-title { font-size: 18px; }
+    .cheat-sheet, .intro { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Deloitte<span class="dot">.</span> Future Leaders</h1>
+  <p class="subtitle">Microsoft 365 Copilot &amp; Cowork — Hands-on Demo Prompts</p>
+  <div class="accent-bar"></div>
+  <div class="meta">Pick any prompt · Tap <strong>Copy</strong> · Paste into Copilot, Agent Builder, or Cowork · See what happens</div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <div class="tabs-inner">
+    <a href="#sec-researcher">1 · Researcher</a>
+    <a href="#sec-analyst">2 · Analyst</a>
+    <a href="#sec-word">3 · Word</a>
+    <a href="#sec-excel">4 · Excel</a>
+    <a href="#sec-ppt">5 · PowerPoint</a>
+    <a href="#sec-agent">6 · Agent Builder</a>
+    <a href="#sec-app">7 · App Builder</a>
+    <a href="#sec-skill">8 · Cowork Skill</a>
+    <a href="#sec-e2e">9 · Cowork E2E</a>
+  </div>
+</nav>
+
+<main>
+
+  <div class="intro">
+    <h2>How to use this page</h2>
+    <p>Every prompt below was demonstrated live during the session. Click <strong>Copy</strong> on any card and paste it into Microsoft 365 Copilot, the relevant Office app, Agent Builder, or Cowork. Replace placeholders (file names, client names, etc.) with your own. Use the tabs above to jump straight to any agent or to Cowork.</p>
+    <p style="margin-top:12px;"><strong>Two demo data files are included in the handout pack</strong> — both are <em>illustrative only</em>, synthetic data, not real Deloitte client or financial data:</p>
+    <ul style="margin:6px 0 0 18px; color: var(--del-muted); font-size: 14px;">
+      <li><code>Deloitte_FY2025_Quarterly_Results.xlsx</code> — quarterly financials for Deloitte's six service-line segments, used in the <strong>Excel</strong> demo (Section 4).</li>
+      <li><code>Deloitte_Engagement_Delivery_Log_Q1_2026.csv</code> — synthetic engagement delivery log (95 issues across seven service lines), used in the <strong>Analyst</strong> demo (Section 2).</li>
+    </ul>
+  </div>
+
+  <!-- Prompting cheat sheet -->
+  <div class="cheat-sheet">
+    <h2><span class="icon">P</span>Prompting Cheat Sheet — read this first</h2>
+    <p style="margin:0 0 14px; color: var(--del-muted); font-size: 14px;">A good prompt has four parts: <strong>Role</strong> (who Copilot is being), <strong>Task</strong> (what to do), <strong>Context</strong> (data, audience, constraints), and <strong>Format</strong> (length, structure, tone). Get all four in and you'll feel the difference instantly.</p>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-num">TIP 1</div>
+        <div class="tip-title">Set the role</div>
+        <div class="tip-body">"Act as my engagement quality reviewer…" or "You are my Managing Partner's speech-writer…" beats a bare question every time.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">TIP 2</div>
+        <div class="tip-title">Be specific about output</div>
+        <div class="tip-body">Length, audience, tone, format. "1-page memo, formal, for the partner group" tells Copilot exactly what to produce.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">TIP 3</div>
+        <div class="tip-title">Ground it on your data</div>
+        <div class="tip-body">Reference a SharePoint file, attach a doc, or @mention a Teams channel. Grounded Copilot is 10× more accurate.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">TIP 4</div>
+        <div class="tip-title">Iterate, don't restart</div>
+        <div class="tip-body">Reply with "make it shorter", "more confident", "في العربية", "add a chart". Copilot keeps context across turns.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">TIP 5</div>
+        <div class="tip-title">Ask it to show its work</div>
+        <div class="tip-body">Especially with numbers. "Show the formula" / "show the Python" / "cite every source" — audit trail for free.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">TIP 6</div>
+        <div class="tip-title">Give an example of the style</div>
+        <div class="tip-body">Paste a paragraph in the voice you want. Copilot mirrors style much better than it follows abstract instructions.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">TIP 7</div>
+        <div class="tip-title">Chain, don't cram</div>
+        <div class="tip-body">For complex work, do one step at a time. "First summarize the report. Now draft an email about it. Now build a deck."</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-num">TIP 8</div>
+        <div class="tip-title">Verify the high-stakes stuff</div>
+        <div class="tip-body">For numbers, independence, regulatory, or client-facing copy, always read carefully. Copilot is a co-pilot, not an autopilot.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. Researcher -->
+  <section class="section" id="sec-researcher">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h3 class="section-title">Researcher Agent</h3>
+      <span class="badge">Copilot · Deep Research</span>
+    </div>
+    <p class="what-it-is"><strong>What it does:</strong> Researcher is a Copilot reasoning agent that runs multi-step investigations across the open web <em>and</em> your tenant content (SharePoint, OneDrive, Teams, email). It breaks a big question into sub-questions, searches in parallel, then synthesizes a structured, fully-cited briefing — like a junior analyst that never sleeps.</p>
+    <p class="why"><strong>Best for:</strong> competitive intelligence, market sizing, regulatory scans, sector landscapes, proposal due-diligence, client-board prep briefings.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt — GCC Professional Services &amp; Advisory Market Brief
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>Act as my market intelligence analyst. Research the GCC professional services market (audit, consulting, tax, risk and financial advisory) through 2030, with a specific focus on:
+1. Market size today and projected 2027/2030 spend (in USD billions), split UAE vs KSA vs Qatar
+2. The Big Four positioning in the region — Deloitte, PwC, EY, KPMG — by service line and recent regional wins
+3. Where the growth is: GenAI-enabled advisory, UAE corporate tax &amp; e-invoicing, ESG assurance, cyber, government transformation
+4. Key demand drivers: UAE Digital Economy Strategy, KSA Vision 2030 PMO work, sovereign cloud, audit-of-the-future
+5. Risks: talent shortages, fee pressure, AI commoditising basic advisory, independence &amp; regulatory scrutiny
+Return a 2-page briefing with citations and a 1-slide executive summary.</pre>
+    </div>
+
+    <div class="what-shows"><strong>Watch for during the demo:</strong>
+      <ul>
+        <li>The visible plan: Researcher shows the sub-questions it's decomposing the task into <em>before</em> it answers.</li>
+        <li>Parallel search across the open web + your tenant — citations are clickable and traceable.</li>
+        <li>One-click export to Word or PDF, ready for circulation.</li>
+      </ul>
+    </div>
+
+    <div class="tips"><strong>Try these Deloitte-relevant variants:</strong>
+      <ul>
+        <li>"Compare the Big Four's stated GenAI ambitions across audit and consulting — tools launched, alliances, and how each is monetising AI advisory."</li>
+        <li>"Scan the last 12 months of UAE Corporate Tax, FTA e-invoicing, and ADGM/DIFC updates and tell me what changes for our tax and assurance clients."</li>
+        <li>"Map every public alliance Deloitte has signed with a hyperscaler or AI firm since 2024, with deal scope where disclosed."</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2. Analyst -->
+  <section class="section" id="sec-analyst">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h3 class="section-title">Analyst Agent</h3>
+      <span class="badge">Copilot · Python Data Analyst</span>
+    </div>
+    <p class="what-it-is"><strong>What it does:</strong> Analyst is the <strong>Python-powered data agent</strong> inside Copilot. Upload a CSV, Excel file, or paste a table — Analyst writes, runs, and explains real Python code in front of you. Where Excel shines on neat tabular finance, Analyst shines on <em>messy</em> data: unstructured text, clustering, NLP-on-descriptions, statistical tests, anomaly detection — anything that benefits from real Python libraries.</p>
+    <p class="why"><strong>Best for:</strong> engagement delivery analytics, utilisation &amp; chargeability analysis, client-feedback mining, audit-finding pattern detection, pulse-survey free-text, risk hotspot hunting.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Use case — Q1 2026 Engagement Delivery Deep-Dive
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>You are my engagement quality &amp; delivery analyst. Using the attached file Deloitte_Engagement_Delivery_Log_Q1_2026.csv (95 delivery issues across seven service lines), do the following:
+
+1. Give me totals by Service Line and by Severity — show each as a chart.
+2. Build a Pareto chart of Root Causes. What are the top 3 root causes driving 70%+ of issues?
+3. Calculate, by Service Line:
+   - Issue count
+   - High + Critical issue count
+   - Average hours delayed per issue
+   - % of issues involving a subcontractor
+   - Total fee at risk (USD)
+   Rank the service lines on a simple risk score combining these.
+4. Look at the Description text column and cluster the 95 issues into 5–7 themes. Identify any hidden patterns the structured fields don't capture (for example: is "scope changed without re-baselining the plan" showing up across multiple issue types?).
+5. End with a 5-bullet "what we should fix first" recommendation for the Quality &amp; Risk Council, written for a non-technical partner audience.
+
+Show every chart inline, and at the end summarise the Python steps you ran so the Quality team can reproduce the analysis next quarter.</pre>
+    </div>
+
+    <div class="what-shows"><strong>Watch for during the demo:</strong>
+      <ul>
+        <li>The code panel: Analyst writes Python live — you can read every line, no black box.</li>
+        <li>Text clustering on the <em>Description</em> column — this is genuinely hard in Excel; trivial in pandas + scikit-learn.</li>
+        <li>"Show your work" surfaces the exact script, so Quality &amp; Risk can verify and re-run next quarter.</li>
+        <li>Re-runs in seconds when the question changes ("now exclude near-misses" / "now show only Audit &amp; Assurance").</li>
+      </ul>
+    </div>
+
+    <div class="tips"><strong>Try these other Deloitte-relevant variants:</strong>
+      <ul>
+        <li>"Take this utilisation export and find any team where chargeability dropped below 70% of target for 3+ consecutive weeks. Show me a time-series chart for each."</li>
+        <li>"Analyze our latest people-pulse free-text responses. Cluster the comments into themes, score sentiment per theme, and flag the top 3 retention concerns."</li>
+        <li>"From this client-feedback (CSAT) data, flag any account where the score fell &gt; 15% over 2+ consecutive surveys — these are our relationship risks."</li>
+        <li>"Here are 200 audit findings. Categorize them, score severity, and show me the trend over the last four quarters."</li>
+        <li><strong>Prompting tip:</strong> always tell Analyst <em>what the columns mean</em> in plain language. "Column H is fee at risk in USD" saves a round-trip — and if a column has dates, say so explicitly.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Word -->
+  <section class="section" id="sec-word">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h3 class="section-title">Word Agent</h3>
+      <span class="badge">Copilot in Word</span>
+    </div>
+    <p class="what-it-is"><strong>What it does:</strong> Copilot inside Word — draft from scratch, rewrite for tone, summarize a 50-page report into 5 bullets, and ground any draft on a specific SharePoint file or document library. Now with <em>Work agents</em> that pull live context from across your tenant as you write.</p>
+    <p class="why"><strong>Best for:</strong> memos, proposals, point-of-view papers, executive summaries, engagement letters, methodology write-ups, Arabic translations for regulators.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt — AI Champions Pilot Memo
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>Draft a 1-page internal memo from the Deloitte Future Leaders network to the Chief People Officer proposing a 90-day "AI Champions" pilot where 30 young professionals (ages 25–35) each adopt one Copilot use case in their day-job and report measured time savings.
+Structure: Background → Proposal → Success metrics → Ask.
+Tone: confident, concise, aligned to Deloitte's ambition to be the most trusted, AI-fluent professional services firm in the region.</pre>
+    </div>
+
+    <div class="what-shows"><strong>Watch for during the demo:</strong>
+      <ul>
+        <li><em>Rewrite</em> button flips tone — formal ↔ conversational — without retyping.</li>
+        <li><em>Reference</em> button grounds the draft on a specific SharePoint file or doc library.</li>
+        <li><em>Summarize</em> on any long doc collapses 30 pages into the 5 bullets a partner would actually read.</li>
+      </ul>
+    </div>
+
+    <div class="tips"><strong>Try these Deloitte-relevant variants:</strong>
+      <ul>
+        <li>"Open this 40-page technical due-diligence report and give me a 1-page summary in plain language for the client's board."</li>
+        <li>"Translate this engagement summary into formal Arabic suitable for a UAE government client."</li>
+        <li>"Rewrite this proposal section in Deloitte's voice — confident, evidence-led, client-first, no jargon."</li>
+        <li><strong>Prompting tip:</strong> paste a paragraph in the voice you want and say "match this style." Copilot mirrors examples better than abstract instructions.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4. Excel -->
+  <section class="section" id="sec-excel">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h3 class="section-title">Excel Agent</h3>
+      <span class="badge">Copilot in Excel</span>
+    </div>
+    <p class="what-it-is"><strong>What it does:</strong> Natural-language formulas, PivotTables, forecasts, scenario tables, and charts — all directly inside Excel. Copilot writes the formula and explains it, so you can audit, learn, or override. Where Analyst handles messy data with Python, Excel Copilot is the right tool for <em>clean tabular finance</em>: ratios, growth, forecasts, sensitivities — every output traceable to a visible formula.</p>
+    <p class="why"><strong>Best for:</strong> planning, budgeting, segment performance, sensitivity analysis, partner-review packs, board-ready charts.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Use case — FY2024/25 Service-Line Financial Analysis
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>You are my financial analyst. Using the attached file Deloitte_FY2025_Quarterly_Results.xlsx (six Deloitte service-line segments × 8 quarters of Revenue, EBITDA, Net Profit, Capex, and Active Clients), do the following directly in Excel:
+
+1. Add two new columns to the Quarterly Results sheet:
+   - EBITDA Margin % = EBITDA / Revenue
+   - Capex Intensity % = Capex / Revenue
+   Apply conditional formatting: green for margins above the segment's own median, red below.
+
+2. Add a column for quarter-over-quarter revenue growth %, with green/red conditional formatting.
+
+3. Build a chart comparing FY2025 vs FY2024 full-year revenue growth across the six segments — one chart, sorted descending.
+
+4. Identify the two highest-quality growth businesses (highest combined revenue growth and EBITDA margin in FY2025) and write a 2-line explanation of why next to the chart.
+
+5. Flag any quarter where a segment's revenue, EBITDA, or net profit moved more than 1.5 standard deviations from its own 8-quarter mean — these are the outliers worth investigating.
+
+6. End with a 5-bullet "so what" summary, written for a partner performance review.
+
+Show every formula you write — I want to be able to audit and reuse this model.</pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt — Growth Column + Conditional Formatting (quick variant)
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>Add a column showing each segment's quarter-over-quarter revenue growth %, with conditional formatting (green positive, red negative).</pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt — Consulting Revenue Forecast
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>Build a forecast for Consulting revenue for the next 4 quarters based on the historical trend, and show me a chart with the confidence band.</pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt — Fee-per-Client Sensitivity Table
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>Run a sensitivity table: if average fee per client in Consulting moves ±5% from the FY2025 average, what's the estimated impact on segment EBITDA, assuming Active Clients and cost base stay constant?</pre>
+    </div>
+
+    <div class="what-shows"><strong>Watch for during the demo:</strong>
+      <ul>
+        <li>Every formula is visible — Copilot doesn't hide what it wrote.</li>
+        <li>"Explain this formula" turns a complex INDEX/MATCH into plain English — great for learning.</li>
+        <li>Forecast charts include confidence bands by default — partner-ready in one click.</li>
+      </ul>
+    </div>
+
+    <div class="tips"><strong>Try these Deloitte-relevant variants:</strong>
+      <ul>
+        <li>"Build a 3-statement model for a hypothetical USD 50M new-services investment — revenue, OPEX, depreciation, NPV at 10% WACC."</li>
+        <li>"Cross-tab our headcount data by service line × grade × location — show percentages, not just counts."</li>
+        <li>"Take this engagement-margin report and flag any engagement running below 20% gross margin in the last quarter."</li>
+        <li><strong>Prompting tip:</strong> name your tables (<em>Insert → Table → Table Name</em>) before asking. Copilot uses table names in formulas instead of cell ranges — way more readable.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. PowerPoint -->
+  <section class="section" id="sec-ppt">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h3 class="section-title">PowerPoint Agent</h3>
+      <span class="badge">Copilot in PowerPoint</span>
+    </div>
+    <p class="what-it-is"><strong>What it does:</strong> Build a full deck from a prompt, a Word doc, or a SharePoint file. Copilot generates structured slides, picks imagery, writes speaker notes, and uses agentic <em>Designer</em> to keep everything on-brand. You can also point it at an existing deck and ask for a redesign.</p>
+    <p class="why"><strong>Best for:</strong> client pitches, town-halls, proposal decks, training material, leadership offsites, thought-leadership readouts.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt — "Deloitte's AI-Native Future" 8-Slide Deck
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>Create an 8-slide leadership presentation titled "Deloitte's AI-Native Future: A Future Leaders Perspective".
+
+Slides:
+1. Title slide
+2. Why now — three forces: generative AI, the UAE/KSA digital economy, and rising client expectations
+3. Deloitte's AI proof-points: AI-assisted audit, GenAI for consulting delivery, tax technology, cyber &amp; managed services
+4. Deloitte's growth platforms: Audit &amp; Assurance, Consulting, Tax &amp; Legal, Risk Advisory, Financial Advisory, Technology &amp; Transformation
+5. The opportunity for our young talent (ages 25–35) — five AI skills to build
+6. Proposed "AI Champions" 90-day pilot
+7. Success metrics and KPIs
+8. Call to action
+
+Use the corporate template and add suitable royalty-free imagery.</pre>
+    </div>
+
+    <div class="what-shows"><strong>Watch for during the demo:</strong>
+      <ul>
+        <li>Speaker notes auto-written for every slide — you walk in ready to present.</li>
+        <li><em>Designer</em> on any slide reflows layout, swaps imagery, fixes alignment — one click.</li>
+        <li>"Make it shorter / add a chart / merge slides 4 and 5" works mid-flow without losing your work.</li>
+      </ul>
+    </div>
+
+    <div class="tips"><strong>Try these Deloitte-relevant variants:</strong>
+      <ul>
+        <li>"Build a 5-slide client update based on the attached FY2025 results — one chart per slide, formal tone."</li>
+        <li>"Take this Word point-of-view paper and turn it into a 6-slide deck I can present in 10 minutes — keep all the numbers."</li>
+        <li>"Generate an Arabic version of slides 2–5 for the bilingual client audience."</li>
+        <li><strong>Prompting tip:</strong> start in Word, then say <em>"create a deck from this document."</em> The structure transfers cleanly — much better than building from a blank prompt.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6. Agent Builder — Custom Agent -->
+  <section class="section" id="sec-agent">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h3 class="section-title">Agent Builder — Custom Agent: "Deloitte Policy Buddy"</h3>
+      <span class="badge">Microsoft 365 Copilot · Agent Builder</span>
+    </div>
+    <p class="what-it-is"><strong>What it does:</strong> Agent Builder is the no-code agent creation surface inside Microsoft 365 Copilot Chat. In a few minutes, anyone in the firm can build a purpose-grounded agent — with custom instructions, your own knowledge sources (SharePoint, files, public sites), and starter prompts — and publish it to themselves, their team, or the whole firm. No code. No devs. Lives inside Copilot Chat and Teams.</p>
+    <p class="why"><strong>Best for:</strong> HR &amp; policy bots, onboarding assistants, independence/compliance helpers, methodology Q&amp;A, proposal-standards guardians.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Configuration spec — Build the Policy Buddy agent
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>In Microsoft 365 Copilot Chat, open Agent Builder and configure a new agent with these settings:
+
+Name:
+Deloitte Policy Buddy
+
+Description:
+Your friendly guide to Deloitte people policies, code of conduct, independence basics, travel &amp; expenses, and learning &amp; development benefits.
+
+Instructions:
+You are Deloitte Policy Buddy — a warm, professional assistant for Deloitte people.
+- Always cite the exact policy section you are answering from (document name + section)
+- If the answer is not in your knowledge sources, say so clearly and route the user to People Services
+- Respond in the language the user asked in (English or Arabic). If asked bilingually, answer in both
+- Keep responses to 3–5 sentences unless the user asks for more detail
+- Never speculate on a policy you do not have a source for
+- For sensitive topics (grievances, independence breaches, whistleblowing), always direct to the formal People / Ethics channel
+- Keep the tone friendly and on-brand for Deloitte: professional, clear, no jargon
+
+Knowledge sources:
+- SharePoint site: "People Policies"
+- SharePoint site: "Code of Conduct &amp; Independence"
+- Document library: "Employee Handbook"
+- Public site: deloitte.com (for firm values and public context)
+
+Starter prompts:
+1. How many days of study leave am I entitled to before a professional exam?
+2. What's the travel &amp; expense policy for regional client trips?
+3. ما هي سياسة العمل عن بُعد؟
+4. How do I nominate myself for the Future Leaders programme?
+5. Can I use a public GenAI tool for client work documents?
+
+Publish to: Microsoft Teams (personal chat app), shared with the Future Leaders network.</pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Sample user questions — test the agent live
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>1. How many days of study leave am I entitled to before a professional exam?
+2. Can I expense business-class flights on regional travel?
+3. ما هي سياسة العمل عن بُعد؟
+4. What's the process to nominate myself for the Future Leaders programme?
+5. Am I allowed to use a public GenAI tool for client work documents?</pre>
+    </div>
+
+    <div class="what-shows"><strong>Watch for during the demo:</strong>
+      <ul>
+        <li>Build time: from blank → working agent in under 5 minutes.</li>
+        <li>Every answer carries a clickable citation back to the policy source — no hallucination risk.</li>
+        <li>Bilingual handling: same question in Arabic gets the same answer, in Arabic, citing the same source.</li>
+        <li>Where it lives: Agent Builder publishes straight into Microsoft Teams as a personal chat app — people use it where they already work.</li>
+      </ul>
+    </div>
+
+    <div class="tips"><strong>Try these other Deloitte agent ideas:</strong>
+      <ul>
+        <li><strong>Independence Checker</strong> — grounded on the independence policy; answers "can our firm provide service X to audit client Y?"</li>
+        <li><strong>Proposal Coach</strong> — grounded on the proposal playbook and win themes; helps teams draft compliant, on-brand RFP responses.</li>
+        <li><strong>Methodology Q&amp;A</strong> — grounded on the audit/consulting methodology; answers "what's the right step if I hit X on an engagement."</li>
+        <li><strong>Onboarding Buddy</strong> — grounded on the new-joiner handbook; lives in the new starter's Teams from day one.</li>
+        <li><strong>Prompting tip:</strong> the <em>Instructions</em> field is where 80% of agent quality lives. Be explicit about tone, length, citation behavior, and what to do when the agent doesn't know.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. App Builder -->
+  <section class="section" id="sec-app">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <h3 class="section-title">App Builder — No-code apps in Copilot</h3>
+      <span class="badge">Microsoft 365 Copilot · App Builder</span>
+    </div>
+    <p class="what-it-is"><strong>What it does:</strong> App Builder is the no-code app creation surface inside Microsoft 365 Copilot. It turns a plain-English description into a working web app — with a database, UI, authentication, and a shareable link — in minutes. You iterate by chatting: "add a comments section", "change the colors", "send a Teams notification on approval." It's the kind of thing that used to need a 3-person dev team and a sprint.</p>
+    <p class="why"><strong>Best for:</strong> internal tools, surveys, idea hubs, request portals, hackathon prototypes, anything that used to live in a SharePoint list or an Excel "mini-app."</p>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt — Build "Deloitte Innovation Hub"
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>Build me an internal web app called "Deloitte Innovation Hub".
+
+Features:
+- Deloitte people aged 25–35 can submit ideas in 3 categories: AI &amp; Digital Delivery, Client Experience, Wellbeing &amp; Culture
+- Each idea has: title, description, category, submitter name, expected business impact (Low/Med/High), and an upvote button
+- A leaderboard view showing top 10 ideas by upvotes
+- A "My ideas" view for the logged-in user
+- An admin view to mark ideas as "Under review", "Approved", "Declined"
+- Brand colors: Deloitte green (#86BC25) and a clean white background
+
+Deploy it and give me a link I can share with the Future Leaders network.</pre>
+    </div>
+
+    <div class="what-shows"><strong>Watch for during the demo:</strong>
+      <ul>
+        <li>The app is <em>real</em> — there's an actual database behind it, not a mockup.</li>
+        <li>The link works on mobile, in Teams, anywhere — no install needed.</li>
+        <li>Each change-request becomes a small new build, deployed in seconds.</li>
+      </ul>
+    </div>
+
+    <div class="tips"><strong>Iterate live with prompts like:</strong>
+      <ul>
+        <li>"Add a comments section under each idea so people can build on each other's thinking."</li>
+        <li>"Add a 'suggested service line' field — tag each idea to the practice that would own it."</li>
+        <li>"Send a Teams notification to the admin channel whenever an idea reaches 25 upvotes."</li>
+        <li>"Add an export-to-Excel button on the admin view for monthly review."</li>
+        <li><strong>Prompting tip:</strong> describe the <em>user</em> and the <em>job to be done</em> first, then the features. Apps come out cleaner that way.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8. Cowork Skill -->
+  <section class="section" id="sec-skill">
+    <div class="section-header">
+      <div class="section-num cowork">8</div>
+      <h3 class="section-title">Cowork — Skill Creation: /execbrief</h3>
+      <span class="badge cowork">Cowork · Reusable Skill</span>
+    </div>
+    <p class="what-it-is"><strong>What Cowork is:</strong> Cowork is Microsoft's <em>agentic workspace</em> — a separate Copilot surface where you build reusable <strong>skills</strong> and run full <strong>multi-agent orchestrations</strong> with plain English. It's where you go beyond chat and start automating the rituals your team does every week.</p>
+    <p class="what-it-is"><strong>What a Cowork skill is:</strong> A reusable, parameterized workflow you teach Copilot once — then trigger forever with a short slash-command from anywhere (Copilot Chat, Outlook, Teams). Think of skills as macros for the AI era: capture your team's repeatable rituals and let anyone run them on demand. They take inputs, follow your exact instructions, and produce consistent output every time.</p>
+    <p class="why"><strong>Best for:</strong> executive briefings, weekly status updates, proposal-response drafts, engagement handovers, quality flash reports, partner-review prep — any task that follows the same structure week after week.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt — Create the /execbrief skill
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>Create a new Cowork skill called "execbrief".
+
+Purpose:
+When invoked with /execbrief, the skill generates a Deloitte-tone executive briefing on any topic, with the length, audience, language, and tone all customizable by the user.
+
+Step 1 — Ask the user for the following parameters (use the defaults if the user doesn't specify):
+- Topic of the brief (required)
+- Audience: Managing Partner / CFO / Chief People Officer / Service Line Leader / Client Board / Custom — default: Service Line Leader
+- Length: TL;DR / 1-page / 2-page — default: 1-page
+- Tone: Formal executive / Confident analytical / Warm conversational — default: Formal executive
+- Language: English / Arabic / Bilingual side-by-side — default: English
+- Source material: any SharePoint files, Teams channels, Word docs, or web links to ground on (optional)
+- Decision asked / next step (required)
+- Key data points or numbers the user wants included (optional)
+
+Step 2 — Generate the brief with this structure:
+- Bottom Line Up Front: 3 bullets at the very top
+- Background: 2–3 sentences of context
+- Key facts: bulleted, every quoted number sourced
+- Risks &amp; considerations: 2–3 bullets
+- Recommendation / Ask: 1–2 sentences with a clear decision request
+
+Step 3 — Produce two outputs:
+- A Word doc using the Deloitte corporate template (green headers #86BC25, black accent line)
+- A 5-line WhatsApp/Teams-ready summary for forwarding on mobile
+
+Step 4 — Style rules:
+- Currency in USD unless the source data is in AED (then keep AED and note it)
+- Round figures to 2 significant digits
+- Cite every quoted number with the source page or section
+- Never invent a number; if data is missing, write "[to confirm]"
+- For Arabic output, use formal Modern Standard Arabic suitable for senior stakeholders
+
+Step 5 — Save the skill so anyone on my team can run it again with just /execbrief.</pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt — Trigger /execbrief with a real ask
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>/execbrief
+Topic: Q1 2026 progress on the Future Leaders "AI Champions" pilot
+Audience: Chief People Officer
+Length: 1-page
+Tone: Confident analytical
+Language: English
+Decision asked: Approval to scale from 30 to 150 participants in Q2
+Key data points:
+- 28 of 30 champions still active at end of Q1
+- Average self-reported time savings: 4.2 hrs/week
+- Top adopted use cases: Outlook triage, deck generation, Excel forecasting
+- Engagement score on internal pulse: 8.4/10
+- Projected Q2 cost at 150 participants: USD 75k (licenses already provisioned)
+Source material: SharePoint folder "Future Leaders/AI Champions Pilot"</pre>
+    </div>
+
+    <div class="what-shows"><strong>Watch for during the demo:</strong>
+      <ul>
+        <li>One skill — but every output is different, because the parameters drive the result.</li>
+        <li>Consistent Deloitte tone and structure across every invocation, no matter who triggers it.</li>
+        <li>The Word doc lands directly in the user's OneDrive, ready to share.</li>
+      </ul>
+    </div>
+
+    <div class="tips"><strong>Other Deloitte skill ideas worth building next:</strong>
+      <ul>
+        <li><code>/handover</code> — engagement / project handover note with status, risks, open items, contacts.</li>
+        <li><code>/engflash</code> — formatted engagement flash report: issue, immediate actions, client impact, lessons learned.</li>
+        <li><code>/proposalprep</code> — initial RFP response outline based on a tender document.</li>
+        <li><code>/clientprep</code> — weekly client-meeting prep brief, grounded on the latest news and account file.</li>
+        <li><strong>Customize-as-you-go:</strong> once a skill is saved, you can keep editing it — "next time, also include a risk RAG status" or "add a section for required approvals."</li>
+        <li><strong>Share it:</strong> once published, anyone on your team just types <code>/execbrief</code> from Copilot Chat, Outlook, or Teams — same skill, instant access.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9. Cowork End-to-End -->
+  <section class="section" id="sec-e2e">
+    <div class="section-header">
+      <div class="section-num cowork">9</div>
+      <h3 class="section-title">Cowork — End-to-End Orchestration</h3>
+      <span class="badge cowork">Cowork · Multi-Agent</span>
+    </div>
+    <p class="what-it-is"><strong>What it does:</strong> This is where Copilot stops being a chatbot and starts being a chief of staff. One prompt fans out into a plan, the plan dispatches work to multiple specialist agents running in parallel — Researcher, Analyst, Word, PowerPoint, Outlook — and the results synthesize into a single Loop page you can review on mobile. This is what "agentic" actually means in practice.</p>
+    <p class="why"><strong>Best for:</strong> meeting prep, executive briefings, client-visit prep, end-of-week wrap-ups, proposal pack assembly, anything that today takes you a whole afternoon of context-switching.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt — "Prep me for the Future Leaders meeting"
+        <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+      </div>
+<pre>You are my chief of staff. Prep me for tomorrow's Deloitte Future Leaders meeting at 10:00.
+
+Do all of this in parallel:
+1. Pull the meeting invite and list the attendees and agenda.
+2. Researcher: give me a 1-page briefing on the latest Deloitte public announcements (last 30 days) so I sound current.
+3. Analyst: look at the "Deloitte Innovation Hub" app database and tell me the top 3 trending ideas this month, by upvotes and by category.
+4. Word agent: draft a 1-page chairperson opening remarks based on items 2 and 3, in a warm and confident tone.
+5. PowerPoint agent: generate a 5-slide deck that mirrors the opening remarks, ready to project.
+6. Outlook: draft (do not send) a follow-up email to attendees that I can use to share the deck after the meeting.
+
+Bundle everything into a single Loop page called "Future Leaders — 11 June Prep" so I can review on mobile tonight.</pre>
+    </div>
+
+    <div class="what-shows"><strong>Watch for during the demo:</strong>
+      <ul>
+        <li>The plan: Cowork shows the orchestration plan <em>before</em> executing — full transparency.</li>
+        <li>Parallel execution: six specialist agents running concurrently, not sequentially.</li>
+        <li>Synthesis: one Loop page, mobile-friendly, with every artifact linked.</li>
+        <li>Re-runnable: tomorrow morning, the same prompt runs again with fresh data — no copy/paste between tools.</li>
+      </ul>
+    </div>
+
+    <div class="tips"><strong>Try these other end-to-end orchestrations:</strong>
+      <ul>
+        <li>"Prep me for my client visit tomorrow: company background, last 6 months of news, our open opportunities, last meeting notes, two suggested talking points."</li>
+        <li>"Build the weekly Future Leaders update: pull this week's activities, summarize the top 3 ideas added, draft the email, post it to the Teams channel as a draft for me to review."</li>
+        <li>"End-of-day wrap-up: summarize today's emails, list what I committed to and to whom, draft tomorrow's top-3 priority list, send it to my own inbox at 6 PM."</li>
+        <li><strong>Prompting tip:</strong> always end an orchestration prompt with <em>where</em> the output should land — a Loop page, an Outlook draft, a Teams channel. The "delivery" part is what makes it truly agentic.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="intro" style="margin-top: 30px; border-left-color: var(--del-green);">
+    <h2>Your homework before Friday</h2>
+    <p>Pick <strong>one</strong> prompt from this page. Try it on something you actually work on this week. Measure how long it would have taken you without Copilot. Share the result back to the Future Leaders Teams channel — that's your first AI Champion data point.</p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="logo-line">Deloitte<span class="dot">.</span> Future Leaders · Copilot &amp; Cowork Demo</div>
+  <div>Prepared by Mai Lootah · Microsoft Gulf · June 2026</div>
+</footer>
+
+<div class="toast" id="toast">Copied to clipboard</div>
+
+<script>
+function copyPrompt(btn) {
+  const pre = btn.closest('.prompt-card').querySelector('pre');
+  const text = pre.innerText;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => showCopied(btn));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    showCopied(btn);
+  }
+}
+function showCopied(btn) {
+  const original = btn.innerText;
+  btn.innerText = 'Copied ✓';
+  btn.classList.add('copied');
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => {
+    btn.innerText = original;
+    btn.classList.remove('copied');
+    toast.classList.remove('show');
+  }, 1800);
+}
+
+// Sticky tab nav: scrollspy via IntersectionObserver
+const tabLinks = Array.from(document.querySelectorAll('nav.tabs a'));
+const idToTab = {};
+tabLinks.forEach(a => { idToTab[a.getAttribute('href').slice(1)] = a; });
+const sections = tabLinks.map(a => document.getElementById(a.getAttribute('href').slice(1)));
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      tabLinks.forEach(t => t.classList.remove('active'));
+      const active = idToTab[entry.target.id];
+      if (active) {
+        active.classList.add('active');
+        active.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+      }
+    }
+  });
+}, { rootMargin: '-55% 0px -42% 0px', threshold: 0 });
+
+sections.forEach(s => { if (s) observer.observe(s); });
+</script>
+
+</body>
+</html>
