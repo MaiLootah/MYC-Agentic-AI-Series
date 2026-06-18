@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>e& Future Leaders — Microsoft 365 Copilot</title>
+<style>
+:root {
+  --red:        #C8102E;
+  --red-dark:   #8F0B20;
+  --red-light:  #F04E5E;
+  --red-pale:   #FFF0F2;
+  --dark:       #1A1A1A;
+  --charcoal:   #2D2D2D;
+  --white:      #FFFFFF;
+  --off-white:  #F8F8F8;
+  --mid-gray:   #E5E5E5;
+  --text:       #1A1A1A;
+  --muted:      #666666;
+  --nav-h:      58px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--off-white); color: var(--text); }
+
+/* ─── HERO ─────────────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 45%, var(--dark) 100%);
+  padding: 64px 40px 56px;
+  position: relative; overflow: hidden; text-align: center;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -80px; right: -80px;
+  width: 420px; height: 420px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(248,78,94,0.28) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: -60px; left: -60px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,16,46,0.20) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff; font-size: 12px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 5px 16px; border-radius: 20px; margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(32px,5vw,52px); font-weight: 800;
+  color: #fff; letter-spacing: -1px; line-height: 1.1;
+  margin-bottom: 8px;
+}
+.hero h1 span { color: var(--red-light); }
+.hero-arabic {
+  font-size: 18px; color: rgba(255,255,255,0.65);
+  margin-bottom: 14px; direction: rtl; font-weight: 400;
+}
+.hero-sub {
+  font-size: 16px; color: rgba(255,255,255,0.75);
+  margin-bottom: 0; max-width: 560px; margin: 0 auto;
+}
+.hero-accent {
+  display: block; width: 60px; height: 4px;
+  background: linear-gradient(90deg, var(--red-light), #fff);
+  border-radius: 2px; margin: 22px auto 0;
+}
+
+/* ─── STICKY NAV ────────────────────────────────────────── */
+.nav-wrap {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--dark);
+  border-bottom: 3px solid var(--red);
+  overflow-x: auto;
+}
+.nav-wrap::-webkit-scrollbar { height: 3px; }
+.nav-wrap::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+.nav {
+  display: flex; align-items: center; justify-content: center;
+  min-width: max-content; padding: 0 24px; gap: 2px;
+  margin: 0 auto;
+}
+.nav-btn {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.60); font-size: 13px; font-weight: 500;
+  padding: 0 18px; height: var(--nav-h);
+  border-bottom: 3px solid transparent; margin-bottom: -3px;
+  transition: color .2s, border-color .2s; white-space: nowrap;
+}
+.nav-btn:hover { color: #fff; }
+.nav-btn.active { color: #fff; border-bottom-color: var(--red-light); font-weight: 700; }
+
+/* ─── SECTIONS ──────────────────────────────────────────── */
+.section { display: none; padding: 40px 24px 60px; max-width: 900px; margin: 0 auto; }
+.section.visible { display: block; }
+
+/* ─── INTRO CARD ────────────────────────────────────────── */
+.intro-card {
+  background: var(--white);
+  border-left: 5px solid var(--red);
+  border-radius: 0 12px 12px 0;
+  padding: 28px 32px; margin-bottom: 36px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.intro-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--red); }
+.intro-card p { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 8px; }
+.intro-card p:last-child { margin-bottom: 0; }
+.file-list { margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap; }
+.file-pill {
+  background: var(--red-pale); border: 1px solid rgba(200,16,46,0.2);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: 12px; font-weight: 600; color: var(--red);
+}
+
+/* ─── CHEAT SHEET ───────────────────────────────────────── */
+.cheat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px; margin-bottom: 8px;
+}
+.cheat-card {
+  background: var(--white); border-radius: 12px;
+  padding: 20px 18px; border-top: 3px solid var(--red);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.cheat-card .tip-num {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  color: var(--red); text-transform: uppercase; margin-bottom: 6px;
+}
+.cheat-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.cheat-card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* ─── SECTION HEADER ────────────────────────────────────── */
+.sec-header { margin-bottom: 24px; }
+.sec-header h2 {
+  font-size: 26px; font-weight: 800; color: var(--dark);
+  display: flex; align-items: center; gap: 12px;
+}
+.sec-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--red); display: flex; align-items: center;
+  justify-content: center; font-size: 18px; flex-shrink: 0;
+}
+.sec-desc { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.55; }
+
+/* ─── PROMPT CARDS ──────────────────────────────────────── */
+.prompt-card {
+  background: var(--white); border-radius: 14px;
+  padding: 24px 28px; margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border: 1px solid var(--mid-gray);
+}
+.prompt-card h4 {
+  font-size: 13px; font-weight: 700; color: var(--red);
+  text-transform: uppercase; letter-spacing: .8px; margin-bottom: 12px;
+}
+.prompt-wrap { position: relative; }
+pre {
+  background: #1E1E1E; color: #F1F1F1;
+  font-family: 'Cascadia Code', 'Fira Mono', 'Consolas', monospace;
+  font-size: 13px; line-height: 1.6;
+  padding: 16px 56px 16px 18px;
+  border-radius: 10px; white-space: pre-wrap; word-break: break-word;
+  border: 1px solid #333;
+}
+.copy-btn {
+  position: absolute; top: 10px; right: 10px;
+  background: var(--red); color: #fff; border: none;
+  border-radius: 6px; padding: 6px 12px; font-size: 11px;
+  font-weight: 600; cursor: pointer; transition: background .15s;
+}
+.copy-btn:hover { background: var(--red-dark); }
+.copy-btn.copied { background: #22863A; }
+
+/* ─── CALLOUTS ──────────────────────────────────────────── */
+.callout {
+  border-radius: 10px; padding: 16px 20px;
+  margin-top: 16px; font-size: 13px; line-height: 1.55;
+}
+.callout-watch {
+  background: #FFF8E1; border-left: 4px solid #F59F00;
+}
+.callout-watch strong { color: #B36B00; font-size: 12px; letter-spacing: .5px; text-transform: uppercase; }
+.callout-try {
+  background: var(--red-pale); border-left: 4px solid var(--red);
+}
+.callout-try strong { color: var(--red-dark); font-size: 12px; letter-spacing: .5px; text-transform: uppercase; }
+.callout ul { margin-top: 6px; padding-left: 18px; }
+.callout ul li { margin-bottom: 4px; }
+
+/* ─── HOMEWORK ──────────────────────────────────────────── */
+.homework-card {
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+  border-radius: 16px; padding: 36px 36px 32px;
+  color: #fff; margin-top: 20px;
+  box-shadow: 0 8px 32px rgba(200,16,46,0.30);
+}
+.homework-card .hw-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(255,255,255,0.65);
+  margin-bottom: 8px;
+}
+.homework-card h2 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+.homework-card p { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.65; margin-bottom: 16px; }
+.homework-card pre {
+  background: rgba(0,0,0,0.3); color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.homework-card .copy-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.homework-card .copy-btn:hover { background: rgba(255,255,255,0.25); }
+.share-prompt {
+  background: rgba(255,255,255,0.12);
+  border-radius: 10px; padding: 16px 18px; margin-top: 18px;
+  font-size: 13px; color: rgba(255,255,255,0.85);
+}
+.share-prompt strong { color: #fff; }
+
+/* ─── DIVIDER ───────────────────────────────────────────── */
+.divider { border: none; border-top: 1px solid var(--mid-gray); margin: 32px 0; }
+
+/* ─── FOOTER ────────────────────────────────────────────── */
+footer {
+  text-align: center; padding: 28px 24px;
+  background: var(--dark); color: rgba(255,255,255,0.45);
+  font-size: 12px; letter-spacing: .3px;
+}
+footer span { color: var(--red-light); font-weight: 600; }
+
+/* ─── TOAST ─────────────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  background: var(--dark); color: #fff; padding: 10px 24px;
+  border-radius: 24px; font-size: 13px; font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 9999;
+}
+.toast.show { opacity: 1; }
+
+@media (max-width: 600px) {
+  .hero { padding: 48px 20px 40px; }
+  .section { padding: 32px 16px 48px; }
+  .prompt-card { padding: 20px 18px; }
+  .homework-card { padding: 28px 22px; }
+  .cheat-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ══════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">Microsoft 365 Copilot · Youth Demo · 18 June 2026</div>
+  <h1>e<span>&amp;</span> Future Leaders</h1>
+  <div class="hero-arabic">قادة المستقبل في e& — ورشة كوبايلوت التفاعلية</div>
+  <p class="hero-sub">Microsoft 365 Copilot &amp; Cowork — Hands-on Demo Prompts</p>
+  <span class="hero-accent"></span>
+</div>
+
+<!-- ═══ STICKY NAV ═════════════════════════════════════════ -->
+<div class="nav-wrap">
+  <nav class="nav">
+    <button class="nav-btn active" onclick="show('intro')">How to Use</button>
+    <button class="nav-btn" onclick="show('cheat')">Cheat Sheet</button>
+    <button class="nav-btn" onclick="show('researcher')">Researcher</button>
+    <button class="nav-btn" onclick="show('analyst')">Analyst</button>
+    <button class="nav-btn" onclick="show('word')">Word</button>
+    <button class="nav-btn" onclick="show('excel')">Excel</button>
+    <button class="nav-btn" onclick="show('ppt')">PowerPoint</button>
+    <button class="nav-btn" onclick="show('appbuilder')">App Builder</button>
+    <button class="nav-btn" onclick="show('skill')">Cowork Skill</button>
+    <button class="nav-btn" onclick="show('e2e')">End-to-End</button>
+  </nav>
+</div>
+
+<!-- ═══ INTRO ══════════════════════════════════════════════ -->
+<div id="intro" class="section visible">
+  <div class="intro-card">
+    <h2>كيفية استخدام هذه الصفحة — How to use this page</h2>
+    <p>This page is your live prompt guide for today's session. Each tab covers one Microsoft 365 Copilot capability — copy a prompt, paste it into Copilot, and watch it work. Every prompt is tailored to <strong>e&</strong> and the telecom world you live in.</p>
+    <p>The <strong>Analyst</strong> and <strong>Excel</strong> sections reference the companion data files below — open them in Excel before you start those demos. All data is illustrative and synthetic; it is designed to make the demos feel real without using confidential e& information.</p>
+    <div class="file-list">
+      <span class="file-pill">📊 eand_Subscribers_Network.xlsx</span>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Session at a Glance</h4>
+    <p style="font-size:13px; line-height:1.7; color:#444;">
+      <strong>Researcher Agent</strong> — Find information, summarise sources, build briefings.<br>
+      <strong>Analyst Agent</strong> — Query and interpret data from your files.<br>
+      <strong>Word</strong> — Draft documents, briefs, and reports in seconds.<br>
+      <strong>Excel</strong> — Add formulas, create charts, and spot patterns.<br>
+      <strong>PowerPoint</strong> — Generate slide decks from a single prompt.<br>
+      <strong>App Builder</strong> — Build low-code apps with natural language.<br>
+      <strong>Cowork Skill</strong> — Create your own custom AI skill for e&.<br>
+      <strong>End-to-End</strong> — Combine all of the above in one workflow.
+    </p>
+  </div>
+</div>
+
+<!-- ═══ CHEAT SHEET ════════════════════════════════════════ -->
+<div id="cheat" class="section">
+  <div class="sec-header">
+    <h2><div class="sec-icon">💡</div> Prompting Cheat Sheet</h2>
+    <p class="sec-desc">Eight rules for getting better results from Microsoft 365 Copilot every single time.</p>
+  </div>
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <div class="tip-num">Tip 01</div>
+      <h3>Set the role</h3>
+      <p>Start with "Act as a…" — Copilot adapts its tone and expertise. "Act as a telecom strategy analyst at e&."</p>
+    </div>
+    <div class="cheat-card">
+      <div class="tip-num">Tip 02</div>
+      <h3>Be specific about output</h3>
+      <p>Tell Copilot the format you want: "Give me 5 bullet points", "Write a 1-page brief", "Create a table with 4 columns."</p>
+    </div>
+    <div class="cheat-card">
+      <div class="tip-num">Tip 03</div>
+      <h3>Ground it on your data</h3>
+      <p>Reference files you've opened: "Based on the eand_Subscribers_Network.xlsx file, tell me…" Copilot reads your context.</p>
+    </div>
+    <div class="cheat-card">
+      <div class="tip-num">Tip 04</div>
+      <h3>Iterate, don't restart</h3>
+      <p>Follow up in the same chat: "Make that shorter", "Translate to Arabic", "Add a section on 5G". Copilot remembers the thread.</p>
+    </div>
+    <div class="cheat-card">
+      <div class="tip-num">Tip 05</div>
+      <h3>Ask it to show its work</h3>
+      <p>Add "Explain your reasoning" or "List your sources" to understand how Copilot reached its answer.</p>
+    </div>
+    <div class="cheat-card">
+      <div class="tip-num">Tip 06</div>
+      <h3>Give a style example</h3>
+      <p>Paste a sentence you like and say "Write in this style." Copilot will match your preferred tone and register.</p>
+    </div>
+    <div class="cheat-card">
+      <div class="tip-num">Tip 07</div>
+      <h3>Chain, don't cram</h3>
+      <p>Break complex tasks into steps across messages. Research first, then draft, then refine — better than one giant prompt.</p>
+    </div>
+    <div class="cheat-card">
+      <div class="tip-num">Tip 08</div>
+      <h3>Verify high-stakes output</h3>
+      <p>Always check numbers, names, and key facts before sharing externally. Copilot is fast — you add the judgment.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ RESEARCHER ═════════════════════════════════════════ -->
+<div id="researcher" class="section">
+  <div class="sec-header">
+    <h2><div class="sec-icon">🔍</div> Researcher Agent</h2>
+    <p class="sec-desc">Use the Researcher Agent to find information from the web, summarise sources, and build briefings — without opening a single browser tab.</p>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 1 — Competitive Landscape</h4>
+    <div class="prompt-wrap">
+      <pre id="p-res1">Act as a telecom strategy analyst at e&. Research the current competitive landscape for telecommunications and digital services in the GCC. Who are e&'s main competitors — including du, STC, Zain, and Ooredoo — and where is each one investing most aggressively in 2025 and 2026? Summarise the top 3 strategic battlegrounds (e.g. enterprise cloud, 5G monetisation, AI services) and tell me where e& appears strongest and where it faces the most pressure. Cite your sources.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-res1', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      Copilot pulling live web sources and citing them inline — this is the Researcher Agent at work. Notice how it attributes each claim to a specific source rather than presenting opinions as facts.
+    </div>
+    <div class="callout callout-try">
+      <strong>🔄 Try these variants</strong>
+      <ul>
+        <li>"Score each competitor 1–5 on AI readiness and explain why"</li>
+        <li>"Focus only on enterprise B2B — ignore consumer market"</li>
+        <li>"What risks does e& face if STC expands further into UAE?"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 2 — Technology Trend Brief</h4>
+    <div class="prompt-wrap">
+      <pre id="p-res2">I work in strategy at e& and need to brief our leadership team on where the global telecom industry is heading. Research the top 4 technology trends reshaping telecom operators over the next 3 years — such as AI-native networks, private 5G for enterprise, sovereign cloud, and digital identity. For each trend: explain what it is in plain language, give one real-world example of a telecom operator already acting on it, and assess whether e& is ahead, on par, or behind the curve. Format the output as a structured briefing I can share with senior stakeholders.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-res2', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      How Copilot structures a leadership-ready briefing without any formatting instructions — it infers the right structure from context. Ask it to follow up with "Now turn this into an email to my VP" to show how the output flows into action.
+    </div>
+    <div class="callout callout-try">
+      <strong>🔄 Try these variants</strong>
+      <ul>
+        <li>"Add a fifth trend: sustainability and green networks"</li>
+        <li>"Rewrite this for a non-technical audience"</li>
+        <li>"Which trend should e& prioritise first, and why?"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ANALYST ════════════════════════════════════════════ -->
+<div id="analyst" class="section">
+  <div class="sec-header">
+    <h2><div class="sec-icon">📊</div> Analyst Agent</h2>
+    <p class="sec-desc">Open <strong>eand_Subscribers_Network.xlsx</strong> in Excel before running these prompts. The Analyst Agent reads your open file and answers questions about the data in plain English.</p>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 1 — Churn Risk Analysis</h4>
+    <div class="prompt-wrap">
+      <pre id="p-ana1">I'm a data analyst at e& UAE. Based on the Subscribers sheet in this file, which emirates show the highest churn risk? Identify the top 3 at-risk subscriber segments using tenure, ARPU, and support ticket frequency. Explain your reasoning and recommend one targeted retention action per segment.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-ana1', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      Copilot referencing actual column names from the file (Emirate, ARPU, Tenure_Months) — it's not guessing, it's reading your data. Watch how it moves from analysis to recommendation without prompting.
+    </div>
+    <div class="callout callout-try">
+      <strong>🔄 Try these variants</strong>
+      <ul>
+        <li>"Focus only on Youth segment subscribers"</li>
+        <li>"What's the average ARPU for churned vs retained subscribers?"</li>
+        <li>"Create a summary table I can paste into a PowerPoint"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 2 — 5G Coverage Progress</h4>
+    <div class="prompt-wrap">
+      <pre id="p-ana2">Look at the 5G Rollout sheet. Summarise e&'s 5G coverage progress vs Q3 targets across all emirates. Flag any zones that are more than 10 percentage points below target. For the underperforming zones, suggest two possible reasons why coverage might be lagging and what the operations team should investigate first.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-ana2', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      Copilot calculating the gap between Q3_Target_% and Q3_Actual_% columns without you writing a formula. This is the Analyst Agent doing maths and thinking simultaneously.
+    </div>
+    <div class="callout callout-try">
+      <strong>🔄 Try these variants</strong>
+      <ul>
+        <li>"Rank all emirates from best to worst 5G performance"</li>
+        <li>"Which emirate has deployed the most towers relative to its plan?"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WORD ════════════════════════════════════════════════ -->
+<div id="word" class="section">
+  <div class="sec-header">
+    <h2><div class="sec-icon">📝</div> Word</h2>
+    <p class="sec-desc">Ask Copilot in Word to draft documents in seconds — briefs, proposals, meeting summaries, and more. Describe what you need; Copilot writes the first draft.</p>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 1 — Innovation Brief</h4>
+    <div class="prompt-wrap">
+      <pre id="p-word1">Draft a 1-page brief for the e& Youth Council titled "AI and the Future of Telecom." Structure it with: (1) an executive summary in 3 sentences, (2) three key trends reshaping telecom in the next 5 years — 5G + AI convergence, hyper-personalisation, and sustainable networks — with one sentence each explaining what it means for e&, and (3) a call to action for young innovators at e& who want to shape this future. Keep the tone inspiring but professional. End with a quote about innovation.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-word1', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      Copilot applying Word heading styles automatically, suggesting a cover page, and offering to translate the brief to Arabic — all without additional prompts.
+    </div>
+    <div class="callout callout-try">
+      <strong>🔄 Try these variants</strong>
+      <ul>
+        <li>"Rewrite this as a LinkedIn post I can share today"</li>
+        <li>"Add a section on how e& compares to global telecom peers"</li>
+        <li>"Make this shorter — executive summary only, 100 words max"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 2 — Meeting Summary</h4>
+    <div class="prompt-wrap">
+      <pre id="p-word2">Write a meeting summary for today's e& Youth Council Copilot demo session. Include: date (18 June 2026), attendees (Youth Council members, Mai Lootah from Microsoft Gulf), the key Copilot capabilities demonstrated, three standout moments from the session, and action items for each attendee with an owner and due date of 25 June 2026.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-word2', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      How Copilot structures action items as a table automatically. Invite the audience to add a real action item live — Copilot will regenerate the table on the spot.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ EXCEL ═══════════════════════════════════════════════ -->
+<div id="excel" class="section">
+  <div class="sec-header">
+    <h2><div class="sec-icon">📈</div> Excel</h2>
+    <p class="sec-desc">Open <strong>eand_Subscribers_Network.xlsx</strong> and ask Copilot to add columns, create charts, and find patterns — no formula knowledge required.</p>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 1 — Churn Risk Scoring</h4>
+    <div class="prompt-wrap">
+      <pre id="p-xls1">I'm working on the Subscribers sheet of this e& dataset. Add a new column called "Churn_Risk_Score" that scores each row from 1 (low risk) to 5 (high risk) based on three factors: subscribers with tenure under 6 months score +2, ARPU under 80 AED scores +2, and more than 2 support tickets in the last 90 days scores +1. Then create a bar chart showing average Churn Risk Score by Emirate, sorted from highest to lowest risk.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-xls1', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      Copilot writing the nested IF formula live in the formula bar, then inserting the chart. The audience doesn't need to know any Excel — they just described what they wanted.
+    </div>
+    <div class="callout callout-try">
+      <strong>🔄 Try these variants</strong>
+      <ul>
+        <li>"Apply conditional formatting — red for score 4–5, yellow for 3"</li>
+        <li>"Create a pivot table: Emirate vs Segment vs average ARPU"</li>
+        <li>"Highlight the top 10 subscribers most likely to churn"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 2 — NPS Trend</h4>
+    <div class="prompt-wrap">
+      <pre id="p-xls2">Look at the NPS by Segment sheet. Which customer segment has shown the biggest improvement in NPS from Q1 2025 to Q2 2026? Create a line chart showing the NPS trend for all segments over the 6 quarters. Add a reference line at 45, which is e&'s internal benchmark for Good. Label the chart clearly.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-xls2', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      Copilot adding the reference line and auto-labelling the chart — steps that would take an Excel expert 5 minutes done in under 10 seconds.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POWERPOINT ══════════════════════════════════════════ -->
+<div id="ppt" class="section">
+  <div class="sec-header">
+    <h2><div class="sec-icon">🎨</div> PowerPoint</h2>
+    <p class="sec-desc">Create full slide decks from a single prompt. Copilot handles structure, layout, and speaker notes — you focus on the message.</p>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 1 — Youth Council Deck</h4>
+    <div class="prompt-wrap">
+      <pre id="p-ppt1">Create a 6-slide PowerPoint deck for the e& Youth Council titled "AI & the Future of Telecom at e&." Include:
+Slide 1: Title slide with session date 18 June 2026
+Slide 2: Agenda — 5 items matching the session topics
+Slide 3: "Why 5G + AI Changes Everything" — 3 bullet points with e& context
+Slide 4: "What This Means for Your Career at e&" — 3 emerging roles created by AI in telecom
+Slide 5: "Microsoft 365 Copilot in Your Daily Work" — 4 use cases with icons
+Slide 6: "Your 3 Next Steps" — bold call to action for youth council members
+Add speaker notes to every slide. Keep the design modern and energetic.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-ppt1', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      Copilot generating speaker notes automatically — this is a huge time-saver for anyone who presents regularly. Ask a youth council member to add their name to Slide 1 live, then watch Copilot update the whole file.
+    </div>
+    <div class="callout callout-try">
+      <strong>🔄 Try these variants</strong>
+      <ul>
+        <li>"Add a slide comparing e& to Vodafone on AI readiness"</li>
+        <li>"Make the deck bilingual — English headings, Arabic bullet points"</li>
+        <li>"Turn Slide 5 into an infographic layout"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 2 — From Data to Slides</h4>
+    <div class="prompt-wrap">
+      <pre id="p-ppt2">I have analysed e& subscriber churn data and found that Ajman and Fujairah have the highest churn risk scores, primarily among prepaid youth subscribers with tenure under 6 months. Create a 3-slide executive summary deck covering: (1) the key finding with a chart placeholder, (2) the root causes and what the data shows, and (3) two recommended retention actions with estimated impact. This is for e& senior leadership — keep it sharp and data-driven.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-ppt2', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      How Copilot builds a board-ready deck from a plain-text finding. No design experience needed — the insight drives the story.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ APP BUILDER ════════════════════════════════════════ -->
+<div id="appbuilder" class="section">
+  <div class="sec-header">
+    <h2><div class="sec-icon">⚙️</div> App Builder</h2>
+    <p class="sec-desc">Build Power Apps using plain language — no coding required. Describe the app you want and Copilot generates the form, fields, and data connections.</p>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 1 — Innovation Idea Submission App</h4>
+    <div class="prompt-wrap">
+      <pre id="p-app1">Build a Power App for the e& Youth Council to submit innovation ideas. Include these fields:
+- Full Name (text)
+- e& Employee ID (text, required)
+- Project Title (text, required)
+- Problem Area (dropdown: Network Quality, Customer Experience, Sustainability, Digital Services, Internal Productivity)
+- Problem Statement (multi-line text, max 300 characters)
+- Proposed Solution (multi-line text)
+- Expected Impact (dropdown: Cost Saving, Revenue Growth, Customer NPS, Employee Experience)
+- A Submit button that saves to a SharePoint list called "e& Innovation Ideas" and sends a confirmation email to the submitter.
+Make the app mobile-friendly with e& red brand colours.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-app1', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      Copilot scaffolding the entire app — form layout, data validation, and the SharePoint connection — from a plain English description. This would take a developer 2–3 days; Copilot does it in under 2 minutes.
+    </div>
+    <div class="callout callout-try">
+      <strong>🔄 Try these variants</strong>
+      <ul>
+        <li>"Add an approval workflow — manager reviews before it's saved"</li>
+        <li>"Add a gallery screen so users can browse all submitted ideas"</li>
+        <li>"Send a Teams notification to the innovation committee when a new idea is submitted"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COWORK SKILL ════════════════════════════════════════ -->
+<div id="skill" class="section">
+  <div class="sec-header">
+    <h2><div class="sec-icon">🛠️</div> Cowork Skill</h2>
+    <p class="sec-desc">Create your own custom AI skill that lives inside Microsoft 365 Copilot. When you type a trigger phrase, your skill runs automatically — pulling data, summarising, and drafting for you.</p>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Prompt 1 — Build a Network Brief Skill</h4>
+    <div class="prompt-wrap">
+      <pre id="p-skill1">Create a Cowork skill for me called "e& Network Brief".
+
+Trigger phrase: "network brief"
+
+What it should do: When I type "network brief", read the most recent network performance report from my OneDrive folder called "Network Reports", then generate a 5-bullet executive summary covering: (1) the top performing emirate this month, (2) the emirate most behind on 5G rollout target, (3) overall subscriber NPS trend, (4) one operational risk flagged in the report, and (5) the single most important action for the operations team.
+
+Format the output as a clean briefing I can paste into a Teams message to my manager.
+
+Skill icon: 📡</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-skill1', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      Copilot creating the skill definition — trigger phrase, instructions, output format — in seconds. Once saved, every time you type "network brief", this skill fires automatically. This is how you build your own AI-powered workflow.
+    </div>
+    <div class="callout callout-try">
+      <strong>🔄 Try these variants</strong>
+      <ul>
+        <li>"Schedule this skill to run every Monday at 8am and send me the brief on Teams"</li>
+        <li>"Create a second skill called 'churn alert' that flags subscribers at high risk every week"</li>
+        <li>"Add a line to the brief that compares this week to last week"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ END-TO-END ══════════════════════════════════════════ -->
+<div id="e2e" class="section">
+  <div class="sec-header">
+    <h2><div class="sec-icon">🚀</div> Cowork End-to-End</h2>
+    <p class="sec-desc">The big finish. Chain Researcher, Analyst, Word, and PowerPoint together in one orchestrated Copilot workflow — going from raw data to a boardroom-ready deliverable in under 5 minutes.</p>
+  </div>
+
+  <div class="prompt-card">
+    <h4>Full Workflow — Board Meeting Prep</h4>
+    <div class="prompt-wrap">
+      <pre id="p-e2e1">I have an e& board meeting tomorrow on our digital transformation strategy. Help me prepare using the following steps:
+
+Step 1 — Research: Find the latest analyst views (Gartner, IDC, GSMA) on Middle East 5G and AI market growth for 2026–2028. Give me 3 key statistics I can cite.
+
+Step 2 — Analyse: Using the 5G Rollout and Subscribers sheets in my open Excel file, summarise our current performance vs targets. Flag the two biggest gaps.
+
+Step 3 — Draft: Write a 2-page executive summary that combines the market view from Step 1 with our performance data from Step 2. Start with a headline finding, then cover: market opportunity, our position, gaps, and three strategic priorities for H2 2026.
+
+Step 4 — Present: Create a 4-slide summary deck I can present in 5 minutes: (1) Market Context, (2) e& Performance Today, (3) Strategic Gaps, (4) H2 Priorities. Add speaker notes for each slide.
+
+Let's go through these one step at a time.</pre>
+      <button class="copy-btn" onclick="copyPrompt('p-e2e1', this)">Copy</button>
+    </div>
+    <div class="callout callout-watch">
+      <strong>👀 Watch for during the demo</strong><br>
+      How Copilot maintains context across all four steps — the statistics from Step 1 appear in the Step 3 document without you having to repeat them. This is the compounding power of Copilot: each step builds on the last.
+    </div>
+    <div class="callout callout-try">
+      <strong>🔄 Try these variants</strong>
+      <ul>
+        <li>After Step 2: "Now send this summary to my manager on Teams"</li>
+        <li>After Step 3: "Translate the executive summary into Arabic"</li>
+        <li>After Step 4: "Add a fifth slide with 3 risks and how we mitigate them"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════ -->
+<footer>
+  Prepared by <span>Mai Lootah</span> · Microsoft Gulf · June 2026
+</footer>
+
+<!-- ═══ TOAST ═══════════════════════════════════════════════ -->
+<div class="toast" id="toast">Copied to clipboard ✓</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('visible');
+  const idx = ['intro','cheat','researcher','analyst','word','excel','ppt','appbuilder','skill','e2e'].indexOf(id);
+  document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  window.scrollTo({ top: document.querySelector('.nav-wrap').offsetTop, behavior: 'smooth' });
+}
+
+function copyPrompt(id, btn) {
+  const text = document.getElementById(id).textContent;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => flash(btn)).catch(() => fallback(text, btn));
+  } else { fallback(text, btn); }
+}
+
+function fallback(text, btn) {
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); flash(btn); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+function flash(btn) {
+  const orig = btn.textContent;
+  btn.textContent = 'Copied ✓'; btn.classList.add('copied');
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); toast.classList.remove('show'); }, 2000);
+}
+</script>
+</body>
+</html>
