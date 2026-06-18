@@ -15,7 +15,8 @@
   </a>
   
 </div>
-  [e& Content](https://mailootah.github.io/MYC-Agentic-AI-Series/DEWA%20Youth%20Council/eand_FutureLeaders_Demo_Pack.html)
+
+[e& Content](https://mailootah.github.io/MYC-Agentic-AI-Series/DEWA%20Youth%20Council/eand_FutureLeaders_Demo_Pack.html)
 
 <div style="margin-top: 20px;">
 
