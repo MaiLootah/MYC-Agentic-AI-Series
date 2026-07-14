@@ -38,5 +38,12 @@ Hands-on demo packs showcasing Microsoft Copilot and AI agents applied to real-w
 
 ---
 
+### SDD Youth Council
+- [View Prompts](https://mailootah.github.io/MYC-Agentic-AI-Series/SDD%20Youth%20Council/SharjahDigitalDepartment_FutureLeaders_Demo_Pack.html)
+- [Transformation KPIs](https://github.com/MaiLootah/MYC-Agentic-AI-Series/raw/main/SDD%20Youth%20Council/SharjahDigitalDepartment_Digital_Transformation_KPIs.xlsx)
+- [Services Adoption](https://github.com/MaiLootah/MYC-Agentic-AI-Series/raw/main/SDD%20Youth%20Council/SharjahDigitalDepartment_Digital_Services_Adoption.xlsx)
+
+---
+
 ## 📌 About
 Built as part of the Microsoft Youth Council – Agentic AI Series to support hands-on learning with Copilot and AI agents.
