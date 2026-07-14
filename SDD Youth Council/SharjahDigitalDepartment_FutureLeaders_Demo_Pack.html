@@ -9,107 +9,261 @@
     --primary:#CC162D;
     --primary-dark:#A31224;
     --accent:#F5B301;
-    --ink:#1A1A1A;
-    --muted:#6B6B6B;
-    --line:#ECECEC;
-    --bg:#FAF9F7;
+    --ink:#171717;
+    --muted:#666A73;
+    --line:rgba(23,23,23,.08);
+    --bg:#F6F3EF;
     --card:#FFFFFF;
+    --shadow:0 18px 40px rgba(24,24,24,.08);
+    --research:#4C6FFF;
+    --analyst:#00A389;
+    --word:#3658D6;
+    --excel:#1F8F4E;
+    --ppt:#F08A24;
+    --app:#8B5CF6;
+    --skill:#D9468D;
+    --flow:#101828;
   }
+
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
-  .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at top right, rgba(245,179,1,.14), transparent 24%),
+      radial-gradient(circle at top left, rgba(204,22,45,.08), transparent 20%),
+      var(--bg);
+    line-height:1.6;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  section{padding:56px 0 10px;scroll-margin-top:90px}
 
-  /* HERO */
-  .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--primary) 0%,#1A1A1A 100%);color:#fff;padding:64px 0 58px}
-  .hero::after{content:"";position:absolute;top:-120px;right:-90px;width:420px;height:420px;border-radius:50%;
-    background:radial-gradient(circle,rgba(245,179,1,.45) 0%,rgba(245,179,1,0) 70%);pointer-events:none}
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 80% 18%, rgba(245,179,1,.35), transparent 18%),
+      radial-gradient(circle at 14% 85%, rgba(255,255,255,.08), transparent 16%),
+      linear-gradient(135deg,#C3152C 0%, #7F1020 34%, #171717 100%);
+    color:#fff;
+    padding:70px 0 58px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size:32px 32px;
+    mask-image:linear-gradient(to bottom, rgba(0,0,0,.35), transparent 85%);
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    top:-140px;right:-120px;
+    width:460px;height:460px;border-radius:50%;
+    background:radial-gradient(circle, rgba(245,179,1,.45) 0%, rgba(245,179,1,0) 70%);
+    pointer-events:none;
+  }
   .hero .wrap{position:relative;z-index:1}
-  .eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:14px}
-  .hero h1{font-size:44px;line-height:1.08;font-weight:800;letter-spacing:-.5px}
-  .hero .ar{font-size:22px;font-weight:600;color:#ffd9df;margin-top:6px;direction:rtl}
-  .hero p.sub{font-size:18px;color:#f3dfe2;margin-top:16px;max-width:640px}
-  .accent-bar{width:88px;height:5px;background:var(--accent);border-radius:3px;margin-top:22px}
-  .hero .meta{margin-top:26px;font-size:14px;color:#f0cdd2;display:flex;gap:22px;flex-wrap:wrap}
-  .hero .meta b{color:#fff}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:#FFE6A4;font-weight:800;margin-bottom:18px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.14);
+    padding:10px 14px;border-radius:999px;
+    backdrop-filter:blur(10px);
+  }
+  .hero h1{font-size:50px;line-height:1.02;font-weight:850;letter-spacing:-1.1px;max-width:760px}
+  .hero .ar{font-size:22px;font-weight:600;color:#FFD9DF;margin-top:10px;direction:rtl}
+  .hero p.sub{font-size:18px;color:#F8E7EA;margin-top:16px;max-width:640px}
+  .accent-bar{width:92px;height:6px;background:linear-gradient(90deg,var(--accent),#FFD56A);border-radius:999px;margin-top:22px}
+  .hero-grid{margin-top:28px;display:grid;grid-template-columns:1fr;gap:22px}
+  .hero-panel{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:24px;padding:22px;
+    backdrop-filter:blur(12px);
+    box-shadow:0 18px 40px rgba(0,0,0,.12);
+  }
+  .hero-panel h3{font-size:16px;margin-bottom:12px;color:#fff}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .stat{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;padding:18px 16px;
+  }
+  .stat strong{display:block;font-size:28px;line-height:1;margin-bottom:6px}
+  .stat span{font-size:13px;color:#F5DDE1}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 18px;border-radius:999px;font-weight:700;
+    text-decoration:none;transition:.18s ease;cursor:pointer;
+  }
+  .btn-primary{background:#fff;color:var(--primary-dark)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(0,0,0,.18)}
+  .btn-ghost{border:1px solid rgba(255,255,255,.22);color:#fff;background:rgba(255,255,255,.05)}
+  .btn-ghost:hover{background:rgba(255,255,255,.12)}
 
-  /* INTRO */
-  .intro{background:var(--card);border-left:5px solid var(--accent);border-radius:10px;
-    box-shadow:0 2px 14px rgba(0,0,0,.05);padding:26px 28px;margin:34px 0 8px}
-  .intro h2{font-size:20px;color:var(--primary-dark);margin-bottom:10px}
-  .intro p{color:#333;margin-bottom:10px;font-size:15px}
+  .tier-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .tier-card{
+    min-height:148px;
+    padding:16px;border-radius:20px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .tier-num{
+    width:34px;height:34px;border-radius:12px;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:rgba(245,179,1,.18);
+    color:#fff;font-weight:800;font-size:14px;
+  }
+  .tier-card b{display:block;font-size:15px}
+  .tier-card span{font-size:13px;color:#F7E5E8}
+  .tier-card.secret{
+    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.08));
+    border:1px dashed rgba(255,255,255,.28);
+    align-items:center;justify-content:center;text-align:center;
+  }
+  .tier-card.secret .tier-num{width:42px;height:42px;font-size:18px}
+  .tier-card.secret b{font-size:18px}
+  .tier-card.secret span{color:#FFE8B5}
+
+  .quickstart{margin-top:-26px;position:relative;z-index:2}
+  .quick-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:22px}
+  .panel{
+    background:rgba(255,255,255,.82);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.75);
+    border-radius:24px;padding:24px;
+    box-shadow:var(--shadow);
+  }
+  .panel h2{font-size:21px;color:var(--primary-dark);margin-bottom:8px}
+  .panel p{color:#333;font-size:15px;margin-bottom:10px}
+  .stack{display:grid;gap:12px;margin-top:14px}
+  .mini-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 16px}
+  .mini-card b{display:block;margin-bottom:4px}
+  .mini-card span{font-size:14px;color:#555}
   .files{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
-  .file-chip{display:inline-flex;align-items:center;gap:8px;background:#FCF1E0;border:1px solid #F3D79A;
-    color:#7a5600;font-size:13px;font-weight:600;padding:8px 13px;border-radius:8px}
-  .file-chip::before{content:"▦";color:var(--accent)}
+  .file-chip{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#FFF7E6;border:1px solid #F3D79A;
+    color:#7A5600;font-size:13px;font-weight:700;
+    padding:10px 14px;border-radius:999px;text-decoration:none;transition:.15s ease;
+  }
+  .file-chip:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,0,0,.08);background:#FFF3D8}
+  .file-chip::before{content:"↓";color:var(--accent);font-weight:900}
   .disclaimer{font-size:12.5px;color:var(--muted);margin-top:14px;font-style:italic}
 
-  /* NAV */
-  nav.tabs{position:sticky;top:0;z-index:50;background:rgba(250,249,247,.94);backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);margin-top:26px}
-  nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;padding:0 22px}
-  nav.tabs a{white-space:nowrap;padding:15px 14px;font-size:14px;font-weight:600;color:var(--muted);
-    text-decoration:none;border-bottom:3px solid transparent;transition:.15s}
-  nav.tabs a:hover{color:var(--ink)}
-  nav.tabs a.active{color:var(--primary);border-bottom-color:var(--primary)}
+  nav.tabs{
+    position:sticky;top:0;z-index:60;
+    background:rgba(246,243,239,.78);backdrop-filter:blur(12px);
+    border-top:1px solid rgba(255,255,255,.6);
+    border-bottom:1px solid rgba(23,23,23,.06);
+    margin-top:26px;
+  }
+  nav.tabs .wrap{display:flex;gap:8px;overflow-x:auto;padding:10px 24px}
+  nav.tabs .wrap::-webkit-scrollbar{display:none}
+  nav.tabs a{
+    white-space:nowrap;padding:11px 14px;font-size:13px;font-weight:700;color:var(--muted);
+    text-decoration:none;border:1px solid transparent;border-radius:999px;transition:.15s;background:transparent;
+  }
+  nav.tabs a:hover{color:var(--ink);background:rgba(255,255,255,.7)}
+  nav.tabs a.active{color:var(--primary);background:#fff;border-color:rgba(204,22,45,.12);box-shadow:0 4px 12px rgba(0,0,0,.04)}
 
-  /* SECTIONS */
-  section{padding:42px 0 8px;scroll-margin-top:70px}
-  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-  .sec-head .dot{width:11px;height:11px;border-radius:50%;background:var(--primary)}
-  .sec-head h2{font-size:26px;font-weight:800;color:var(--ink)}
-  .sec-sub{color:var(--muted);font-size:15px;margin-bottom:22px;max-width:720px}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+  .sec-head .dot{width:12px;height:12px;border-radius:50%;background:var(--section-accent,var(--primary));box-shadow:0 0 0 6px var(--section-soft,#FCEAEC)}
+  .sec-head h2{font-size:30px;font-weight:850;color:var(--ink);letter-spacing:-.4px}
+  .sec-sub{color:var(--muted);font-size:15px;margin-bottom:24px;max-width:760px}
+  .eyeline{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    background:var(--section-soft,#FBF3F4);color:var(--section-accent,var(--primary));margin-bottom:12px;
+  }
 
-  /* CHEAT SHEET */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-bottom:8px}
-  .tip{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:17px 18px;transition:.15s}
-  .tip:hover{border-color:var(--accent);box-shadow:0 4px 16px rgba(0,0,0,.06);transform:translateY(-2px)}
-  .tip .n{display:inline-flex;width:26px;height:26px;border-radius:7px;background:var(--primary);color:#fff;
-    font-size:13px;font-weight:700;align-items:center;justify-content:center;margin-bottom:10px}
-  .tip h3{font-size:15px;margin-bottom:5px}
-  .tip p{font-size:13px;color:#555}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+  .tip{background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));border:1px solid var(--line);border-radius:20px;padding:18px;transition:.18s ease;box-shadow:var(--shadow)}
+  .tip:hover{transform:translateY(-3px);border-color:rgba(204,22,45,.18)}
+  .tip .n{display:inline-flex;width:30px;height:30px;border-radius:10px;background:var(--primary);color:#fff;font-size:13px;font-weight:800;align-items:center;justify-content:center;margin-bottom:12px}
+  .tip h3{font-size:16px;margin-bottom:6px}
+  .tip p{font-size:13.5px;color:#555}
 
-  /* PROMPT CARDS */
-  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:18px;
-    box-shadow:0 1px 8px rgba(0,0,0,.04)}
-  .card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 16px;
-    background:#FBF3F4;border-bottom:1px solid var(--line)}
-  .card-top .label{font-size:13px;font-weight:700;color:var(--primary-dark)}
-  .copy-btn{border:1px solid var(--primary);background:var(--primary);color:#fff;font-size:12.5px;font-weight:600;
-    padding:7px 15px;border-radius:7px;cursor:pointer;transition:.15s;white-space:nowrap}
-  .copy-btn:hover{background:var(--primary-dark);border-color:var(--primary-dark)}
+  .station{display:grid;grid-template-columns:.92fr 1.08fr;gap:24px;align-items:start;margin-bottom:16px}
+  .station-info,.station-main{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+  .station-info{background:linear-gradient(180deg,#fff,var(--section-soft,#FBF3F4))}
+  .tool-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:var(--section-soft,#FBF3F4);color:var(--section-accent,var(--primary));border:1px solid rgba(0,0,0,.05);margin-bottom:12px}
+  .station-info h3{font-size:24px;letter-spacing:-.4px;margin-bottom:8px}
+  .station-info p{font-size:14px;color:#555;margin-bottom:14px}
+  .info-list{display:grid;gap:10px;margin:12px 0 18px}
+  .info-item{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.82);border:1px solid rgba(0,0,0,.05);border-radius:16px;padding:12px 14px}
+  .info-item .bullet{width:24px;height:24px;border-radius:8px;background:var(--section-accent,var(--primary));color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex:0 0 auto}
+  .info-item b{display:block;font-size:13.5px;margin-bottom:2px}
+  .info-item span{font-size:13px;color:#555}
+
+  .card{background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(252,252,252,.98));border:1px solid rgba(0,0,0,.06);border-radius:22px;overflow:hidden;box-shadow:0 14px 34px rgba(20,20,20,.06)}
+  .card + .card{margin-top:18px}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:16px 18px;background:linear-gradient(180deg, var(--section-soft,#FBF3F4), rgba(255,255,255,.92));border-bottom:1px solid rgba(0,0,0,.06)}
+  .card-top .title-wrap{display:grid;gap:10px}
+  .card-top .label{font-size:16px;font-weight:800;color:var(--ink);line-height:1.25}
+  .meta-row{display:flex;gap:8px;flex-wrap:wrap}
+  .meta-chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid rgba(0,0,0,.06);color:#555;font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px}
+  .copy-btn{border:1px solid var(--section-accent,var(--primary));background:var(--section-accent,var(--primary));color:#fff;font-size:12.5px;font-weight:700;padding:9px 15px;border-radius:10px;cursor:pointer;transition:.15s;white-space:nowrap;box-shadow:0 8px 18px rgba(0,0,0,.08)}
+  .copy-btn:hover{filter:brightness(.96);transform:translateY(-1px)}
   .copy-btn.done{background:#1E7D34;border-color:#1E7D34}
-  pre{margin:0;padding:17px 18px;font-family:'Cascadia Code','SF Mono',Consolas,monospace;font-size:13.5px;
-    line-height:1.6;color:#232323;white-space:pre-wrap;word-break:break-word;background:#fff}
+  pre{margin:0;padding:20px 20px 22px;font-family:'Cascadia Code','SF Mono',Consolas,monospace;font-size:13.5px;line-height:1.65;color:#232323;white-space:pre-wrap;word-break:break-word;background:#fff}
 
-  /* CALLOUTS */
-  .callout{border-radius:10px;padding:14px 17px;margin-bottom:16px;font-size:14px}
-  .watch{background:#FFF7E6;border:1px solid #F3D79A}
-  .watch b{color:#8a6200}
-  .variants{background:#F4F7FB;border:1px solid #D6E2F0}
-  .variants b{color:#1c4e80}
+  .callout{border-radius:18px;padding:15px 16px;margin-bottom:14px;font-size:14px;border:1px solid transparent;background:#fff}
+  .watch{background:#FFF8EA;border-color:#F1D499}
+  .watch b{color:#8A6200}
+  .variants{background:#F4F7FB;border-color:#D6E2F0}
+  .variants b{color:#1C4E80}
+  .expected{background:#F1FBF7;border-color:#BFE6D5}
+  .expected b{color:#12674B}
   .callout ul{margin:8px 0 0 18px}
   .callout li{margin-bottom:5px}
 
-  /* HOMEWORK */
-  .homework{background:linear-gradient(135deg,#FBF3F4 0%,#FFF7E6 100%);border:1px solid #F3D79A;border-radius:14px;
-    padding:30px 30px;margin:20px 0 10px}
-  .homework h2{color:var(--primary-dark);font-size:24px;margin-bottom:8px}
-  .homework .ar{direction:rtl;color:var(--primary-dark);font-weight:600;font-size:16px;margin-bottom:12px}
-  .homework ol{margin:14px 0 0 20px}
-  .homework li{margin-bottom:9px;font-size:15px}
-  .homework .share{margin-top:18px;background:#fff;border:1px dashed var(--primary);border-radius:9px;padding:13px 16px;font-size:14px}
+  .tier4{
+    background:linear-gradient(135deg,#FFF7FA 0%,#FFF7E6 50%,#F7F2FF 100%);
+    border:1px solid rgba(245,179,1,.4);border-radius:28px;padding:34px 32px;margin:20px 0 10px;box-shadow:var(--shadow);
+  }
+  .tier4 h2{color:var(--primary-dark);font-size:28px;margin-bottom:8px;letter-spacing:-.4px}
+  .tier4 .ar{direction:rtl;color:var(--primary-dark);font-weight:700;font-size:16px;margin-bottom:12px}
+  .tier4 p{max-width:780px}
+  .tier4 ol{margin:16px 0 0 20px}
+  .tier4 li{margin-bottom:9px;font-size:15px}
+  .tier4 .share{margin-top:18px;background:#fff;border:1px dashed var(--primary);border-radius:16px;padding:14px 16px;font-size:14px}
 
-  footer{text-align:center;padding:40px 20px 46px;color:var(--muted);font-size:13.5px;margin-top:30px;border-top:1px solid var(--line)}
-  footer .accent{color:var(--primary);font-weight:700}
+  footer{text-align:center;padding:42px 20px 48px;color:var(--muted);font-size:13.5px;margin-top:34px;border-top:1px solid rgba(23,23,23,.06)}
+  footer .accent{color:var(--primary);font-weight:800}
 
-  /* TOAST */
-  #toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(30px);opacity:0;
-    background:var(--ink);color:#fff;padding:12px 22px;border-radius:9px;font-size:14px;font-weight:600;
-    box-shadow:0 6px 22px rgba(0,0,0,.28);transition:.28s;z-index:100;pointer-events:none}
+  #toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(30px);opacity:0;background:var(--ink);color:#fff;padding:12px 22px;border-radius:12px;font-size:14px;font-weight:700;box-shadow:0 6px 22px rgba(0,0,0,.28);transition:.28s;z-index:100;pointer-events:none}
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  @media(max-width:640px){.hero h1{font-size:33px}.hero .meta{gap:12px}}
+  .theme-researcher{--section-accent:var(--research);--section-soft:#EEF2FF}
+  .theme-analyst{--section-accent:var(--analyst);--section-soft:#EBFBF7}
+  .theme-word{--section-accent:var(--word);--section-soft:#EEF1FF}
+  .theme-excel{--section-accent:var(--excel);--section-soft:#ECF9F1}
+  .theme-ppt{--section-accent:var(--ppt);--section-soft:#FFF4E8}
+  .theme-app{--section-accent:var(--app);--section-soft:#F4EEFF}
+  .theme-skill{--section-accent:var(--skill);--section-soft:#FFF0F8}
+  .theme-flow{--section-accent:var(--accent);--section-soft:#FFF8E6}
+
+  @media (max-width:1024px){
+    .quick-grid,.station{grid-template-columns:1fr}
+    .tier-row{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:720px){
+    .hero{padding:60px 0 52px}
+    .hero h1{font-size:38px}
+    .hero .ar{font-size:19px}
+    .hero p.sub{font-size:17px}
+    .stats,.tier-row{grid-template-columns:1fr}
+    .sec-head h2{font-size:26px}
+    .card-top{flex-direction:column;align-items:flex-start}
+  }
 </style>
 </head>
 <body>
@@ -119,26 +273,68 @@
     <div class="eyebrow">Microsoft 365 Copilot · Youth Council Session</div>
     <h1>Sharjah Digital Department<br>Future Leaders</h1>
     <div class="ar">القادة المستقبليون — دائرة الشارقة الرقمية</div>
-    <p class="sub">Microsoft 365 Copilot &amp; Cowork — hands-on demo prompts. Everything on this page is ready to copy, paste, and try live.</p>
+    <p class="sub">A hands-on Copilot demo pack designed for live exploration, practical prompts, and workshop energy.</p>
     <div class="accent-bar"></div>
-    <div class="meta">
-      <span><b>Audience:</b> SDD Youth Council</span>
-      <span><b>Theme:</b> People-first digital innovation</span>
-      <span><b>Tools:</b> Researcher · Analyst · Word · Excel · PowerPoint · App Builder · Cowork</span>
+
+    <div class="hero-grid">
+      <div class="hero-panel">
+        <h3>Today’s workshop at a glance</h3>
+        <div class="stats">
+          <div class="stat"><strong>8</strong><span>demo stations</span></div>
+          <div class="stat"><strong>2</strong><span>companion data files</span></div>
+          <div class="stat"><strong>1</strong><span>Tier 4 reveal</span></div>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#cheat">Start the workshop</a>
+          <a class="btn btn-ghost" href="#tier4">Reveal Tier 4</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <h3>Agentic AI Series</h3>
+        <div class="tier-row">
+          <div class="tier-card">
+            <span class="tier-num">1</span>
+            <div><b>Tier 1 · Essentials</b><span>Core Copilot capabilities and everyday prompting foundations.</span></div>
+          </div>
+          <div class="tier-card">
+            <span class="tier-num">2</span>
+            <div><b>Tier 2 · Specialist Agents</b><span>Purpose-built agents for focused tasks like research, analysis, and creation.</span></div>
+          </div>
+          <div class="tier-card">
+            <span class="tier-num">3</span>
+            <div><b>Tier 3 · The Orchestrator</b><span>Connected workflows that chain multiple tasks and outputs together.</span></div>
+          </div>
+          <div class="tier-card secret">
+            <span class="tier-num">?</span>
+            <div><b>Tier 4</b><span>To be revealed…</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
-<div class="wrap">
-  <div class="intro">
-    <h2>How to use this page</h2>
-    <p>This is your live playbook for the session. Each tab below is one Copilot capability, with ready-made prompts built around <b>Sharjah Digital Department</b>'s real world — citizen services, digital adoption, and the emirate's digital-transformation impact. Hit <b>Copy</b> on any card, paste it into Copilot, and watch it work.</p>
-    <p>Two companion data files power the Analyst and Excel sections. They are attached to the session — open them in Copilot when a prompt asks for them:</p>
-    <div class="files">
-      <span class="file-chip">SharjahDigitalDepartment_Digital_Services_Adoption.xlsx</span>
-      <span class="file-chip">SharjahDigitalDepartment_Digital_Transformation_KPIs.xlsx</span>
+<div class="wrap quickstart">
+  <div class="quick-grid">
+    <div class="panel">
+      <h2>How to use this page</h2>
+      <p>This page is your live workshop playbook. Each section is built like a mini demo station: what to show, what to copy, and what to try next.</p>
+      <div class="stack">
+        <div class="mini-card"><b>1. Pick a section</b><span>Choose the tool you want to demonstrate or try first.</span></div>
+        <div class="mini-card"><b>2. Copy the prompt</b><span>Use the built-in copy button and run it live in Microsoft 365 Copilot.</span></div>
+        <div class="mini-card"><b>3. Extend the result</b><span>Use the variants and facilitator notes to deepen the interaction.</span></div>
+      </div>
     </div>
-    <p class="disclaimer">All data in the companion files is illustrative and synthetic — created for this demo only. It is not official Sharjah Digital Department data.</p>
+    <div class="panel">
+      <h2>Files for today</h2>
+      <p>Two companion files power the Analyst and Excel sections. Click to download them directly.</p>
+      <div class="files">
+        <a class="file-chip" href="https://raw.githubusercontent.com/MaiLootah/MYC-Agentic-AI-Series/main/SDD%20Youth%20Council/SharjahDigitalDepartment_Digital_Services_Adoption.xlsx" download="SharjahDigitalDepartment_Digital_Services_Adoption.xlsx">SharjahDigitalDepartment_Digital_Services_Adoption.xlsx</a>
+        <a class="file-chip" href="https://raw.githubusercontent.com/MaiLootah/MYC-Agentic-AI-Series/main/SDD%20Youth%20Council/SharjahDigitalDepartment_Digital_Transformation_KPIs.xlsx" download="SharjahDigitalDepartment_Digital_Transformation_KPIs.xlsx">SharjahDigitalDepartment_Digital_Transformation_KPIs.xlsx</a>
+      </div>
+      <p class="disclaimer">All data in the companion files is illustrative and synthetic — created for this demo only. It is not official Sharjah Digital Department data.</p>
+    </div>
   </div>
 </div>
 
@@ -153,225 +349,290 @@
     <a href="#app">App Builder</a>
     <a href="#skill">Cowork Skill</a>
     <a href="#e2e">End-to-End</a>
-    <a href="#homework">Homework</a>
+    <a href="#tier4">Tier 4</a>
   </div>
 </nav>
 
 <div class="wrap">
 
-  <!-- CHEAT SHEET -->
   <section id="cheat">
+    <div class="eyeline">Prompting toolkit</div>
     <div class="sec-head"><span class="dot"></span><h2>Prompting cheat sheet</h2></div>
     <p class="sec-sub">Eight habits that turn a good prompt into a great one. Keep these in mind every time you type.</p>
     <div class="grid">
-      <div class="tip"><span class="n">1</span><h3>Set the role</h3><p>Start with who Copilot should be: "You are a policy analyst for Sharjah Digital Department…"</p></div>
-      <div class="tip"><span class="n">2</span><h3>Be specific about output</h3><p>Say the format and length: "a one-page brief", "5 slides", "a table with 3 columns".</p></div>
-      <div class="tip"><span class="n">3</span><h3>Ground it on your data</h3><p>Point to a file: "Using the attached SDD adoption data…" so answers are real, not generic.</p></div>
-      <div class="tip"><span class="n">4</span><h3>Iterate, don't restart</h3><p>Refine in the same chat: "make it shorter", "add a chart", "more formal tone".</p></div>
-      <div class="tip"><span class="n">5</span><h3>Ask it to show its work</h3><p>"Explain how you got that number" builds trust and catches mistakes.</p></div>
-      <div class="tip"><span class="n">6</span><h3>Give a style example</h3><p>Paste a sentence you like: "write it in this tone" beats describing the tone.</p></div>
-      <div class="tip"><span class="n">7</span><h3>Chain, don't cram</h3><p>Break big asks into steps: research → analyse → draft → present.</p></div>
+      <div class="tip"><span class="n">1</span><h3>Set the role</h3><p>Start with who Copilot should be: “You are a policy analyst for Sharjah Digital Department…”</p></div>
+      <div class="tip"><span class="n">2</span><h3>Be specific about output</h3><p>Say the format and length: “a one-page brief”, “5 slides”, “a table with 3 columns”.</p></div>
+      <div class="tip"><span class="n">3</span><h3>Ground it on your data</h3><p>Point to a file: “Using the attached SDD adoption data…” so answers are real, not generic.</p></div>
+      <div class="tip"><span class="n">4</span><h3>Iterate, don’t restart</h3><p>Refine in the same chat: “make it shorter”, “add a chart”, “more formal tone”.</p></div>
+      <div class="tip"><span class="n">5</span><h3>Ask it to show its work</h3><p>“Explain how you got that number” builds trust and catches mistakes.</p></div>
+      <div class="tip"><span class="n">6</span><h3>Give a style example</h3><p>Paste a sentence you like: “write it in this tone” beats describing the tone.</p></div>
+      <div class="tip"><span class="n">7</span><h3>Chain, don’t cram</h3><p>Break big asks into steps: research → analyse → draft → present.</p></div>
       <div class="tip"><span class="n">8</span><h3>Verify high-stakes</h3><p>Always double-check names, figures, and anything citizen-facing before you share it.</p></div>
     </div>
   </section>
 
-  <!-- RESEARCHER -->
-  <section id="researcher">
+  <section id="researcher" class="theme-researcher">
+    <div class="eyeline">Live demo station</div>
     <div class="sec-head"><span class="dot"></span><h2>Researcher Agent</h2></div>
-    <p class="sec-sub">Copilot's deep-research mode gathers, compares, and cites sources — perfect for benchmarking Sharjah against the world's best digital governments.</p>
-
-    <div class="card">
-      <div class="card-top"><span class="label">Prompt · Benchmark smart governments</span>
-        <button class="copy-btn">Copy</button></div>
-      <pre>You are a policy researcher for Sharjah Digital Department. Research how three leading smart-government programmes — Estonia's e-Governance, Singapore's Smart Nation, and the UAE federal digital government — increased citizen adoption of online services. For each, give: the core approach, one measurable outcome, and one idea Sharjah could realistically adapt in 2026. Cite your sources and end with a 3-line "what this means for Sharjah" summary.</pre>
-    </div>
-
-    <div class="card">
-      <div class="card-top"><span class="label">Prompt · Digital sustainability angle</span>
-        <button class="copy-btn">Copy</button></div>
-      <pre>Research how governments measure the environmental impact of going paperless (carbon and paper savings). Summarise the 3 most common metrics, how each is calculated, and give one credible example. I want to compare it to Sharjah Digital Department's paperless results. Keep it under 300 words and cite sources.</pre>
-    </div>
-
-    <div class="callout watch"><b>👀 Watch for during the demo:</b> Copilot lists its <b>sources</b> as it researches. Click one to show the audience that every claim traces back to a real page — this is what makes it trustworthy.</div>
-    <div class="callout variants"><b>Try these variants:</b>
-      <ul>
-        <li>"Add a comparison table with a column for each country."</li>
-        <li>"Now focus only on ideas that a youth council could help pilot."</li>
-        <li>"Rewrite the summary for a 2-minute spoken introduction."</li>
-      </ul>
+    <p class="sec-sub">Copilot’s deep-research mode gathers, compares, and cites sources — perfect for benchmarking Sharjah against the world’s best digital governments.</p>
+    <div class="station">
+      <div class="station-info">
+        <div class="tool-badge">Research · compare · cite</div>
+        <h3>Use this to open with a strong smart-government story</h3>
+        <p>Great for showing that Copilot can research beyond a simple answer and surface patterns across multiple credible sources.</p>
+        <div class="info-list">
+          <div class="info-item"><span class="bullet">1</span><div><b>What to show</b><span>Live source gathering, cross-country comparison, and a structured summary.</span></div></div>
+          <div class="info-item"><span class="bullet">2</span><div><b>Why it matters</b><span>It helps the audience see that AI can support informed policy thinking, not just writing.</span></div></div>
+          <div class="info-item"><span class="bullet">3</span><div><b>Best moment to pause</b><span>When sources appear — click one to demonstrate traceability and trust.</span></div></div>
+        </div>
+        <div class="callout watch"><b>👀 Watch for during the demo:</b> Copilot lists its <b>sources</b> as it researches. Click one to show the audience that every claim traces back to a real page — then ask it to refine the summary for a Youth Council audience.</div>
+        <div class="callout variants"><b>Try these variants:</b>
+          <ul>
+            <li>“Add a comparison table with a column for each country.”</li>
+            <li>“Now focus only on ideas that a youth council could help pilot.”</li>
+            <li>“Rewrite the summary for a 2-minute spoken introduction.”</li>
+          </ul>
+        </div>
+      </div>
+      <div class="station-main">
+        <div class="card">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Benchmark smart governments</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">5–7 min</span><span class="meta-chip">Live demo</span></div>
+            </div>
+            <button class="copy-btn">Copy prompt</button>
+          </div>
+          <pre>You are a policy researcher for Sharjah Digital Department. Research how three leading smart-government programmes — Estonia's e-Governance, Singapore's Smart Nation, and the UAE federal digital-government model — approach digital services, citizen experience, and innovation. Summarise the strongest ideas Sharjah could learn from in a concise comparison with clear headings and source-backed findings. End with 3 practical recommendations relevant to a youth council audience.</pre>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Digital sustainability angle</span>
+              <div class="meta-row"><span class="meta-chip">Intermediate</span><span class="meta-chip">4–6 min</span><span class="meta-chip">Research brief</span></div>
+            </div>
+            <button class="copy-btn">Copy prompt</button>
+          </div>
+          <pre>Research how governments measure the environmental impact of going paperless, including carbon savings and paper reduction. Summarise the 3 most common metrics, explain in simple language how each is calculated, and give one credible example of a public-sector organisation using each metric. Present the answer in a workshop-friendly format with short headings and plain-English takeaways.</pre>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ANALYST -->
-  <section id="analyst">
+  <section id="analyst" class="theme-analyst">
+    <div class="eyeline">Hands-on data station</div>
     <div class="sec-head"><span class="dot"></span><h2>Analyst Agent</h2></div>
     <p class="sec-sub">Point Copilot at a spreadsheet and it reads, analyses, and charts the data for you — no formulas required.</p>
-
-    <div class="card">
-      <div class="card-top"><span class="label">Prompt · Find the weak spots (uses the adoption file)</span>
-        <button class="copy-btn">Copy</button></div>
-      <pre>Using SharjahDigitalDepartment_Digital_Services_Adoption.xlsx, analyse the eight government services. Tell me: (1) which service has the LOWEST digital adoption %, (2) which has the LONGEST average processing time, and (3) whether the two are related. Then recommend two practical actions to move more citizens online. Show a bar chart of digital adoption % by service.</pre>
-    </div>
-
-    <div class="card">
-      <div class="card-top"><span class="label">Prompt · Tell the impact story (uses the KPI file)</span>
-        <button class="copy-btn">Copy</button></div>
-      <pre>Open SharjahDigitalDepartment_Digital_Transformation_KPIs.xlsx. Summarise Sharjah's digital-transformation impact from 2022 to 2025 in five plain-language sentences a 16-year-old would understand. Highlight the single most impressive number and explain why it matters for the community.</pre>
-    </div>
-
-    <div class="callout watch"><b>👀 Watch for during the demo:</b> Copilot explains <b>how</b> it reached each conclusion and can turn the answer into a chart instantly. Ask "which numbers did you use?" to show it is reading the real cells.</div>
-    <div class="callout variants"><b>Try these variants:</b>
-      <ul>
-        <li>"Rank the services from best to worst digital adoption."</li>
-        <li>"Which government sector saved the most hours in 2025?" (Sector Breakdown sheet)</li>
-        <li>"Draft a 3-bullet insight I could put on a slide."</li>
-      </ul>
+    <div class="station">
+      <div class="station-info">
+        <div class="tool-badge">Analyze · explain · chart</div>
+        <h3>Turn spreadsheets into insights the room can understand</h3>
+        <p>This section works best when you want a visible aha moment: the data is there, but Copilot turns it into a story in seconds.</p>
+        <div class="info-list">
+          <div class="info-item"><span class="bullet">1</span><div><b>What to show</b><span>Ranking, weakest performers, trends, and explanation of how conclusions were reached.</span></div></div>
+          <div class="info-item"><span class="bullet">2</span><div><b>Audience moment</b><span>Ask participants which service they think has the weakest adoption before revealing the result.</span></div></div>
+          <div class="info-item"><span class="bullet">3</span><div><b>Best follow-up</b><span>Ask for a chart or a slide-ready summary immediately after the answer appears.</span></div></div>
+        </div>
+        <div class="callout expected"><b>✅ Expected outcome:</b> A clear explanation of the weakest services, the long wait times, and one or two intervention ideas you can immediately discuss.</div>
+        <div class="callout variants"><b>Try these variants:</b>
+          <ul>
+            <li>“Rank the services from best to worst digital adoption.”</li>
+            <li>“Which government sector saved the most hours in 2025?”</li>
+            <li>“Draft a 3-bullet insight I could put on a slide.”</li>
+          </ul>
+        </div>
+      </div>
+      <div class="station-main">
+        <div class="card">
+          <div class="card-top"><div class="title-wrap"><span class="label">Find the weak spots</span><div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">5 min</span><span class="meta-chip">Uses adoption file</span></div></div><button class="copy-btn">Copy prompt</button></div>
+          <pre>Using SharjahDigitalDepartment_Digital_Services_Adoption.xlsx, analyse the eight government services. Tell me: (1) which service has the lowest digital adoption percentage, (2) which has the longest average completion time, and (3) which service should be the top priority for improvement if Sharjah wants faster citizen uptake. Explain your reasoning in plain language and end with 3 practical recommendations.</pre>
+        </div>
+        <div class="card">
+          <div class="card-top"><div class="title-wrap"><span class="label">Tell the impact story</span><div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">4 min</span><span class="meta-chip">Uses KPI file</span></div></div><button class="copy-btn">Copy prompt</button></div>
+          <pre>Open SharjahDigitalDepartment_Digital_Transformation_KPIs.xlsx. Summarise Sharjah's digital-transformation impact from 2022 to 2025 in five plain-language sentences a 16-year-old would understand. Then give me 3 headline numbers I could use on a slide, and suggest the best chart type to visualise the story.</pre>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- WORD -->
-  <section id="word">
+  <section id="word" class="theme-word">
+    <div class="eyeline">Create polished content</div>
     <div class="sec-head"><span class="dot"></span><h2>Word</h2></div>
     <p class="sec-sub">Turn findings into a polished, government-ready document in seconds.</p>
-
-    <div class="card">
-      <div class="card-top"><span class="label">Prompt · Youth Council briefing note</span>
-        <button class="copy-btn">Copy</button></div>
-      <pre>Draft a one-page briefing note for the Sharjah Digital Department Youth Council titled "Bringing More Citizens Online in 2026". Using the attached adoption data, include: a short background paragraph, three key findings, three recommendations, and a two-line call to action for young people. Use a professional, optimistic government tone. Add a title and section headings.</pre>
-    </div>
-
-    <div class="callout watch"><b>👀 Watch for during the demo:</b> Copilot builds the full document with headings and structure — then you can say "shorten the background" or "make the tone warmer" and it edits in place.</div>
-    <div class="callout variants"><b>Try these variants:</b>
-      <ul>
-        <li>"Add an Arabic version of the title and headings."</li>
-        <li>"Turn the recommendations into a checklist."</li>
-        <li>"Rewrite it as a 150-word LinkedIn post."</li>
-      </ul>
+    <div class="station">
+      <div class="station-info">
+        <div class="tool-badge">Draft · structure · polish</div>
+        <h3>Show how raw insight becomes a proper briefing note</h3>
+        <p>This is where the audience sees the jump from analysis to communication — a key workshop moment for leaders and presenters.</p>
+        <div class="callout watch"><b>👀 Watch for during the demo:</b> Copilot builds the full document with headings and structure — then you can say “shorten the background”, “make the tone warmer”, or “add Arabic headings”.</div>
+        <div class="callout variants"><b>Try these variants:</b>
+          <ul>
+            <li>“Add an Arabic version of the title and headings.”</li>
+            <li>“Turn the recommendations into a checklist.”</li>
+            <li>“Rewrite it as a 150-word LinkedIn post.”</li>
+          </ul>
+        </div>
+      </div>
+      <div class="station-main">
+        <div class="card">
+          <div class="card-top"><div class="title-wrap"><span class="label">Youth Council briefing note</span><div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">4–5 min</span><span class="meta-chip">Document draft</span></div></div><button class="copy-btn">Copy prompt</button></div>
+          <pre>Draft a one-page briefing note for the Sharjah Digital Department Youth Council titled “Bringing More Citizens Online in 2026”. Using the attached adoption data, include: a short background, the 2 biggest barriers to digital adoption, 3 practical recommendations, and a short concluding paragraph. Use a polished but clear tone suitable for a youth leadership audience.</pre>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- EXCEL -->
-  <section id="excel">
+  <section id="excel" class="theme-excel">
+    <div class="eyeline">Spreadsheet power-up</div>
     <div class="sec-head"><span class="dot"></span><h2>Excel</h2></div>
     <p class="sec-sub">Ask Copilot to add formulas, spot trends, and build charts — it does the spreadsheet work for you.</p>
-
-    <div class="card">
-      <div class="card-top"><span class="label">Prompt · Grow the KPI analysis</span>
-        <button class="copy-btn">Copy</button></div>
-      <pre>In SharjahDigitalDepartment_Digital_Transformation_KPIs.xlsx, add a column that calculates the year-on-year growth for each KPI from 2024 to 2025. Highlight the fastest-growing KPI in green. Then build a clustered column chart comparing Government Savings across 2022, 2023, 2024, and 2025.</pre>
-    </div>
-
-    <div class="callout watch"><b>👀 Watch for during the demo:</b> Copilot writes real, working formulas — not typed-in numbers — so the sheet still recalculates if the data changes. Click a new cell to show the formula behind it.</div>
-    <div class="callout variants"><b>Try these variants:</b>
-      <ul>
-        <li>"Which KPI grew fastest overall, and by what percentage?"</li>
-        <li>"Add a total row and format all savings as AED."</li>
-        <li>"Make a pie chart of the 2025 Sector Breakdown."</li>
-      </ul>
+    <div class="station">
+      <div class="station-info">
+        <div class="tool-badge">Formula · format · chart</div>
+        <h3>Show practical spreadsheet assistance, not just analysis</h3>
+        <p>This works well after Analyst because it proves Copilot can also manipulate the sheet, calculate changes, and format outputs directly.</p>
+        <div class="callout watch"><b>👀 Watch for during the demo:</b> Copilot writes real, working formulas — not typed-in numbers — so the sheet still recalculates if the data changes.</div>
+        <div class="callout variants"><b>Try these variants:</b>
+          <ul>
+            <li>“Which KPI grew fastest overall, and by what percentage?”</li>
+            <li>“Add a total row and format all savings as AED.”</li>
+            <li>“Make a pie chart of the 2025 Sector Breakdown.”</li>
+          </ul>
+        </div>
+      </div>
+      <div class="station-main">
+        <div class="card">
+          <div class="card-top"><div class="title-wrap"><span class="label">Grow the KPI analysis</span><div class="meta-row"><span class="meta-chip">Intermediate</span><span class="meta-chip">5 min</span><span class="meta-chip">Excel action</span></div></div><button class="copy-btn">Copy prompt</button></div>
+          <pre>In SharjahDigitalDepartment_Digital_Transformation_KPIs.xlsx, add a column that calculates the year-on-year growth for each KPI from 2024 to 2025. Highlight the fastest-growing KPI in green, format any money values clearly, and recommend one chart that would best present the 2025 story to the Youth Council.</pre>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- POWERPOINT -->
-  <section id="ppt">
+  <section id="ppt" class="theme-ppt">
+    <div class="eyeline">Storytelling station</div>
     <div class="sec-head"><span class="dot"></span><h2>PowerPoint</h2></div>
     <p class="sec-sub">Go from a one-line idea to a clean, on-brand deck ready to present.</p>
-
-    <div class="card">
-      <div class="card-top"><span class="label">Prompt · Sharjah's digital impact story</span>
-        <button class="copy-btn">Copy</button></div>
-      <pre>Create a 5-slide presentation for the Sharjah Digital Department Youth Council titled "Sharjah's Digital Impact Story". Slides: (1) Title, (2) Why digital transformation matters, (3) Our impact in numbers — use AED 250M saved, 336M sheets of paper cut, and 15,000 tonnes of CO2 avoided, (4) What's next for 2026, (5) How young people can contribute. Clean, modern design with crimson accents. Keep text short and punchy.</pre>
-    </div>
-
-    <div class="callout watch"><b>👀 Watch for during the demo:</b> Copilot lays out every slide with titles and talking points. Then ask it to "add a closing thank-you slide in English and Arabic" to show live editing.</div>
-    <div class="callout variants"><b>Try these variants:</b>
-      <ul>
-        <li>"Add speaker notes for each slide."</li>
-        <li>"Make slide 3 a single big-number visual."</li>
-        <li>"Give me a 60-second script to present this deck."</li>
-      </ul>
+    <div class="station">
+      <div class="station-info">
+        <div class="tool-badge">Deck · narrative · speaker notes</div>
+        <h3>Turn data and insight into a story leaders can present</h3>
+        <p>This is one of the strongest audience moments because the output is instantly recognizable and presentation-ready.</p>
+        <div class="callout watch"><b>👀 Watch for during the demo:</b> Copilot lays out every slide with titles and talking points. Then ask it to “add a closing thank-you slide in English and Arabic”.</div>
+        <div class="callout variants"><b>Try these variants:</b>
+          <ul>
+            <li>“Add speaker notes for each slide.”</li>
+            <li>“Make slide 3 a single big-number visual.”</li>
+            <li>“Give me a 60-second script to present this deck.”</li>
+          </ul>
+        </div>
+      </div>
+      <div class="station-main">
+        <div class="card">
+          <div class="card-top"><div class="title-wrap"><span class="label">Sharjah’s digital impact story</span><div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">4–6 min</span><span class="meta-chip">5-slide deck</span></div></div><button class="copy-btn">Copy prompt</button></div>
+          <pre>Create a 5-slide presentation for the Sharjah Digital Department Youth Council titled “Sharjah’s Digital Impact Story”. Slides: (1) Title, (2) Why digital transformation matters, (3) Our impact in numbers, (4) Two opportunities to improve adoption, and (5) What the Youth Council could help champion next. Keep the slide text concise and presentation-friendly.</pre>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- APP BUILDER -->
-  <section id="app">
+  <section id="app" class="theme-app">
+    <div class="eyeline">Prototype a service</div>
     <div class="sec-head"><span class="dot"></span><h2>App Builder</h2></div>
     <p class="sec-sub">Describe an app in plain words and Copilot builds a working prototype — no coding needed.</p>
-
-    <div class="card">
-      <div class="card-top"><span class="label">Prompt · Sharjah Service Finder</span>
-        <button class="copy-btn">Copy</button></div>
-      <pre>Build a simple web app called "Sharjah Service Finder". A citizen types what they need (for example "renew my business licence" or "pay a traffic fine") and the app returns: the right digital service, the channel to use (Mobile App / Web Portal / Service Centre), and an estimated processing time. Use friendly bilingual labels (English / العربية) and Sharjah crimson as the accent colour. Keep the interface clean and mobile-friendly.</pre>
-    </div>
-
-    <div class="callout watch"><b>👀 Watch for during the demo:</b> A real, clickable app appears in minutes. Type a citizen request live and let the audience see it respond — this is the "wow" moment.</div>
-    <div class="callout variants"><b>Try these variants:</b>
-      <ul>
-        <li>"Add a search box that filters services as you type."</li>
-        <li>"Show a friendly message if no service matches."</li>
-        <li>"Add a light/dark mode toggle."</li>
-      </ul>
+    <div class="station">
+      <div class="station-info">
+        <div class="tool-badge">Prototype · interact · wow moment</div>
+        <h3>Bring the workshop to life with something clickable</h3>
+        <p>This is the section with the most immediate visual payoff. It’s perfect when you want the audience to feel possibility, not just productivity.</p>
+        <div class="callout watch"><b>👀 Watch for during the demo:</b> A real, clickable app appears in minutes. Type a citizen request live and let the audience see it respond — this is the “wow” moment.</div>
+        <div class="callout variants"><b>Try these variants:</b>
+          <ul>
+            <li>“Add a search box that filters services as you type.”</li>
+            <li>“Show a friendly message if no service matches.”</li>
+            <li>“Add a light/dark mode toggle.”</li>
+          </ul>
+        </div>
+      </div>
+      <div class="station-main">
+        <div class="card">
+          <div class="card-top"><div class="title-wrap"><span class="label">Sharjah Service Finder</span><div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">6–8 min</span><span class="meta-chip">Interactive app</span></div></div><button class="copy-btn">Copy prompt</button></div>
+          <pre>Build a simple web app called “Sharjah Service Finder”. A citizen types what they need — for example “renew my business licence” or “pay a traffic fine” — and the app returns the right digital service, a short explanation, the steps to complete it, and a friendly prompt to continue online. Use a clean, modern interface with cards and a helpful tone.</pre>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- COWORK SKILL -->
-  <section id="skill">
+  <section id="skill" class="theme-skill">
+    <div class="eyeline">Reusable workflow</div>
     <div class="sec-head"><span class="dot"></span><h2>Cowork Skill</h2></div>
     <p class="sec-sub">Build a reusable skill once, then run it again and again with different inputs — Copilot remembers your standard format.</p>
-
-    <div class="card">
-      <div class="card-top"><span class="label">Prompt · Create the "SDD Service Brief" skill</span>
-        <button class="copy-btn">Copy</button></div>
-      <pre>Create a Cowork skill called "SDD Service Brief". Given the name of a Sharjah government service, it produces a standard one-page brief with these sections: Purpose, Target Users, Digital Channel, Typical Processing Time, and One Improvement Idea. Keep the tone professional and concise. After creating it, run the skill to generate a brief for "Health Card Renewal".</pre>
-    </div>
-
-    <div class="callout watch"><b>👀 Watch for during the demo:</b> Once the skill exists, generating the next brief takes one line. Run it again for "Traffic Fine Payment" to show how a reusable skill saves time.</div>
-    <div class="callout variants"><b>Try these variants:</b>
-      <ul>
-        <li>"Add an Arabic summary line to the skill's output."</li>
-        <li>"Run the skill for three services and combine them into one document."</li>
-        <li>"Add a 1–5 'digital readiness' score to each brief."</li>
-      </ul>
+    <div class="station">
+      <div class="station-info">
+        <div class="tool-badge">Standardize · reuse · scale</div>
+        <h3>Show how one good workflow becomes repeatable</h3>
+        <p>This section is ideal for demonstrating consistency. Once the skill exists, participants immediately understand the time-saving value.</p>
+        <div class="callout watch"><b>👀 Watch for during the demo:</b> Once the skill exists, generating the next brief takes one line. Run it again for “Traffic Fine Payment” to show how a reusable skill scales.</div>
+        <div class="callout variants"><b>Try these variants:</b>
+          <ul>
+            <li>“Add an Arabic summary line to the skill’s output.”</li>
+            <li>“Run the skill for three services and combine them into one document.”</li>
+            <li>“Add a 1–5 digital readiness score to each brief.”</li>
+          </ul>
+        </div>
+      </div>
+      <div class="station-main">
+        <div class="card">
+          <div class="card-top"><div class="title-wrap"><span class="label">Create the “SDD Service Brief” skill</span><div class="meta-row"><span class="meta-chip">Intermediate</span><span class="meta-chip">6 min</span><span class="meta-chip">Reusable skill</span></div></div><button class="copy-btn">Copy prompt</button></div>
+          <pre>Create a Cowork skill called “SDD Service Brief”. Given the name of a Sharjah government service, it should produce a standard one-page brief with these sections: Purpose, Target Users, Digital Channel, Citizen Steps, Common Pain Points, and One Improvement Idea. Write the skill so the tone is clear, practical, and suitable for workshop sharing.</pre>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- END TO END -->
-  <section id="e2e">
+  <section id="e2e" class="theme-flow">
+    <div class="eyeline">Finale workflow</div>
     <div class="sec-head"><span class="dot"></span><h2>Cowork End-to-End</h2></div>
     <p class="sec-sub">The finale: one prompt that chains research, analysis, a deck, and an email — showing how Copilot handles a whole workflow.</p>
-
-    <div class="card">
-      <div class="card-top"><span class="label">Prompt · From data to decision, in one flow</span>
-        <button class="copy-btn">Copy</button></div>
-      <pre>Act as my digital-transformation analyst for Sharjah Digital Department. Work through these steps and show me each one:
+    <div class="station">
+      <div class="station-info">
+        <div class="tool-badge">Chain tasks · produce outputs · decide</div>
+        <h3>From prompt to decision-ready output in one flow</h3>
+        <p>This is the closing moment that ties the workshop together. It shows not one feature, but an entire working pattern.</p>
+        <div class="callout watch"><b>👀 Watch for during the demo:</b> Copilot works step by step and produces several finished deliverables from a single prompt. Pause after each step so the audience can see the chain unfold.</div>
+        <div class="callout variants"><b>Try these variants:</b>
+          <ul>
+            <li>“Redo step 4 as a one-page infographic instead of slides.”</li>
+            <li>“Make the email warmer and add an Arabic greeting.”</li>
+            <li>“Add a step 6: three questions to ask citizens to validate the plan.”</li>
+          </ul>
+        </div>
+      </div>
+      <div class="station-main">
+        <div class="card">
+          <div class="card-top"><div class="title-wrap"><span class="label">From data to decision, in one flow</span><div class="meta-row"><span class="meta-chip">Advanced</span><span class="meta-chip">7–10 min</span><span class="meta-chip">Multi-step workflow</span></div></div><button class="copy-btn">Copy prompt</button></div>
+          <pre>Act as my digital-transformation analyst for Sharjah Digital Department. Work through these steps and show me each one:
 1. Review the attached adoption and KPI files.
 2. Identify the two services with the weakest digital adoption.
 3. Draft a short, practical improvement plan for each (2–3 actions).
 4. Build a 4-slide summary deck of your findings.
 5. Write a 5-line email to the Youth Council chair summarising what you found and what you recommend.</pre>
-    </div>
-
-    <div class="callout watch"><b>👀 Watch for during the demo:</b> Copilot works step by step and produces several finished deliverables from a single prompt. Pause after each step so the audience sees the workflow build up.</div>
-    <div class="callout variants"><b>Try these variants:</b>
-      <ul>
-        <li>"Redo step 4 as a one-page infographic instead of slides."</li>
-        <li>"Make the email warmer and add an Arabic greeting."</li>
-        <li>"Add a step 6: three questions to ask citizens to validate the plan."</li>
-      </ul>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- HOMEWORK -->
-  <section id="homework">
-    <div class="homework">
-      <h2>Your homework before next week's session</h2>
-      <div class="ar">واجبكم قبل الجلسة القادمة</div>
-      <p>You don't become a Future Leader by watching — you become one by trying. Before we meet again:</p>
+  <section id="tier4">
+    <div class="tier4">
+      <h2>Tier 4</h2>
+      <div class="ar">المستوى الرابع</div>
+      <p>Now it’s your turn to think beyond prompts and imagine what a custom agent could do for your own day-to-day work.</p>
       <ol>
-        <li>Pick <b>one</b> prompt from this page (the App Builder or PowerPoint ones are a fun start).</li>
-        <li>Open Microsoft 365 Copilot and run it yourself.</li>
-        <li>Change one thing — the topic, the tone, or the language — and see how the result changes.</li>
+        <li>Create your own prompt that would genuinely help you in your daily work, studies, or projects.</li>
+        <li>Think about what a custom agent could automate, guide, analyse, or draft for you on a repeated basis.</li>
+        <li>Unveiling Tier 4: <b>Build Your Own Agent</b>.</li>
       </ol>
-      <div class="share">📣 <b>Share back:</b> Bring your result to the next session — a screenshot, a slide, or the app you built. Be ready to say one thing that surprised you and one thing you'd improve.</div>
+      <div class="share">🚀 <b>Your challenge:</b> Design one prompt or one custom agent idea you would actually use again and again — then be ready to share what problem it solves.</div>
     </div>
   </section>
 
@@ -384,26 +645,27 @@
 <div id="toast">Copied to clipboard ✓</div>
 
 <script>
-  // Copy buttons
   function showToast(msg){
     var t=document.getElementById('toast');
     t.textContent=msg;t.classList.add('show');
     clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show')},1700);
   }
+
   document.querySelectorAll('.copy-btn').forEach(function(btn){
     btn.addEventListener('click',function(){
       var pre=btn.closest('.card').querySelector('pre');
       var text=pre.innerText;
       function done(){
-        var orig=btn.textContent;btn.textContent='Copied ✓';btn.classList.add('done');
+        btn.textContent='Copied ✓';btn.classList.add('done');
         showToast('Prompt copied ✓');
-        setTimeout(function(){btn.textContent=orig;btn.classList.remove('done')},1600);
+        setTimeout(function(){btn.textContent='Copy prompt';btn.classList.remove('done')},1600);
       }
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(text).then(done).catch(function(){fallback(text,done)});
       } else { fallback(text,done); }
     });
   });
+
   function fallback(text,cb){
     var ta=document.createElement('textarea');ta.value=text;
     ta.style.position='fixed';ta.style.top='-1000px';document.body.appendChild(ta);
@@ -411,7 +673,7 @@
     try{document.execCommand('copy');cb();}catch(e){showToast('Press Ctrl+C to copy');}
     document.body.removeChild(ta);
   }
-  // Active tab on scroll
+
   var links=Array.prototype.slice.call(document.querySelectorAll('nav.tabs a'));
   var map={};links.forEach(function(l){map[l.getAttribute('href').slice(1)]=l;});
   var obs=new IntersectionObserver(function(entries){
