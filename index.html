@@ -210,6 +210,7 @@
     .card[data-council="eand"]     { --c1: #f472b6; --c2: #fb923c; }
     .card[data-council="deloitte"] { --c1: #38bdf8; --c2: #818cf8; }
     .card[data-council="du"]       { --c1: #fbbf24; --c2: #f472b6; }
+    .card[data-council="ehs"]      { --c1: #34d399; --c2: #38bdf8; }
 
     .card::before {
       content: '';
@@ -352,15 +353,15 @@
 <header>
   <div class="badge">Microsoft × Youth Council</div>
   <h1>Agentic AI Series</h1>
-  <p>Demo packs showcasing Copilot and AI agent use cases across industries — built for the next generation of leaders.</p>
+  <p>A demo pack showcasing Copilot and AI agent use cases in healthcare — built for the next generation of leaders.</p>
   <div class="header-divider"></div>
 </header>
 
 <!-- ── Stats ── -->
 <div class="stats-strip">
   <div class="stat">
-    <div class="stat-value">5</div>
-    <div class="stat-label">Councils</div>
+    <div class="stat-value">1</div>
+    <div class="stat-label">Council</div>
   </div>
   <div class="stat">
     <div class="stat-value">AI</div>
@@ -374,11 +375,24 @@
 
 <!-- ── Cards ── -->
 <div class="container">
-  <p class="section-label">Explore Councils</p>
+  <p class="section-label">Explore Council</p>
   <div class="cards">
 
-    <!-- SDD (visible) -->
-    <div class="card" data-council="sdd">
+    <!-- EHS (visible) -->
+    <div class="card" data-council="ehs">
+      <div class="card-bar"></div>
+      <div class="card-icon">🏥</div>
+      <h3>EHS Youth Council</h3>
+      <p class="card-desc">Emirates Health Services — exploring healthcare innovation, youth council activities, and patient experience with Copilot.</p>
+      <div class="actions">
+        <a class="primary" href="EHS%20Youth%20Council/EHS_YouthCouncil_Prompt_Pack.html">▶ View Demo</a>
+        <a class="secondary" href="EHS%20Youth%20Council/EHS_Practice_Data_Youth_Council_Activity.xlsx" download>📊 Council Activity</a>
+        <a class="secondary" href="EHS%20Youth%20Council/EHS_Practice_Data_Patient_Experience.xlsx" download>🏥 Patient Experience</a>
+      </div>
+    </div>
+
+    <!-- SDD — hidden. To reactivate: remove class "hidden-section" -->
+    <div class="card hidden-section" data-council="sdd">
       <div class="card-bar"></div>
       <div class="card-icon">🏛️</div>
       <h3>SDD Youth Council</h3>
