@@ -25,12 +25,16 @@ h1,h2,h3,h4{text-wrap:balance}
 [lang="ar"]{font-family:'Segoe UI','Dubai','Tahoma',sans-serif;
  -webkit-font-feature-settings:normal;font-feature-settings:normal}
 html{scroll-behavior:smooth}
+body :focus-visible{outline:3px solid var(--accent-ink);outline-offset:3px}
 body{font-family:'Segoe UI Variable','Segoe UI',system-ui,-apple-system,Arial,sans-serif;
  color:var(--ink);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;
  background:radial-gradient(circle at top right,rgba(176,141,63,.13),transparent 26%),
   radial-gradient(circle at top left,rgba(0,163,158,.10),transparent 22%),var(--bg);}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
-section{padding:54px 0 10px;scroll-margin-top:96px}
+section{padding:54px 0 10px;scroll-margin-top:calc(var(--sticky-height,120px) + 18px)}
+.skip-link{position:absolute;z-index:200;top:8px;left:8px;padding:10px 14px;
+ background:#fff;color:var(--deep);border-radius:8px;transform:translateY(-160%)}
+.skip-link:focus{transform:translateY(0)}
 
 /* ---------- hero ---------- */
 .hero{position:relative;overflow:hidden;color:#fff;padding:68px 0 78px;
@@ -133,25 +137,31 @@ section{padding:54px 0 10px;scroll-margin-top:96px}
 }
 
 /* ---------- progress ---------- */
-.prog{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.93);
- scroll-margin-top:0;
+.sticky-head{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.94);
  backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
  box-shadow:0 2px 16px rgba(11,37,69,.05)}
+.prog{background:transparent}
 .prog .wrap{display:flex;align-items:center;gap:16px;padding:11px 24px}
 .prog-txt{font-size:13.5px;font-weight:800;white-space:nowrap}
 .prog-txt b{color:var(--primary-dark);font-size:16px}
+.prog-fill{transition:width .4s ease}
 .prog-track{flex:1;height:9px;border-radius:999px;background:rgba(11,37,69,.07);overflow:hidden}
 .prog-fill{height:100%;width:0;border-radius:999px;
  background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .4s ease}
 .prog-reset{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:10px;
  padding:7px 13px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
 .prog-reset:hover{color:var(--primary-dark);border-color:var(--primary)}
+.completion{display:none;padding:10px 24px;text-align:center;background:#E9F8F1;
+ color:#075E40;font-weight:750}
+.completion.show{display:block}
 
 /* ---------- nav ---------- */
-nav.tabs{position:sticky;top:46px;z-index:60;background:rgba(247,245,240,.86);
- backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav.tabs{position:relative;background:rgba(247,245,240,.88)}
 nav.tabs .wrap{display:flex;gap:8px;overflow-x:auto;padding:10px 24px}
 nav.tabs .wrap::-webkit-scrollbar{display:none}
+nav.tabs::after{content:"";position:absolute;inset-block:0;inset-inline-end:0;width:32px;
+ pointer-events:none;background:linear-gradient(90deg,transparent,rgba(247,245,240,.96))}
+[dir="rtl"] nav.tabs::after{background:linear-gradient(270deg,transparent,rgba(247,245,240,.96))}
 nav.tabs a{white-space:nowrap;padding:10px 15px;font-size:13px;font-weight:750;
  color:var(--muted);text-decoration:none;border:1px solid transparent;border-radius:999px;
  transition:.15s;display:flex;align-items:center;gap:8px}
@@ -163,6 +173,45 @@ nav.tabs a .cnt{font-size:11px;font-weight:800;color:#fff;background:#6B7280;
  font-variant-numeric:tabular-nums;letter-spacing:.02em}
 nav.tabs a.active .cnt{background:var(--primary-ink)}
 nav.tabs a .cnt.full{background:var(--primary-ink)}
+
+/* ---------- controls ---------- */
+.controls{padding:18px 0 8px}
+.control-panel{display:grid;grid-template-columns:minmax(230px,1.4fr) repeat(3,minmax(135px,.7fr));
+ gap:12px;align-items:end;padding:16px;background:#fff;border:1px solid var(--line);
+ border-radius:18px;box-shadow:var(--shadow)}
+.control-field{display:grid;gap:5px;min-width:0}
+.control-field label,.control-label{font-size:11px;font-weight:800;color:var(--muted)}
+.control-field input,.control-field select{width:100%;min-width:0;min-height:40px;
+ padding:8px 10px;border:1px solid #87919e;border-radius:9px;background:#fff;
+ color:var(--ink);font:inherit;font-size:13px}
+.control-actions{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:12px 20px}
+.lang-control{display:flex;gap:4px;padding:3px;border:1px solid var(--line);border-radius:10px}
+.lang-control button{border:0;border-radius:7px;padding:7px 12px;background:transparent;
+ color:var(--muted);font:inherit;font-size:12px;font-weight:750;cursor:pointer}
+.lang-control button[aria-pressed="true"]{background:var(--deep);color:#fff}
+.toggle-label{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700}
+.toggle-label input{accent-color:var(--primary-dark);width:18px;height:18px}
+.filter-status{font-size:12.5px;color:var(--muted);margin-inline-start:auto}
+.empty-state{display:none;margin:18px 0;padding:22px;text-align:center;background:#fff;
+ border:1px dashed #87919e;border-radius:14px;color:var(--muted)}
+.empty-state.show{display:block}
+.card[hidden],section[data-track][hidden],nav.tabs a[hidden]{display:none!important}
+.pblock[hidden]{display:none!important}
+.facilitator-hidden .callouts{display:none}
+.meta-chip.level-beginner{color:#075E40;background:#E9F8F1;border-color:#83C8A9}
+.meta-chip.level-intermediate{color:#785200;background:#FFF5D8;border-color:#D9BD69}
+.meta-chip.level-advanced{color:#8C244F;background:#FDEAF2;border-color:#D99AB7}
+.meta-chip.level-beginner::before{content:"● ";font-size:9px}
+.meta-chip.level-intermediate::before{content:"◆ ";font-size:9px}
+.meta-chip.level-advanced::before{content:"▲ ";font-size:9px}
+.placeholder{background:#FFF1C2;border:1px solid #D8B44C;border-radius:4px;
+ padding:0 2px;color:#513D0B;font-weight:750}
+.live-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+ clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.back-top{position:fixed;z-index:50;inset-inline-end:20px;bottom:20px;display:none;
+ border:0;border-radius:999px;padding:12px 16px;background:var(--deep);color:#fff;
+ font:inherit;font-weight:750;box-shadow:0 5px 18px rgba(11,37,69,.24);cursor:pointer}
+.back-top.show{display:block}
 
 /* ---------- section heads ---------- */
 .eyeline{font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;font-weight:800;
@@ -224,7 +273,7 @@ nav.tabs a .cnt.full{background:var(--primary-ink)}
  border:1px solid var(--line);border-radius:999px;padding:4px 10px;
  max-width:100%;overflow-wrap:anywhere}
 .meta-chip.file{color:#0F766E;background:#E8F4F3;border-color:#B6DEDA;font-weight:750}
-.meta-chip.file::before{content:"F4CA  ";font-weight:400}
+.meta-chip.file::before{content:"\1F4CA\00a0";font-weight:400}
 
 /* checkbox: white inside, border only */
 .tick{flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;cursor:pointer;
@@ -302,20 +351,43 @@ footer b{color:var(--ink)}
  .quickstart{margin-top:-30px;margin-bottom:28px}
  .card-top{flex-direction:column;align-items:flex-start}
 }
+@media(max-width:700px){
+ .control-panel{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .control-field.search{grid-column:1/-1}
+ .control-actions{gap:10px}
+ .prog .wrap{gap:8px;padding:9px 16px}
+ .prog-txt{font-size:12px}
+ .prog-txt b{font-size:14px}
+ .prog-track{min-width:24px}
+ nav.tabs .wrap{padding-inline:16px}
+ .wrap{padding-inline:18px}
+ .back-top{inset-inline-end:12px;bottom:12px}
+}
+@media(max-width:420px){
+ .control-panel{grid-template-columns:1fr 1fr;padding:12px}
+ .control-field.search{grid-column:1/-1}
+ .control-actions{align-items:flex-start}
+ .prog .wrap{flex-wrap:wrap}
+ .prog-track{order:3;flex-basis:100%}
+ .prog-reset{margin-inline-start:auto}
+}
 @media print{
- .prog,nav.tabs,.copy-btn,.prog-reset,.dl-retry{display:none!important}
+ .sticky-head,.controls,.skip-link,.back-top,.copy-btn,.prog-reset,.dl-retry{display:none!important}
+ .pblock[hidden]{display:block!important}
+ .hero,.quickstart,section,footer{break-inside:auto}
  body{background:#fff}
  .hero{background:#fff;color:var(--ink)}
  .hero::before,.hero::after{display:none}
  .hero .ar-title{color:var(--primary-dark)}
  .hero .eyebrow,.stat,.hero-panel{border-color:var(--line);color:var(--ink);background:#fff}
  .hero p.sub{color:var(--muted)}
- .card,.station-info,.station-main,.tip{break-inside:avoid;box-shadow:none}
+ .card,.station-info,.station-main,.tip,.mini-card{break-inside:avoid;box-shadow:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
 <header class="hero"><div class="wrap"><div class="hero-grid">
   <div>
@@ -326,10 +398,10 @@ footer b{color:var(--ink)}
     <p class="sub">Every prompt here is ready to run — in English and Arabic, with one-click copy.
       Tick each one off as you go. Built by youth, for youth, with youth.</p>
     <div class="stats">
-      <span class="stat">28 prompts</span>
-      <span class="stat">8 sections</span>
+      <span class="stat" data-stat="prompts">0 prompts</span>
+      <span class="stat" data-stat="sections">0 sections</span>
       <span class="stat">English · العربية</span>
-      <span class="stat">2 practice workbooks</span>
+      <span class="stat" data-stat="workbooks">0 practice workbooks</span>
     </div>
   </div>
   <div class="hero-panel">
@@ -338,25 +410,64 @@ footer b{color:var(--ink)}
   </div>
 </div></div></header>
 
-<div class="wrap quickstart"><div class="quick-grid"><div class="mini-card"><span class="k"><span>1</span></span><h3>Sign in first — check the shield</h3><p>Go to <code>copilot.cloud.microsoft</code> with your <b>EHS work account</b>. Look for the <b>green shield</b> beside “New chat”: that is enterprise data protection switched on, and it means what you type stays inside EHS. No shield means a personal account — sign out and back in before you go any further.</p></div><div class="mini-card"><span class="k"><span>2</span></span><h3>Practise on the sample data</h3><p>Two Excel workbooks come with this pack — <b>EHS_Practice_Data_Youth_Council_Activity.xlsx</b> and <b>EHS_Practice_Data_Patient_Experience.xlsx</b>. Both are synthetic, so nothing you do can go wrong. Tick each prompt off as you go — the bar below counts your progress.</p></div></div>
+<main id="main-content">
+<div class="wrap controls">
+  <div class="control-panel" aria-label="Prompt pack controls">
+    <div class="control-field search">
+      <label for="promptSearch">Search prompts</label>
+      <input id="promptSearch" type="search" placeholder="Search in English or Arabic…" autocomplete="off">
+    </div>
+    <div class="control-field">
+      <label for="difficultyFilter">Difficulty</label>
+      <select id="difficultyFilter"><option value="">All levels</option></select>
+    </div>
+    <div class="control-field">
+      <label for="licenceFilter">Licence</label>
+      <select id="licenceFilter"><option value="">Any licence</option><option value="none">No licence needed</option></select>
+    </div>
+    <div class="control-field">
+      <label for="toolFilter">Tool</label>
+      <select id="toolFilter"><option value="">All tools</option></select>
+    </div>
+    <div class="control-actions">
+      <span class="control-label" id="languageLabel">Prompt language</span>
+      <div class="lang-control" role="group" aria-labelledby="languageLabel">
+        <button type="button" data-language-choice="en" aria-pressed="false">EN</button>
+        <button type="button" data-language-choice="ar" aria-pressed="false">AR</button>
+        <button type="button" data-language-choice="both" aria-pressed="true">Both</button>
+      </div>
+      <label class="toggle-label"><input id="facilitatorToggle" type="checkbox" checked> Facilitator mode</label>
+      <span class="filter-status" id="filterStatus" aria-live="polite"></span>
+    </div>
+  </div>
+</div>
+<p class="wrap empty-state" id="emptyState" role="status">No prompts match those filters. Try a different search or clear a filter.</p>
+
+<div class="wrap quickstart"><div class="quick-grid"><div class="mini-card"><span class="k"><span>1</span></span><h3>Sign in first — check the shield</h3><p>Go to <code>copilot.cloud.microsoft</code> with your <b>EHS work account</b>. Look for the <b>green shield</b> beside “New chat” to confirm enterprise data protection is active. It is not a guarantee of confidentiality: follow EHS policy and never enter patient-identifiable or staff-personal data. If the shield is missing, stop and confirm you are signed in with your work account.</p></div><div class="mini-card"><span class="k"><span>2</span></span><h3>Practise on the sample data</h3><p>Two Excel workbooks come with this pack — <b>EHS_Practice_Data_Youth_Council_Activity.xlsx</b> and <b>EHS_Practice_Data_Patient_Experience.xlsx</b>. Both are synthetic, so nothing you do can go wrong. Tick each prompt off as you go — the bar below counts your progress.</p></div></div>
 <section id="downloads" class="mini-card dl-card theme-data" aria-labelledby="dlTitle">
   <div class="dl-head">
     <h3 id="dlTitle">Download the practice files</h3>
     <span class="h3ar" dir="rtl" lang="ar">تنزيل ملفات التدريب</span>
   </div>
-  <p>Every file in this pack’s folder is listed here automatically — choose <b>Download</b> to save a copy, then open it in Excel or attach it to Copilot.</p>
-  <p class="dl-status" id="dlStatus" role="status" aria-live="polite">Loading the latest files…</p>
-  <ul class="dl-list" id="dlList" aria-labelledby="dlTitle"></ul>
+  <p>Practice workbooks use synthetic, de-identified data. Keep real patient or staff-personal data out of prompts. Choose <b>Download</b> to save a workbook, then open it in Excel or attach it to Copilot.</p>
+  <p class="dl-status" id="dlStatus" role="status" aria-live="polite">Practice workbooks are ready; checking for other files…</p>
+  <ul class="dl-list" id="dlList" aria-labelledby="dlTitle">
+    <li class="dl-item" data-static-file="EHS_Practice_Data_Youth_Council_Activity.xlsx"><span class="dl-ext" aria-hidden="true">XLSX</span><span class="dl-meta"><span class="dl-name">EHS_Practice_Data_Youth_Council_Activity.xlsx</span><span class="dl-size">Synthetic youth council activity data</span></span><a class="dl-btn" href="EHS_Practice_Data_Youth_Council_Activity.xlsx" download aria-label="Download EHS youth council activity practice workbook">Download</a></li>
+    <li class="dl-item" data-static-file="EHS_Practice_Data_Patient_Experience.xlsx"><span class="dl-ext" aria-hidden="true">XLSX</span><span class="dl-meta"><span class="dl-name">EHS_Practice_Data_Patient_Experience.xlsx</span><span class="dl-size">Synthetic patient experience practice data</span></span><a class="dl-btn" href="EHS_Practice_Data_Patient_Experience.xlsx" download aria-label="Download EHS patient experience practice workbook">Download</a></li>
+  </ul>
   <noscript><p class="dl-status">JavaScript is off, so the list can’t load. <a href="https://github.com/MaiLootah/MYC-Agentic-AI-Series/tree/main/EHS%20Youth%20Council">Open the files on GitHub</a> instead.</p></noscript>
 </section></div>
 
+<div class="sticky-head">
 <div class="prog"><div class="wrap">
-  <span class="prog-txt" id="progTxt"><b>0</b> of 28 prompts run</span>
+  <span class="prog-txt" id="progTxt"><b>0</b> of 0 prompts run</span>
   <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
   <button class="prog-reset" id="progReset" type="button">Reset</button>
 </div></div>
+<div class="completion" id="completion" role="status" aria-live="polite"></div>
 
-<nav class="tabs"><div class="wrap"><a href="#start" data-sec="start">Start Here<span class="cnt">0/5</span></a><a href="#chat" data-sec="chat">Copilot Chat<span class="cnt">0/4</span></a><a href="#outlook" data-sec="outlook">Outlook & Teams<span class="cnt">0/4</span></a><a href="#sched" data-sec="sched">Scheduled prompts<span class="cnt">0/3</span></a><a href="#researcher" data-sec="researcher">Researcher<span class="cnt">0/3</span></a><a href="#analyst" data-sec="analyst">Analyst<span class="cnt">0/3</span></a><a href="#cowork" data-sec="cowork">Cowork<span class="cnt">0/3</span></a><a href="#build" data-sec="build">Build your own agent<span class="cnt">0/3</span></a></div></nav>
+<nav class="tabs" aria-label="Prompt pack sections"><div class="wrap"><a href="#start" data-sec="start">Start Here<span class="cnt">0/0</span></a><a href="#chat" data-sec="chat">Copilot Chat<span class="cnt">0/0</span></a><a href="#outlook" data-sec="outlook">Outlook & Teams<span class="cnt">0/0</span></a><a href="#sched" data-sec="sched">Scheduled prompts<span class="cnt">0/0</span></a><a href="#researcher" data-sec="researcher">Researcher<span class="cnt">0/0</span></a><a href="#analyst" data-sec="analyst">Analyst<span class="cnt">0/0</span></a><a href="#cowork" data-sec="cowork">Cowork<span class="cnt">0/0</span></a><a href="#build" data-sec="build">Build your own agent<span class="cnt">0/0</span></a></div></nav>
+</div>
 
 <section><div class="wrap">
   <div class="eyeline">Before you start</div>
@@ -855,7 +966,7 @@ footer b{color:var(--ink)}
     </div>
     <div class="prompts-lbl"><span>Prompts to run · الطلبات</span><div class="ln"></div></div>
     <div class="station-main">
-        <article class="card" data-id="p19" data-sec="researcher">
+        <article class="card" data-id="p16" data-sec="researcher">
           <div class="card-top">
             <div class="title-wrap">
               <span class="label">A cited brief on a policy question</span>
@@ -878,7 +989,7 @@ footer b{color:var(--ink)}
             <div class="ptext"><pre id="p19-ar" class="ar" dir="rtl" lang="ar">ابحثي في كيفية استخدام الجهات الصحية في دول الخليج للذكاء الاصطناعي في تحسين تجربة المرضى والنتائج المنشورة القابلة للقياس، خلال العامين الماضيين فقط. قدّمي موجزًا منظّمًا يبيّن الأساليب المتبعة، وما نجح وما لم ينجح، وثلاث مبادرات واقعية لفريق شبابي داخل جهة صحية اتحادية، مع توثيق كل مصدر.</pre></div>
           </div>
         </article>
-        <article class="card" data-id="p20" data-sec="researcher">
+        <article class="card" data-id="p17" data-sec="researcher">
           <div class="card-top">
             <div class="title-wrap">
               <span class="label">Benchmark us against our peers</span>
@@ -901,7 +1012,7 @@ footer b{color:var(--ink)}
             <div class="ptext"><pre id="p20-ar" class="ar" dir="rtl" lang="ar">ابحثي في هياكل مجالس الشباب في الجهات الاتحادية بالإمارات ومبادراتها وطرق قياس أثرها، ثم قارنيها بمجلس شباب في جهة صحية اتحادية من حيث الهيكل ونوع المبادرات ونطاق الوصول وطريقة قياس النتائج. بيّني أين نتقدّم وأين نتأخر وخمس ممارسات جديرة بالنقل، مع توثيق المصادر وبيان ما تعذّر التحقق منه.</pre></div>
           </div>
         </article>
-        <article class="card" data-id="p21" data-sec="researcher">
+        <article class="card" data-id="p18" data-sec="researcher">
           <div class="card-top">
             <div class="title-wrap">
               <span class="label">Research the award before you write the submission</span>
@@ -947,7 +1058,7 @@ footer b{color:var(--ink)}
     </div>
     <div class="prompts-lbl"><span>Prompts to run · الطلبات</span><div class="ln"></div></div>
     <div class="station-main">
-        <article class="card" data-id="p16" data-sec="analyst">
+        <article class="card" data-id="p19" data-sec="analyst">
           <div class="card-top">
             <div class="title-wrap">
               <span class="label">Warm-up — what is actually in this file?</span>
@@ -970,7 +1081,7 @@ footer b{color:var(--ink)}
             <div class="ptext"><pre id="p16-ar" class="ar" dir="rtl" lang="ar">أرفقتُ ملف EHS_Practice_Data_Youth_Council_Activity.xlsx. قبل أي تحليل، أخبريني ماذا يحوي: أوراق العمل، وما يغطيه كل منها، وعدد الصفوف، والمدى الزمني، وأي الأعمدة رقمية وأيها نصية. ثم أشيري إلى أي مشكلات في جودة البيانات: قيم فارغة أو مكررة أو غير منطقية.</pre></div>
           </div>
         </article>
-        <article class="card" data-id="p17" data-sec="analyst">
+        <article class="card" data-id="p20" data-sec="analyst">
           <div class="card-top">
             <div class="title-wrap">
               <span class="label">The counter-intuitive finding</span>
@@ -993,7 +1104,7 @@ footer b{color:var(--ink)}
             <div class="ptext"><pre id="p17-ar" class="ar" dir="rtl" lang="ar">باستخدام ملف EHS_Practice_Data_Patient_Experience.xlsx، ادرسي العلاقة بين مدة الانتظار وتقييم المرضى. هل الانتظار الأطول أسوأ دائمًا؟ تحققي ممّا إذا كان ذلك ينطبق على كل مجال خدمة، وإذا خالف أحدها النمط فحدّديه واقترحي تفسيرًا. أظهري خطوات عملك وبيّني ما لا تستطيع هذه البيانات إخبارنا به.</pre></div>
           </div>
         </article>
-        <article class="card" data-id="p18" data-sec="analyst">
+        <article class="card" data-id="p21" data-sec="analyst">
           <div class="card-top">
             <div class="title-wrap">
               <span class="label">From data straight to a council proposal</span>
@@ -1205,12 +1316,15 @@ footer b{color:var(--ink)}
   </div>
 </div></section>
 
+ </main>
 <footer><div class="wrap">
   <b>Prepared by the Microsoft Youth Council · October 2026</b><br>
   Prompts are examples — adapt them to your own work. Keep patient-identifiable and staff-personal
   information out of every prompt, and always review AI output before it goes anywhere official.
   Your ticks are saved in this browser only and are not shared with anyone.
 </div></footer>
+<button class="back-top" id="backTop" type="button" aria-label="Back to top">↑ Top</button>
+<div class="live-status" id="copyStatus" aria-live="polite" aria-atomic="true"></div>
 
 <script>
 (function(){
