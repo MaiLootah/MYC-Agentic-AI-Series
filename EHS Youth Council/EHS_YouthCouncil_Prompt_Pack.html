@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EHS Youth Council — Microsoft 365 Copilot Prompt Pack</title>
+<style>
+:root{
+  --primary:#00A39E; --primary-dark:#007C78; --deep:#0B2545; --accent:#B08D3F;
+  --ink:#141A22; --muted:#4A5260; --line:rgba(11,37,69,.12);
+  --bg:#F7F5F0; --card:#fff; --shadow:0 16px 38px rgba(11,37,69,.07);
+  --start:#0E9F6E; --chat:#00A39E; --outlook:#2F6FE4; --sched:#B08D3F;
+  --researcher:#4C6FFF; --analyst:#00897B; --cowork:#7C5BD9; --build:#D9468D;
+  /* AA-safe fills for white text (>=4.5:1) */
+  --start-ink:#0B855C; --chat-ink:#00827E; --outlook-ink:#2F6FE4; --sched-ink:#8C7032;
+  --researcher-ink:#486AF4; --analyst-ink:#008376; --cowork-ink:#7C5BD9; --build-ink:#CB4184;
+  --primary-ink:#00827E; --accent-ink:#8C7032;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+h1,h2,h3,h4,p,li,span,pre{overflow-wrap:break-word;-webkit-hyphens:none;hyphens:none;
+ text-wrap:pretty}
+h1,h2,h3,h4{text-wrap:balance}
+[dir="rtl"]{text-align:right}
+[lang="ar"]{font-family:'Segoe UI','Dubai','Tahoma',sans-serif;
+ -webkit-font-feature-settings:normal;font-feature-settings:normal}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI Variable','Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+ color:var(--ink);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;
+ background:radial-gradient(circle at top right,rgba(176,141,63,.13),transparent 26%),
+  radial-gradient(circle at top left,rgba(0,163,158,.10),transparent 22%),var(--bg);}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section{padding:54px 0 10px;scroll-margin-top:96px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;color:#fff;padding:68px 0 78px;
+ background:radial-gradient(circle at 82% 16%,rgba(176,141,63,.40),transparent 20%),
+  radial-gradient(circle at 12% 84%,rgba(255,255,255,.10),transparent 18%),
+  linear-gradient(135deg,#00A39E 0%,#007C78 30%,#0B2545 100%);}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+ background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+ background-size:34px 34px;
+ -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.4),transparent 86%);
+ mask-image:linear-gradient(to bottom,rgba(0,0,0,.4),transparent 86%);}
+.hero::after{content:"";position:absolute;top:-150px;right:-130px;width:480px;height:480px;
+ border-radius:50%;pointer-events:none;
+ background:radial-gradient(circle,rgba(176,141,63,.45) 0%,rgba(176,141,63,0) 70%);}
+.hero .wrap{position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:38px;align-items:start}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.18em;
+ text-transform:uppercase;color:#FFE9BE;font-weight:800;margin-bottom:18px;
+ background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);
+ padding:10px 15px;border-radius:999px;backdrop-filter:blur(10px)}
+.hero h1{font-size:50px;line-height:1.03;font-weight:850;letter-spacing:-1.1px;max-width:15ch}
+.hero .ar-title{font-size:34px;font-weight:750;color:#FFE9BE;margin-top:14px;
+ direction:rtl;line-height:1.5;font-family:'Segoe UI','Dubai',Tahoma,sans-serif}
+.accent-bar{width:94px;height:6px;border-radius:4px;margin-top:20px;
+ background:linear-gradient(90deg,var(--accent),#E9CC86)}
+.hero p.sub{font-size:17.5px;color:#F2FBFA;margin-top:18px;max-width:56ch}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.stat{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);
+ border-radius:999px;padding:8px 15px;font-size:13px;font-weight:700;backdrop-filter:blur(8px)}
+.hero-panel{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+ border-radius:24px;padding:22px;backdrop-filter:blur(12px)}
+.hero-panel h4{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+ color:#FFE9BE;font-weight:800;margin-bottom:14px}
+.tier-row{display:grid;gap:10px}
+.tier-card{padding:13px 15px;border-radius:16px;background:rgba(255,255,255,.07);
+ border:1px solid rgba(255,255,255,.12);display:flex;gap:12px;align-items:center}
+.tier-num{width:34px;height:34px;flex:0 0 auto;border-radius:11px;
+ font-size:12.5px;font-weight:850;background:rgba(255,255,255,.16);color:#fff;
+ font-variant-numeric:tabular-nums}
+.tier-card b{display:block;font-size:14.5px;line-height:1.3}
+.tier-card span{font-size:12.5px;color:#EAF7F6;display:block;margin-top:3px}
+.tier-card.secret{border:1px dashed rgba(233,204,134,.55);
+ background:linear-gradient(180deg,rgba(176,141,63,.14),rgba(176,141,63,.06))}
+.tier-card.secret .tier-num{background:var(--accent);color:#fff;font-size:17px}
+.tier-card.secret span{color:#FFE9BE}
+
+/* ---- badges: metric-proof centring ----
+   grid centres the child box; the child collapses its own line box so the
+   font's ascent/descent asymmetry cannot shift the digits off centre. ---- */
+.tier-num,.mini-card .k,.tip .n{
+  display:grid;place-items:center;padding:0;line-height:0;text-align:center;
+  overflow:hidden}
+.tier-num>span,.mini-card .k>span,.tip .n>span{
+  display:block;line-height:1;transform:translateY(0.06em)}
+
+/* ---------- quickstart ---------- */
+.quickstart{margin-top:-46px;margin-bottom:40px;position:relative;z-index:3}
+.quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.mini-card{background:var(--card);border:1px solid var(--line);border-radius:20px;
+ padding:20px;box-shadow:var(--shadow)}
+.mini-card .k{width:32px;height:32px;border-radius:11px;margin-bottom:12px;
+ background:var(--primary-ink);color:#fff;font-size:13.5px;font-weight:850;
+ font-variant-numeric:tabular-nums}
+.mini-card h3{font-size:16px;margin-bottom:6px;letter-spacing:-.2px}
+.mini-card p{font-size:14px;color:var(--muted)}
+.mini-card code{background:rgba(0,163,158,.10);color:var(--primary-dark);
+ padding:1px 7px;border-radius:6px;font-size:13px;font-weight:700}
+
+/* ---------- progress ---------- */
+.prog{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.93);
+ scroll-margin-top:0;
+ backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+ box-shadow:0 2px 16px rgba(11,37,69,.05)}
+.prog .wrap{display:flex;align-items:center;gap:16px;padding:11px 24px}
+.prog-txt{font-size:13.5px;font-weight:800;white-space:nowrap}
+.prog-txt b{color:var(--primary-dark);font-size:16px}
+.prog-track{flex:1;height:9px;border-radius:999px;background:rgba(11,37,69,.07);overflow:hidden}
+.prog-fill{height:100%;width:0;border-radius:999px;
+ background:linear-gradient(90deg,var(--primary),var(--accent));transition:width .4s ease}
+.prog-reset{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:10px;
+ padding:7px 13px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.prog-reset:hover{color:var(--primary-dark);border-color:var(--primary)}
+
+/* ---------- nav ---------- */
+nav.tabs{position:sticky;top:46px;z-index:60;background:rgba(247,245,240,.86);
+ backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:8px;overflow-x:auto;padding:10px 24px}
+nav.tabs .wrap::-webkit-scrollbar{display:none}
+nav.tabs a{white-space:nowrap;padding:10px 15px;font-size:13px;font-weight:750;
+ color:var(--muted);text-decoration:none;border:1px solid transparent;border-radius:999px;
+ transition:.15s;display:flex;align-items:center;gap:8px}
+nav.tabs a:hover{color:var(--ink);background:rgba(255,255,255,.75)}
+nav.tabs a.active{color:var(--primary-dark);background:#fff;
+ border-color:rgba(0,163,158,.22);box-shadow:0 4px 12px rgba(0,0,0,.05)}
+nav.tabs a .cnt{font-size:11px;font-weight:800;color:#fff;background:#6B7280;
+ border-radius:999px;padding:3px 8px;min-width:36px;text-align:center;
+ font-variant-numeric:tabular-nums;letter-spacing:.02em}
+nav.tabs a.active .cnt{background:var(--primary-ink)}
+nav.tabs a .cnt.full{background:var(--primary-ink)}
+
+/* ---------- section heads ---------- */
+.eyeline{font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;font-weight:800;
+ color:var(--section-ink,var(--primary-ink));margin-bottom:11px}
+.sec-head{display:flex;align-items:center;gap:13px;margin-bottom:8px;flex-wrap:wrap}
+.sec-head .dot{width:12px;height:12px;border-radius:50%;flex:0 0 auto;
+ background:var(--section-accent,var(--primary));
+ box-shadow:0 0 0 6px var(--section-soft,#E6F6F5)}
+.sec-head h2{font-size:31px;font-weight:850;letter-spacing:-.5px;line-height:1.15}
+.sec-head .h2ar{font-size:25px;font-weight:750;color:var(--muted);direction:rtl;
+ font-family:'Segoe UI','Dubai',Tahoma,sans-serif;line-height:1.5}
+.sec-sub{font-size:15.5px;color:var(--muted);max-width:78ch;margin-bottom:6px}
+.sec-sub b{color:var(--ink)}
+
+/* ---------- station ---------- */
+.station{display:block;margin-top:20px}
+.station-info{background:linear-gradient(180deg,#fff,var(--section-soft,#F1FAF9));
+ border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
+.station-main{margin-top:20px;display:grid;gap:18px}
+.station-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+ gap:26px;align-items:start}
+.callouts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+.prompts-lbl{display:flex;align-items:center;gap:12px;margin:26px 0 2px}
+.prompts-lbl span{font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;
+ color:var(--section-ink,var(--primary-ink));white-space:nowrap}
+.prompts-lbl .ln{flex:1;height:1px;background:var(--line)}
+.tool-badge{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;
+ background:var(--section-ink,var(--primary-ink));color:#fff;padding:7px 13px;
+ border-radius:999px;margin-bottom:13px}
+.station-info h3{font-size:23px;letter-spacing:-.35px;margin-bottom:9px;line-height:1.3}
+.station-info>p{font-size:14.5px;color:var(--muted);margin-bottom:16px}
+.callout{border-radius:18px;padding:14px 16px;margin-bottom:12px;font-size:13.8px;
+ background:#fff;border:1px solid var(--line)}
+.callout.watch{border-inline-start:4px solid var(--section-accent,var(--primary));
+ background:var(--section-soft,#F1FAF9)}
+.callout.variants{border-inline-start:4px solid var(--accent);background:#FDFAF3}
+.callout li{margin-bottom:6px;color:var(--ink)}
+.callout>b{display:block;font-size:10.5px;font-weight:800;letter-spacing:.11em;
+ text-transform:uppercase;margin-bottom:7px;color:var(--section-ink,var(--primary-ink))}
+.callout.variants>b{color:var(--accent-ink)}
+.callout b{color:var(--ink)}
+.callout ul{margin:0;padding-inline-start:18px;list-style:disc}
+
+/* ---------- prompt cards ---------- */
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;
+ box-shadow:0 12px 30px rgba(20,26,34,.055);transition:border-color .16s,box-shadow .16s}
+
+.card.done{border-color:var(--section-accent,var(--primary));
+ box-shadow:0 12px 30px rgba(0,163,158,.14)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;
+ padding:16px 18px;border-bottom:1px solid var(--line);
+ background:linear-gradient(180deg,var(--section-soft,#F1FAF9),rgba(255,255,255,.9))}
+.title-wrap{display:grid;gap:9px;min-width:0}
+.title-wrap .label{font-size:16.5px;font-weight:800;line-height:1.28}
+.title-wrap .label-ar{font-size:19px;font-weight:700;color:var(--muted);direction:rtl;
+ text-align:right;line-height:1.6;font-family:'Segoe UI','Dubai',Tahoma,sans-serif}
+.meta-row{display:flex;gap:7px;flex-wrap:wrap}
+.meta-chip{font-size:11.5px;font-weight:700;color:var(--muted);background:#fff;
+ border:1px solid var(--line);border-radius:999px;padding:4px 10px;
+ max-width:100%;overflow-wrap:anywhere}
+.meta-chip.file{color:#0F766E;background:#E8F4F3;border-color:#B6DEDA;font-weight:750}
+.meta-chip.file::before{content:"F4CA  ";font-weight:400}
+
+/* checkbox: white inside, border only */
+.tick{flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;cursor:pointer;
+ user-select:none;font-size:12.5px;font-weight:750;color:var(--muted)}
+.tick input{appearance:none;-webkit-appearance:none;width:22px;height:22px;margin:0;
+ border:2px solid var(--section-ink,var(--primary-ink));border-radius:7px;background:#fff;
+ cursor:pointer;position:relative;flex:0 0 auto;transition:border-color .15s}
+.tick input::after{content:"";position:absolute;left:6px;top:2px;width:6px;height:11px;
+ border:solid var(--section-ink,var(--primary-ink));border-width:0 2.5px 2.5px 0;
+ transform:rotate(45deg) scale(0);transition:transform .15s ease}
+.tick input:checked{background:#fff}
+.tick input:checked::after{transform:rotate(45deg) scale(1)}
+.tick input:focus-visible{outline:2px solid var(--section-accent,var(--primary));outline-offset:2px}
+.card.done .tick{color:var(--section-ink,var(--primary-ink))}
+.do{margin:0;padding:14px 18px 15px;background:var(--section-soft,#F1FAF9);
+ border-bottom:1px solid var(--line)}
+.do>b{display:block;font-size:10.5px;font-weight:800;letter-spacing:.11em;
+ text-transform:uppercase;color:var(--section-ink,var(--primary-ink));margin-bottom:8px}
+.do ol{margin:0;padding-inline-start:20px;font-size:14px}
+.do li{margin-bottom:5px}
+.do li:last-child{margin-bottom:0}
+.do kbd{font-family:inherit;font-weight:750;background:#fff;border:1px solid var(--line);
+ border-radius:6px;padding:1px 7px;font-size:13.2px;color:var(--ink);white-space:nowrap}
+
+.pblock+.pblock{border-top:1px dashed var(--line)}
+.ptools{display:flex;justify-content:flex-end;padding:12px 16px 0}
+.ptext{padding:10px 16px 18px}
+.ptext>pre{border:1px solid var(--line);border-radius:12px;background:var(--surface-2,#FBFAF7)}
+.copy-btn{border:1px solid var(--section-ink,var(--primary-ink));
+ background:var(--section-ink,var(--primary-ink));color:#fff;font-size:12.5px;font-weight:750;
+ padding:7px 14px;border-radius:10px;cursor:pointer;transition:.15s;white-space:nowrap}
+.copy-btn:hover{filter:brightness(.95);transform:translateY(-1px)}
+.copy-btn.done{background:#1E7D34;border-color:#1E7D34}
+pre{margin:0;padding:15px 17px;font-family:'Cascadia Code','SF Mono',Consolas,monospace;
+ font-size:13.6px;line-height:1.7;color:#232B35;white-space:pre-wrap;word-break:break-word}
+pre.ar{direction:rtl;text-align:right;font-size:16px;line-height:2.05;
+ font-family:'Segoe UI','Dubai',Tahoma,sans-serif}
+
+/* ---------- day in the life ---------- */
+/* ---------- tips ---------- */
+.grid-tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));
+ gap:15px;margin-top:20px}
+.tip{background:#fff;border:1px solid var(--line);border-radius:20px;padding:19px;
+ box-shadow:var(--shadow);transition:.18s ease}
+.tip:hover{transform:translateY(-3px);border-color:rgba(0,163,158,.28)}
+.tip .n{width:31px;height:31px;border-radius:10px;background:var(--primary-ink);
+ color:#fff;font-size:13px;font-weight:850;margin-bottom:12px;
+ font-variant-numeric:tabular-nums}
+.tip h3{font-size:16px;margin-bottom:6px;letter-spacing:-.2px}
+.tip p{font-size:13.8px;color:var(--muted)}
+
+/* ---------- section themes ---------- */
+.theme-start{--section-accent:var(--start);--section-ink:var(--start-ink);--section-soft:#E9F8F1}
+.theme-chat{--section-accent:var(--chat);--section-ink:var(--chat-ink);--section-soft:#E6F6F5}
+.theme-outlook{--section-accent:var(--outlook);--section-ink:var(--outlook-ink);--section-soft:#EAF0FD}
+.theme-sched{--section-accent:var(--sched);--section-ink:var(--sched-ink);--section-soft:#FBF5E8}
+.theme-researcher{--section-accent:var(--researcher);--section-ink:var(--researcher-ink);--section-soft:#EEF2FF}
+.theme-analyst{--section-accent:var(--analyst);--section-ink:var(--analyst-ink);--section-soft:#E7F5F3}
+.theme-cowork{--section-accent:var(--cowork);--section-ink:var(--cowork-ink);--section-soft:#F3EFFC}
+.theme-build{--section-accent:var(--build);--section-ink:var(--build-ink);--section-soft:#FDEFF7}
+.theme-data{--section-accent:#0F766E;--section-ink:#0F766E;--section-soft:#E8F4F3}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding:28px 0 46px;
+ color:var(--muted);font-size:13.5px}
+footer b{color:var(--ink)}
+
+@media(max-width:1000px){
+ .station-head{grid-template-columns:1fr;gap:18px}
+ .callouts{grid-template-columns:1fr}
+}
+@media(max-width:940px){
+ .hero-grid,.quick-grid{grid-template-columns:1fr}
+ .hero h1{font-size:36px}.hero .ar-title{font-size:26px}
+ .sec-head h2{font-size:25px}.sec-head .h2ar{font-size:20px}
+ .quickstart{margin-top:-30px;margin-bottom:28px}
+ .card-top{flex-direction:column;align-items:flex-start}
+}
+@media print{
+ .prog,nav.tabs,.copy-btn,.prog-reset{display:none!important}
+ body{background:#fff}
+ .hero{background:#fff;color:var(--ink)}
+ .hero::before,.hero::after{display:none}
+ .hero .ar-title{color:var(--primary-dark)}
+ .hero .eyebrow,.stat,.hero-panel{border-color:var(--line);color:var(--ink);background:#fff}
+ .hero p.sub{color:var(--muted)}
+ .card,.station-info,.station-main,.tip{break-inside:avoid;box-shadow:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero"><div class="wrap"><div class="hero-grid">
+  <div>
+    <div class="eyebrow">Microsoft Youth Council × EHS Youth Council</div>
+    <h1>The Agentic AI Prompt Pack</h1>
+    <div class="ar-title">حقيبة طلبات الذكاء الاصطناعي الوكيل</div>
+    <div class="accent-bar"></div>
+    <p class="sub">Every prompt here is ready to run — in English and Arabic, with one-click copy.
+      Tick each one off as you go. Built by youth, for youth, with youth.</p>
+    <div class="stats">
+      <span class="stat">28 prompts</span>
+      <span class="stat">8 sections</span>
+      <span class="stat">English · العربية</span>
+      <span class="stat">2 practice workbooks</span>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <h4>The Agent Pack</h4>
+    <div class="tier-row"><div class="tier-card "><span class="tier-num"><span>01</span></span><div><b>Essentials</b><span>Outlook, Teams and scheduled prompts</span></div></div><div class="tier-card "><span class="tier-num"><span>02</span></span><div><b>Specialist Agents</b><span>Researcher and Analyst</span></div></div><div class="tier-card "><span class="tier-num"><span>03</span></span><div><b>The Orchestrator</b><span>Copilot Cowork</span></div></div><div class="tier-card secret"><span class="tier-num"><span>?</span></span><div><b>Tier 04</b><span>Revealed in the session</span></div></div></div>
+  </div>
+</div></div></header>
+
+<div class="wrap quickstart"><div class="quick-grid"><div class="mini-card"><span class="k"><span>1</span></span><h3>Sign in first — check the shield</h3><p>Go to <code>copilot.cloud.microsoft</code> with your <b>EHS work account</b>. Look for the <b>green shield</b> beside “New chat”: that is enterprise data protection switched on, and it means what you type stays inside EHS. No shield means a personal account — sign out and back in before you go any further.</p></div><div class="mini-card"><span class="k"><span>2</span></span><h3>Practise on the sample data</h3><p>Two Excel workbooks come with this pack — <b>EHS_Practice_Data_Youth_Council_Activity.xlsx</b> and <b>EHS_Practice_Data_Patient_Experience.xlsx</b>. Both are synthetic, so nothing you do can go wrong. Tick each prompt off as you go — the bar below counts your progress.</p></div></div></div>
+
+<div class="prog"><div class="wrap">
+  <span class="prog-txt" id="progTxt"><b>0</b> of 28 prompts run</span>
+  <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+  <button class="prog-reset" id="progReset" type="button">Reset</button>
+</div></div>
+
+<nav class="tabs"><div class="wrap"><a href="#start" data-sec="start">Start Here<span class="cnt">0/5</span></a><a href="#chat" data-sec="chat">Copilot Chat<span class="cnt">0/4</span></a><a href="#outlook" data-sec="outlook">Outlook & Teams<span class="cnt">0/4</span></a><a href="#sched" data-sec="sched">Scheduled prompts<span class="cnt">0/3</span></a><a href="#researcher" data-sec="researcher">Researcher<span class="cnt">0/3</span></a><a href="#analyst" data-sec="analyst">Analyst<span class="cnt">0/3</span></a><a href="#cowork" data-sec="cowork">Cowork<span class="cnt">0/3</span></a><a href="#build" data-sec="build">Build your own agent<span class="cnt">0/3</span></a></div></nav>
+
+<section><div class="wrap">
+  <div class="eyeline">Before you start</div>
+  <div class="sec-head"><span class="dot"></span><h2>Eight habits that change the answer</h2>
+    <span class="h2ar" dir="rtl" lang="ar">ثماني عادات تغيّر النتيجة</span></div>
+  <p class="sec-sub">The difference between a generic answer and a useful one is almost always in the prompt.</p>
+  <div class="grid-tips"><div class="tip"><span class="n"><span>1</span></span><h3>Set the role</h3><p>“You are a health communicator writing for the public” beats no role at all.</p></div><div class="tip"><span class="n"><span>2</span></span><h3>Be specific about the output</h3><p>Say the format, the length and the audience — “one page, for leadership, under 300 words”.</p></div><div class="tip"><span class="n"><span>3</span></span><h3>Ground it on your data</h3><p>Attach the file or point at the thread. Otherwise it answers from the internet.</p></div><div class="tip"><span class="n"><span>4</span></span><h3>Iterate, don’t restart</h3><p>“Shorter, and lead with the recommendation” gets you further than a brand-new prompt.</p></div><div class="tip"><span class="n"><span>5</span></span><h3>Ask it to show its work</h3><p>Especially for anything with numbers in it. Then actually check the working.</p></div><div class="tip"><span class="n"><span>6</span></span><h3>Give a style example</h3><p>Paste something you liked and say “match this tone”.</p></div><div class="tip"><span class="n"><span>7</span></span><h3>Chain, don’t cram</h3><p>One job per prompt, then build on the answer: research → analyse → draft → present.</p></div><div class="tip"><span class="n"><span>8</span></span><h3>Verify high-stakes work</h3><p>Clinical, financial or public-facing? You own the final check, not the model.</p></div></div>
+</div></section>
+
+
+<section id="start" class="theme-start" data-track="1"><div class="wrap">
+  <div class="eyeline">No licence needed · start here</div>
+  <div class="sec-head"><span class="dot"></span><h2>Start Here — Copilot Chat on the web</h2>
+    <span class="h2ar" dir="rtl" lang="ar">البداية — كوبايلوت على الويب</span></div>
+  <p class="sec-sub">Everything in this section runs at <b>copilot.cloud.microsoft</b> with your EHS work account. No Copilot licence, no setup — so nobody sits out today.</p>
+  <div class="station">
+    <div class="station-info">
+      <div class="station-head">
+        <div>
+          <div class="tool-badge">No Copilot licence needed</div>
+          <h3>Use this section if your licence hasn’t landed yet</h3>
+          <p>These are grounded on the web rather than on EHS files, so keep them to general and public questions. Everything else in the pack needs a licence.</p>
+        </div>
+        <div class="callouts">
+          <div class="callout watch"><b>👀 Watch for during the demo</b>Ask the same prompt twice — once in English, once in Arabic — and put the answers side by side. The room should see that the Arabic one reads like it was <b>written</b> in Arabic, not translated into it.</div>
+          <div class="callout variants"><b>Try these variants</b><ul><li>“Now write it in Arabic only, for a WhatsApp broadcast.”</li><li>“Make it half the length and lead with the recommendation.”</li><li>“What are the three weakest points in what you just wrote?”</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="prompts-lbl"><span>Prompts to run · الطلبات</span><div class="ln"></div></div>
+    <div class="station-main">
+        <article class="card" data-id="p00" data-sec="start">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Rewrite a formal circular so people actually read it</span>
+              <span class="label-ar" dir="rtl" lang="ar">إعادة صياغة تعميم رسمي ليقرأه الناس فعلًا</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~1 min</span><span class="meta-chip">No licence</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p00-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p00-en">Here is an internal circular that nobody reads to the end: [paste it]. Rewrite it as a short announcement young employees will actually finish — lead with what changes for them, keep every date, deadline and requirement exactly as written, and end with the one action they need to take. Give me an English version and an Arabic version, each written naturally in its own language rather than translated.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p00-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p00-ar" class="ar" dir="rtl" lang="ar">هذا تعميم داخلي لا يكمل أحد قراءته: [الصقي النص هنا]. أعيدي صياغته كإعلان قصير يقرؤه الموظفون الشباب حتى نهايته: ابدأي بما يتغير بالنسبة لهم، واحفظي كل تاريخ وموعد نهائي ومتطلّب كما هو حرفيًا، واختمي بالإجراء الواحد المطلوب منهم. قدّمي نسخة عربية وأخرى إنجليزية، كل منهما مكتوبة بلغتها لا مترجمة.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p01" data-sec="start">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Turn a rough idea into a structured proposal</span>
+              <span class="label-ar" dir="rtl" lang="ar">تحويل فكرة أولية إلى مقترح منظّم</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~2 min</span><span class="meta-chip">No licence</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p01-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p01-en">I have a rough idea for a youth initiative at a government health entity: a peer mentoring programme pairing new young employees with experienced staff. Turn it into a one-page proposal with the problem it solves, how it works in practice, what we would need to run it, who approves it, and three ways to measure whether it worked. Ask me two clarifying questions first.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p01-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p01-ar" class="ar" dir="rtl" lang="ar">لديّ فكرة أولية لمبادرة شبابية في جهة صحية حكومية: برنامج إرشاد يربط الموظفين الشباب الجدد بزملاء ذوي خبرة. حوّليها إلى مقترح من صفحة واحدة يتضمن المشكلة وآلية التنفيذ والمتطلبات وجهات الاعتماد وثلاث طرق لقياس النجاح. اسأليني سؤالين توضيحيين قبل أن تبدأي.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p02" data-sec="start">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Compare options and commit to a recommendation</span>
+              <span class="label-ar" dir="rtl" lang="ar">مقارنة الخيارات والتوصية بأحدها</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~2 min</span><span class="meta-chip">No licence</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p02-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p02-en">Our youth council wants to raise health awareness among young government employees. Compare four approaches: a lunchtime seminar series, a mobile-first awareness campaign, a peer champion network, and a fitness challenge — on reach, cost, effort to run, and how long the effect lasts. Put it in a table, then recommend one and explain why the others lose.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p02-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p02-ar" class="ar" dir="rtl" lang="ar">يرغب مجلس الشباب لدينا في رفع الوعي الصحي بين الموظفين الحكوميين الشباب. قارني أربعة أساليب: ندوات في فترة الغداء، وحملة عبر الهاتف، وشبكة سفراء من الزملاء، وتحدٍ رياضي — من حيث الوصول والتكلفة والجهد ومدة الأثر، في جدول، ثم أوصي بواحد ووضّحي لماذا خسرت البقية.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p03" data-sec="start">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Prepare for a conversation with leadership</span>
+              <span class="label-ar" dir="rtl" lang="ar">الاستعداد لنقاش مع القيادة</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~1 min</span><span class="meta-chip">No licence</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p03-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p03-en">I am a young employee presenting a new idea to senior leadership in a government organisation for the first time. Give me: how to open in 30 seconds, the three questions leadership is most likely to ask, the strongest argument against my idea and how to answer it honestly, and how to close with a clear ask. Be direct, not encouraging.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p03-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p03-ar" class="ar" dir="rtl" lang="ar">أنا موظفة شابة وسأعرض فكرة جديدة على الإدارة العليا في جهة حكومية لأول مرة. زوّديني بطريقة للافتتاح خلال ثلاثين ثانية، وأكثر ثلاثة أسئلة يرجّح أن تطرحها القيادة، وأقوى حجة مضادة لفكرتي وكيف أردّ عليها بصدق، ثم طريقة للختام بطلب واضح. كوني مباشرة ولا تجامليني.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p04" data-sec="start">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Pressure-test your own idea</span>
+              <span class="label-ar" dir="rtl" lang="ar">اختبار فكرتك بصرامة</span>
+              <div class="meta-row"><span class="meta-chip">Intermediate</span><span class="meta-chip">~1 min</span><span class="meta-chip">No licence</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p04-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p04-en">Act as a sceptical reviewer on a government innovation panel. Here is my idea: [paste your idea]. Find the three weakest points in it, tell me what evidence I would need to defend each one, and rewrite my idea in two sentences so it survives the panel. Do not be polite about it.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p04-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p04-ar" class="ar" dir="rtl" lang="ar">تصرّفي كمُحكّمة متشككة في لجنة ابتكار حكومية. إليك فكرتي: [الصقي فكرتك هنا]. حدّدي أضعف ثلاث نقاط فيها، وما الأدلة التي أحتاجها للدفاع عن كل منها، ثم أعيدي صياغة الفكرة في جملتين بحيث تصمد أمام اللجنة. لا تجامليني.</pre></div>
+          </div>
+        </article></div>
+  </div>
+</div></section>
+<section id="chat" class="theme-chat" data-track="1"><div class="wrap">
+  <div class="eyeline">Your daily driver</div>
+  <div class="sec-head"><span class="dot"></span><h2>Copilot Chat — across everything at once</h2>
+    <span class="h2ar" dir="rtl" lang="ar">الدردشة — عبر عملك كله</span></div>
+  <p class="sec-sub">With a licence, Copilot Chat reads across your mail, files, chats and meetings together — inside EHS permissions, never beyond them.</p>
+  <div class="station">
+    <div class="station-info">
+      <div class="station-head">
+        <div>
+          <div class="tool-badge">Works across your own mail, files and meetings</div>
+          <h3>The section that changes how the week starts</h3>
+          <p>This is where people feel the difference between a chatbot and something that knows their work. Run the catch-up prompt first — it lands fastest.</p>
+        </div>
+        <div class="callouts">
+          <div class="callout watch"><b>👀 Watch for during the demo</b>Click a <b>citation</b> live. Showing that every claim traces back to a real file in their own tenant is what converts a sceptical room.</div>
+          <div class="callout variants"><b>Try these variants</b><ul><li>“Group that by council initiative instead of by date.”</li><li>“Which of these actually needs a decision from me this week?”</li><li>“Turn the top three into an agenda for Sunday’s meeting.”</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="prompts-lbl"><span>Prompts to run · الطلبات</span><div class="ln"></div></div>
+    <div class="station-main">
+        <article class="card" data-id="p05" data-sec="chat">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Catch up on everything you missed</span>
+              <span class="label-ar" dir="rtl" lang="ar">اللحاق بكل ما فاتك</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~1 min</span><span class="meta-chip">Best first prompt</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p05-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p05-en">Summarise everything I missed in the last 7 days across my emails, Teams chats, meetings and documents. Group it by council initiative, and flag decisions needed from me, anything at risk, and upcoming deadlines. Keep it under 400 words.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p05-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p05-ar" class="ar" dir="rtl" lang="ar">لخّصي كل ما فاتني خلال الأيام السبعة الماضية عبر بريدي الإلكتروني ومحادثات Teams والاجتماعات والمستندات. اعرضيه مصنّفًا حسب مبادرات المجلس، وأبرزي القرارات المطلوبة مني وما هو معرّض للخطر والمواعيد النهائية القادمة، في حدود 400 كلمة.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p06" data-sec="chat">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">What actually needs my attention this week?</span>
+              <span class="label-ar" dir="rtl" lang="ar">ما الذي يتطلب اهتمامي هذا الأسبوع؟</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~1 min</span><span class="meta-chip">Prioritisation</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p06-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p06-en">Based on my recent meetings and communications, what are the top five things that need my attention this week? For each one, tell me why it matters now, what the next action is, and who else is involved. Put anything with a deadline first.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p06-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p06-ar" class="ar" dir="rtl" lang="ar">استنادًا إلى اجتماعاتي ومراسلاتي الأخيرة، ما أهم خمسة أمور تتطلب اهتمامي هذا الأسبوع؟ وضّحي لكل منها سبب أهميته الآن، والإجراء التالي، ومن المعنيون به، مع تقديم ما له موعد نهائي.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p07" data-sec="chat">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Find the bottlenecks nobody has named</span>
+              <span class="label-ar" dir="rtl" lang="ar">اكتشاف الاختناقات المتكررة</span>
+              <div class="meta-row"><span class="meta-chip">Intermediate</span><span class="meta-chip">~2 min</span><span class="meta-chip">Pattern finding</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p07-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p07-en">Look across my recent emails, chats and meetings and identify recurring issues or bottlenecks being raised by more than one person. For each one, tell me how often it comes up, who is raising it, and what a youth-led improvement project could realistically do about it.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p07-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p07-ar" class="ar" dir="rtl" lang="ar">استعرضي رسائلي ومحادثاتي واجتماعاتي الأخيرة وحدّدي المشكلات أو الاختناقات المتكررة التي يثيرها أكثر من شخص. بيّني لكل منها عدد مرات تكرارها، ومن يثيرها، وما يمكن لمشروع تحسين يقوده الشباب فعله حيالها واقعيًا.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p08" data-sec="chat">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Build me a briefing note before a meeting</span>
+              <span class="label-ar" dir="rtl" lang="ar">مذكرة إحاطة قبل الاجتماع</span>
+              <div class="meta-row"><span class="meta-chip">Intermediate</span><span class="meta-chip">~2 min</span><span class="meta-chip">Meeting prep</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p08-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p08-en">Create a briefing note for my next meeting with the Youth Council chair. Include what we discussed last time, the documents relevant to it, which of my commitments are still open, and five suggested discussion points. Flag anything I promised and have not delivered.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p08-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p08-ar" class="ar" dir="rtl" lang="ar">أعدّي مذكرة إحاطة لاجتماعي القادم مع رئيس مجلس الشباب، تتضمن ما نوقش في اللقاء السابق، والمستندات ذات الصلة، والتزاماتي التي لا تزال مفتوحة، وخمس نقاط نقاش مقترحة، مع الإشارة إلى أي التزام وعدتُ به ولم أنجزه.</pre></div>
+          </div>
+        </article></div>
+  </div>
+</div></section>
+<section id="outlook" class="theme-outlook" data-track="1"><div class="wrap">
+  <div class="eyeline">Tier 01 · Essentials</div>
+  <div class="sec-head"><span class="dot"></span><h2>Outlook &amp; Teams — the daily grind, handled</h2>
+    <span class="h2ar" dir="rtl" lang="ar">البريد والاجتماعات</span></div>
+  <p class="sec-sub">Inbox Orchestrator, Calendar Guardian and Meeting Scribe — out-of-the-box Copilot, nothing to configure.</p>
+  <div class="station">
+    <div class="station-info">
+      <div class="station-head">
+        <div>
+          <div class="tool-badge">Tier 01 · Essentials</div>
+          <h3>Start people here, always</h3>
+          <p>It is the lowest-risk, highest-frequency win. Someone who saves twenty minutes on their inbox on day one comes back on day two.</p>
+        </div>
+        <div class="callouts">
+          <div class="callout watch"><b>👀 Watch for during the demo</b>In the recap, point out that <b>actions have named owners and dates</b>. That is the difference between notes and something the council can actually chase.</div>
+          <div class="callout variants"><b>Try these variants</b><ul><li>“What did I commit to in that meeting specifically?”</li><li>“Draft the follow-up email to the three people with open actions.”</li><li>“Which of these could have been an email?”</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="prompts-lbl"><span>Prompts to run · الطلبات</span><div class="ln"></div></div>
+    <div class="station-main">
+        <article class="card" data-id="p09" data-sec="outlook">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Summarise a long thread with one click</span>
+              <span class="label-ar" dir="rtl" lang="ar">تلخيص سلسلة طويلة بنقرة واحدة</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~30 sec</span><span class="meta-chip">Outlook</span><span class="meta-chip">No typing</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="do"><b>In the app</b><ol><li>Open a long email thread you were added to late.</li><li>At the top of the message, select <kbd>Summary by Copilot</kbd>.</li><li>Read the summary, then select a numbered reference to jump to the email it came from.</li></ol></div>
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p09-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p09-en">Now go further in the same thread: tell me what was decided, what is still open, who owes what to whom and by when, and what specifically is being asked of me. Flag anywhere people appear to disagree.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p09-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p09-ar" class="ar" dir="rtl" lang="ar">واصلي في السلسلة نفسها: ما الذي تمّ الاتفاق عليه، وما الذي لا يزال مفتوحًا، ومن المسؤول عن ماذا ومتى، وما المطلوب مني تحديدًا؟ وأشيري إلى مواضع الخلاف بين الأطراف.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p10" data-sec="outlook">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Answer an email with Help me reply</span>
+              <span class="label-ar" dir="rtl" lang="ar">الرد على رسالة باستخدام ساعدني في الرد</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~1 min</span><span class="meta-chip">Outlook</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="do"><b>In the app</b><ol><li>Open an email you actually owe someone a reply to.</li><li>Select <kbd>Reply</kbd>, then <kbd>Help me reply</kbd> (or the Copilot icon in the toolbar).</li><li>Type the instruction below, generate, then use <kbd>Adjust</kbd> to change the tone or length before you send.</li></ol></div>
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p10-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p10-en">Reply agreeing to what they asked, but say we need until the end of next week and explain why in one line. Keep it short and professional, match the language they wrote to me in, and do not over-apologise.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p10-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p10-ar" class="ar" dir="rtl" lang="ar">اكتبي ردًا يوافق على طلبهم، مع ذكر أننا نحتاج مهلة حتى نهاية الأسبوع المقبل وسبب ذلك في سطر واحد. اجعليه موجزًا ومهنيًا، بنفس لغة المرسِل، ودون إفراط في الاعتذار.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p11" data-sec="outlook">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Ask a meeting what you missed</span>
+              <span class="label-ar" dir="rtl" lang="ar">اسألي الاجتماع عمّا فاتك</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~1 min</span><span class="meta-chip">Teams</span><span class="meta-chip">Needs transcript</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="do"><b>In the app</b><ol><li>Open a past Teams meeting that had <b>recording or transcription turned on</b>.</li><li>Go to the <kbd>Recap</kbd> tab and open <kbd>Copilot</kbd>.</li><li>Ask the question below — you can ask follow-ups without rewatching anything.</li></ol></div>
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p11-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p11-en">What was mentioned about the youth council in this meeting? Tell me who raised it, what was said, whether anything was decided, and what was left unresolved. Quote the moment it came up.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p11-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p11-ar" class="ar" dir="rtl" lang="ar">ما الذي ذُكِر عن مجلس الشباب في هذا الاجتماع؟ من أثار الموضوع، وماذا قيل، وهل اتُخذ قرار، وما الذي بقي دون حسم؟ مع اقتباس اللحظة التي طُرح فيها.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p12" data-sec="outlook">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Turn the meeting into commitments</span>
+              <span class="label-ar" dir="rtl" lang="ar">تحويل الاجتماع إلى التزامات</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~1 min</span><span class="meta-chip">Teams</span><span class="meta-chip">Needs transcript</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="do"><b>In the app</b><ol><li>Stay in the same meeting recap with Copilot open.</li><li>Ask for the three lists below, then copy them straight into your follow-up email.</li></ol></div>
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p12-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p12-en">From this meeting, give me three things separately: the decisions that were actually made, the actions with a named owner and a date, and the questions raised but never answered. If an action has no clear owner, say so rather than assigning one.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p12-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p12-ar" class="ar" dir="rtl" lang="ar">من هذا الاجتماع، زوّديني بثلاثة أقسام منفصلة: القرارات التي اتُخذت فعليًا، والمهام مع اسم المسؤول والتاريخ، والأسئلة التي طُرحت ولم يُجب عنها. وإذا كانت مهمة بلا مسؤول واضح فاذكري ذلك بدل أن تسنديها لأحد.</pre></div>
+          </div>
+        </article></div>
+  </div>
+</div></section>
+<section id="sched" class="theme-sched" data-track="1"><div class="wrap">
+  <div class="eyeline">Tier 01 · the bridge to agents</div>
+  <div class="sec-head"><span class="dot"></span><h2>Scheduled prompts — it runs without you</h2>
+    <span class="h2ar" dir="rtl" lang="ar">الطلبات المجدولة</span></div>
+  <p class="sec-sub">The same prompt, but it runs on a schedule and arrives before you ask. This is the exact moment a prompt becomes an agent.</p>
+  <div class="station">
+    <div class="station-info">
+      <div class="station-head">
+        <div>
+          <div class="tool-badge">Tier 01 · Automation</div>
+          <h3>The most important five minutes of the session</h3>
+          <p>Run the manual version first, get the result, then schedule the identical prompt. The room sees the concept, not the feature.</p>
+        </div>
+        <div class="callouts">
+          <div class="callout watch"><b>👀 Watch for during the demo</b>The whole section turns on one button. After they run the prompt, point at <b>Schedule this prompt</b> under the answer and say it out loud: <b>“click that, and you have just built an agent.”</b></div>
+          <div class="callout variants"><b>Try these variants</b><ul><li>“Only send it on days I have meetings before 10am.”</li><li>“Add anything due in the next 48 hours.”</li><li>“Post it to our Teams channel instead of emailing me.”</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="prompts-lbl"><span>Prompts to run · الطلبات</span><div class="ln"></div></div>
+    <div class="station-main">
+        <article class="card" data-id="p13" data-sec="sched">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Step 1 — run it manually first</span>
+              <span class="label-ar" dir="rtl" lang="ar">الخطوة الأولى — جرّبيه يدويًا</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~45 sec</span><span class="meta-chip">Do this first</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="do"><b>In the app</b><ol><li>Open Copilot Chat and run the prompt below as a normal question.</li><li>Read what comes back — this is the result you are about to automate.</li></ol></div>
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p13-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p13-en">Give me a quick look into my day. What meetings do I have and what is each one actually about, what arrived overnight that needs me rather than just informing me, what did I commit to this week that is still open, and what is due in the next 48 hours. Under 250 words, urgent at the top.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p13-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p13-ar" class="ar" dir="rtl" lang="ar">أعطيني نظرة سريعة على يومي: ما الاجتماعات وموضوع كل منها فعليًا؟ وما الذي ورد ليلًا ويتطلب تدخلي لا مجرد علمي؟ وما الالتزامات المفتوحة هذا الأسبوع؟ وما المستحق خلال 48 ساعة؟ في حدود 250 كلمة، والعاجل في الأعلى.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p14" data-sec="sched">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Step 2 — now schedule the same words</span>
+              <span class="label-ar" dir="rtl" lang="ar">الخطوة الثانية — اجدولي الطلب نفسه</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~1 min</span><span class="meta-chip">This is the agent</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="do"><b>In the app</b><ol><li>Paste the same prompt again.</li><li>Under the response, select <kbd>Schedule this prompt</kbd>.</li><li>Set it to every working day at 7:30, then confirm. It now appears on your <kbd>Automations</kbd> page.</li><li>Come back tomorrow morning — it will have run without you.</li></ol></div>
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p14-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p14-en">Every working day at 7:30 in the morning, prepare that same daily brief and send it to my inbox. Put anything urgent or overdue at the very top, keep it under 250 words, and if nothing needs a decision, say so in one line instead of padding it.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p14-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p14-ar" class="ar" dir="rtl" lang="ar">في كل يوم عمل الساعة 7:30 صباحًا، أعدّي الموجز اليومي نفسه وأرسليه إلى بريدي. ضعي العاجل والمتأخر في الأعلى، في حدود 250 كلمة، وإذا لم يكن هناك ما يستدعي قرارًا فاذكري ذلك في سطر واحد.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p15" data-sec="sched">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">The weekly pulse for the council</span>
+              <span class="label-ar" dir="rtl" lang="ar">الموجز الأسبوعي للمجلس</span>
+              <div class="meta-row"><span class="meta-chip">Intermediate</span><span class="meta-chip">~1 min</span><span class="meta-chip">Recurring</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="do"><b>In the app</b><ol><li>Run the prompt, then select <kbd>Schedule this prompt</kbd>.</li><li>Set it to weekly, Thursday at 3 PM.</li><li>Manage or pause it any time from the <kbd>Automations</kbd> page.</li></ol></div>
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p15-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p15-en">Every Thursday at 3 PM, build a weekly pulse for our youth council: what we delivered this week, what slipped and why, what is due in the next seven days, and anything needing a council decision. Draw it from my mail, calendar and the council's files, keep it to one page, and save it as a draft for me to review.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p15-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p15-ar" class="ar" dir="rtl" lang="ar">كل يوم خميس الساعة الثالثة عصرًا، أعدّي موجزًا أسبوعيًا لمجلس الشباب: ما أنجزناه، وما تأخّر ولماذا، وما المستحق خلال سبعة أيام، وما يتطلب قرارًا من المجلس. استقي المعلومات من بريدي وتقويمي وملفات المجلس، في صفحة واحدة، واحفظيه كمسودة لمراجعتي.</pre></div>
+          </div>
+        </article></div>
+  </div>
+</div></section>
+<section id="researcher" class="theme-researcher" data-track="1"><div class="wrap">
+  <div class="eyeline">Tier 02 · Specialist agents</div>
+  <div class="sec-head"><span class="dot"></span><h2>Researcher — delegate the whole question</h2>
+    <span class="h2ar" dir="rtl" lang="ar">الباحث</span></div>
+  <p class="sec-sub">Give it a topic; it searches your work content and the web, cross-references, and returns a cited, structured brief.</p>
+  <div class="station">
+    <div class="station-info">
+      <div class="station-head">
+        <div>
+          <div class="tool-badge">Tier 02 · Specialist agents</div>
+          <h3>Where a week of desk research collapses into minutes</h3>
+          <p>Researcher takes longer than chat on purpose. Set that expectation before you press enter, or the pause will feel like a failure.</p>
+        </div>
+        <div class="callouts">
+          <div class="callout watch"><b>👀 Watch for during the demo</b>It will <b>ask you clarifying questions</b> before it starts. Do not skip them — answer one on screen and point out that steering it is the job.</div>
+          <div class="callout variants"><b>Try these variants</b><ul><li>“Restrict this to work content only, no web.”</li><li>“Turn the findings into a six-slide deck.”</li><li>“What could you not verify, and what would you need?”</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="prompts-lbl"><span>Prompts to run · الطلبات</span><div class="ln"></div></div>
+    <div class="station-main">
+        <article class="card" data-id="p19" data-sec="researcher">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">A cited brief on a policy question</span>
+              <span class="label-ar" dir="rtl" lang="ar">موجز موثّق حول سؤال سياساتي</span>
+              <div class="meta-row"><span class="meta-chip">Intermediate</span><span class="meta-chip">~5 min</span><span class="meta-chip">Researcher</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p19-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p19-en">Research how health authorities in the GCC are using AI to improve patient experience, and what measurable results they have published. Cover the last two years only. Give me a structured brief with the approaches used, what worked, what did not, and three things a youth-led team inside a federal health entity could realistically pilot. Cite every source.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p19-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p19-ar" class="ar" dir="rtl" lang="ar">ابحثي في كيفية استخدام الجهات الصحية في دول الخليج للذكاء الاصطناعي في تحسين تجربة المرضى والنتائج المنشورة القابلة للقياس، خلال العامين الماضيين فقط. قدّمي موجزًا منظّمًا يبيّن الأساليب المتبعة، وما نجح وما لم ينجح، وثلاث مبادرات واقعية لفريق شبابي داخل جهة صحية اتحادية، مع توثيق كل مصدر.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p20" data-sec="researcher">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Benchmark us against our peers</span>
+              <span class="label-ar" dir="rtl" lang="ar">مقارنة مرجعية مع النظراء</span>
+              <div class="meta-row"><span class="meta-chip">Intermediate</span><span class="meta-chip">~6 min</span><span class="meta-chip">Researcher</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p20-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p20-en">Research how youth councils in UAE federal entities are structured, what initiatives they run, and how they report impact. Compare them against a youth council in a federal healthcare entity across structure, initiative types, reach, and how outcomes are measured. Tell me where we are likely ahead, where we are behind, and five practices worth copying. Cite sources and flag anything you could not verify.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p20-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p20-ar" class="ar" dir="rtl" lang="ar">ابحثي في هياكل مجالس الشباب في الجهات الاتحادية بالإمارات ومبادراتها وطرق قياس أثرها، ثم قارنيها بمجلس شباب في جهة صحية اتحادية من حيث الهيكل ونوع المبادرات ونطاق الوصول وطريقة قياس النتائج. بيّني أين نتقدّم وأين نتأخر وخمس ممارسات جديرة بالنقل، مع توثيق المصادر وبيان ما تعذّر التحقق منه.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p21" data-sec="researcher">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Research the award before you write the submission</span>
+              <span class="label-ar" dir="rtl" lang="ar">ابحثي الجائزة قبل كتابة الملف</span>
+              <div class="meta-row"><span class="meta-chip">Advanced</span><span class="meta-chip">~7 min</span><span class="meta-chip">Researcher</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p21-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p21-en">Research what distinguishes winning submissions for UAE government excellence and human-resources awards: what the criteria reward, how winners evidence their claims, and the common reasons entries score poorly. Then give me a checklist our youth council can use to audit our own draft before we submit it.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p21-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p21-ar" class="ar" dir="rtl" lang="ar">ابحثي عمّا يميز ملفات الترشّح الفائزة في جوائز التميز الحكومي والموارد البشرية في الإمارات: ما الذي تكافئه المعايير، وكيف يوثّق الفائزون إنجازاتهم، وأسباب تدنّي درجات بعض الملفات. ثم أعدّي قائمة تحقق يستخدمها مجلسنا لمراجعة مسودته قبل التقديم.</pre></div>
+          </div>
+        </article></div>
+  </div>
+</div></section>
+<section id="analyst" class="theme-analyst" data-track="1"><div class="wrap">
+  <div class="eyeline">Tier 02 · Specialist agents</div>
+  <div class="sec-head"><span class="dot"></span><h2>Analyst — reasoning over your data</h2>
+    <span class="h2ar" dir="rtl" lang="ar">المحلّل</span></div>
+  <p class="sec-sub">Drop in a spreadsheet and ask what is going on. Analyst reasons step by step, runs the code in front of you, and shows its working. <b>Two synthetic practice workbooks come with this pack</b> — use those today, not real files.</p>
+  <div class="station">
+    <div class="station-info">
+      <div class="station-head">
+        <div>
+          <div class="tool-badge">Tier 02 · Specialist agents</div>
+          <h3>The one that convinces the sceptics</h3>
+          <p>Because you can watch the code and check it. The practice files are deliberately long and a little messy, with real patterns buried inside — so there is something genuine to find rather than a tidy table that answers itself.</p>
+        </div>
+        <div class="callouts">
+          <div class="callout watch"><b>👀 Watch for during the demo</b>Both files contain <b>deliberate imperfections</b> — a few blank scores, and rows where attendance exceeds registration. Watch whether Copilot notices them unprompted. If it does not, ask it to check data quality and watch it find them.</div>
+          <div class="callout variants"><b>Try these variants</b><ul><li>“What is the single most surprising thing in this file?”</li><li>“What would you need to know before trusting this analysis?”</li><li>“Compare the two files — do the patterns agree?”</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="prompts-lbl"><span>Prompts to run · الطلبات</span><div class="ln"></div></div>
+    <div class="station-main">
+        <article class="card" data-id="p16" data-sec="analyst">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Warm-up — what is actually in this file?</span>
+              <span class="label-ar" dir="rtl" lang="ar">تمرين أولي — ماذا يحوي هذا الملف؟</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~2 min</span><span class="meta-chip file">EHS_Practice_Data_Youth_Council_Activity.xlsx</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p16-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p16-en">I have attached EHS_Practice_Data_Youth_Council_Activity.xlsx. Before analysing anything, tell me what is in it: the sheets, what each one covers, how many rows, the date range, and which columns are numbers versus text. Then flag any data-quality problems you can see — blanks, duplicates, or values that look impossible.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p16-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p16-ar" class="ar" dir="rtl" lang="ar">أرفقتُ ملف EHS_Practice_Data_Youth_Council_Activity.xlsx. قبل أي تحليل، أخبريني ماذا يحوي: أوراق العمل، وما يغطيه كل منها، وعدد الصفوف، والمدى الزمني، وأي الأعمدة رقمية وأيها نصية. ثم أشيري إلى أي مشكلات في جودة البيانات: قيم فارغة أو مكررة أو غير منطقية.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p17" data-sec="analyst">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">The counter-intuitive finding</span>
+              <span class="label-ar" dir="rtl" lang="ar">النتيجة غير المتوقعة</span>
+              <div class="meta-row"><span class="meta-chip">Intermediate</span><span class="meta-chip">~4 min</span><span class="meta-chip file">EHS_Practice_Data_Patient_Experience.xlsx</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p17-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p17-en">Using EHS_Practice_Data_Patient_Experience.xlsx, examine the relationship between waiting time and how patients rate us. Is longer always worse? Check whether that holds in every service area, and if any area breaks the pattern, tell me which one and offer an explanation. Show your working and state what this data cannot tell us.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p17-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p17-ar" class="ar" dir="rtl" lang="ar">باستخدام ملف EHS_Practice_Data_Patient_Experience.xlsx، ادرسي العلاقة بين مدة الانتظار وتقييم المرضى. هل الانتظار الأطول أسوأ دائمًا؟ تحققي ممّا إذا كان ذلك ينطبق على كل مجال خدمة، وإذا خالف أحدها النمط فحدّديه واقترحي تفسيرًا. أظهري خطوات عملك وبيّني ما لا تستطيع هذه البيانات إخبارنا به.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p18" data-sec="analyst">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">From data straight to a council proposal</span>
+              <span class="label-ar" dir="rtl" lang="ar">من البيانات إلى مقترح للمجلس</span>
+              <div class="meta-row"><span class="meta-chip">Advanced</span><span class="meta-chip">~6 min</span><span class="meta-chip file">Both files</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p18-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p18-en">Look at EHS_Practice_Data_Youth_Council_Activity.xlsx and EHS_Practice_Data_Patient_Experience.xlsx together. Find the one problem a youth-led project could realistically improve within a quarter, using evidence from both files. Then write a one-page proposal: the problem with the numbers behind it, what we would do, what we would measure, and what we need approved. Mark clearly anything you inferred rather than measured.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p18-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p18-ar" class="ar" dir="rtl" lang="ar">انظري إلى ملفي EHS_Practice_Data_Youth_Council_Activity.xlsx و EHS_Practice_Data_Patient_Experience.xlsx معًا، وحدّدي المشكلة الواحدة التي يمكن لمشروع يقوده الشباب تحسينها خلال ربع سنة، مع أدلة من الملفين. ثم اكتبي مقترحًا من صفحة واحدة: المشكلة وأرقامها، وما سنفعله، وما سنقيسه، وما نحتاج اعتماده، مع تمييز ما استنتجتيه عمّا قستيه فعليًا.</pre></div>
+          </div>
+        </article></div>
+  </div>
+</div></section>
+<section id="cowork" class="theme-cowork" data-track="1"><div class="wrap">
+  <div class="eyeline">Tier 03 · The orchestrator</div>
+  <div class="sec-head"><span class="dot"></span><h2>Cowork — one brief, several finished files</h2>
+    <span class="h2ar" dir="rtl" lang="ar">التنسيق</span></div>
+  <p class="sec-sub">Multi-step jobs that produce a set of real artifacts from a single brief — and automations that keep producing them.</p>
+  <div class="station">
+    <div class="station-info">
+      <div class="station-head">
+        <div>
+          <div class="tool-badge">Tier 03 · Orchestrator</div>
+          <h3>The scale jump</h3>
+          <p>Everything before this returns an answer. This returns a folder. Show the folder — that is the moment the penny drops.</p>
+        </div>
+        <div class="callouts">
+          <div class="callout watch"><b>👀 Watch for during the demo</b>Open the <b>output folder</b>, not just the chat. The chat looks like every other AI tool; the folder full of finished documents does not.</div>
+          <div class="callout variants"><b>Try these variants</b><ul><li>“Add a bilingual participant brief to that pack.”</li><li>“Make this run every Thursday at 3pm.”</li><li>“Post the summary to our Teams channel when it’s done.”</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="prompts-lbl"><span>Prompts to run · الطلبات</span><div class="ln"></div></div>
+    <div class="station-main">
+        <article class="card" data-id="p22" data-sec="cowork">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">One brief, a full event pack back</span>
+              <span class="label-ar" dir="rtl" lang="ar">موجز واحد وحقيبة فعالية كاملة</span>
+              <div class="meta-row"><span class="meta-chip">Advanced</span><span class="meta-chip">~8 min</span><span class="meta-chip">Cowork</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p22-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p22-en">We are running a youth innovation session for 12 participants. Produce the full pack: a minute-by-minute run sheet, a one-page participant brief, a facilitator guide with what to say at each transition, a scoring sheet for the final pitches, and a feedback form. One page each, and make the participant brief work in both Arabic and English.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p22-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p22-ar" class="ar" dir="rtl" lang="ar">سننظّم جلسة ابتكار شبابية لاثني عشر مشاركًا. أعدّي الحقيبة كاملة: برنامج تشغيلي بالدقيقة، وموجز مشارك من صفحة واحدة، ودليل ميسّر يوضّح ما يُقال عند كل انتقال، وورقة تحكيم للعروض الختامية، واستبانة تقييم — كل منها في صفحة واحدة، وموجز المشارك بالعربية والإنجليزية.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p23" data-sec="cowork">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Bilingual campaign in one pass</span>
+              <span class="label-ar" dir="rtl" lang="ar">حملة ثنائية اللغة دفعة واحدة</span>
+              <div class="meta-row"><span class="meta-chip">Advanced</span><span class="meta-chip">~6 min</span><span class="meta-chip">Cowork</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p23-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p23-en">Build a two-week internal awareness campaign on mental wellbeing for young government employees. Give me three key messages, eight posts written natively in Arabic and in English, a poster concept image, an internal email announcement, and a posting schedule. Warm tone, not clinical. Keep every claim general — no statistics unless you can cite them.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p23-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p23-ar" class="ar" dir="rtl" lang="ar">أعدّي حملة توعية داخلية مدتها أسبوعان حول الصحة النفسية للموظفين الحكوميين الشباب: ثلاث رسائل رئيسية، وثمانية منشورات مكتوبة بلغة طبيعية بالعربية والإنجليزية، وتصوّر ملصق، ورسالة إعلان داخلية، وجدول نشر، بأسلوب دافئ بعيد عن اللغة الطبية، ودون إحصاءات إلا مع مصدر موثّق.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p24" data-sec="cowork">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Sawtak Wasel submissions into a leadership agenda</span>
+              <span class="label-ar" dir="rtl" lang="ar">مشاركات صوتك واصل إلى أجندة للقيادة</span>
+              <div class="meta-row"><span class="meta-chip">Advanced</span><span class="meta-chip">~7 min</span><span class="meta-chip">Cowork</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p24-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p24-en">Read this quarter's youth submissions. Group them into no more than six themes, tell me how many submissions sit behind each, and quote two representative comments per theme. Then draft a one-page agenda and briefing note for the next session with leadership, with a clear recommendation for each theme and what we are asking them to decide.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p24-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p24-ar" class="ar" dir="rtl" lang="ar">اقرأي مشاركات الشباب لهذا الربع، وصنّفيها في ستة محاور كحد أقصى مع بيان عدد المشاركات في كل محور واقتباس ملاحظتين تمثّلانه. ثم أعدّي أجندة ومذكرة إحاطة من صفحة واحدة للجلسة القادمة مع القيادة، مع توصية واضحة لكل محور وما نطلب منهم البتّ فيه.</pre></div>
+          </div>
+        </article></div>
+  </div>
+</div></section>
+<section id="build" class="theme-build" data-track="1"><div class="wrap">
+  <div class="eyeline">Tier 04 · the one we didn’t show you</div>
+  <div class="sec-head"><span class="dot"></span><h2>Build your own agent</h2>
+    <span class="h2ar" dir="rtl" lang="ar">ابنِ وكيلك الخاص</span></div>
+  <p class="sec-sub">Your own agent, wired to a workflow only the EHS Youth Council has. No code — if you can write the instructions, you can build it.</p>
+  <div class="station">
+    <div class="station-info">
+      <div class="station-head">
+        <div>
+          <div class="tool-badge">Tier 04 · Build your own</div>
+          <h3>Where the council pulls ahead</h3>
+          <p>The pack is a head start, not the destination. This is the tier they present back at the end of the session.</p>
+        </div>
+        <div class="callouts">
+          <div class="callout watch"><b>👀 Watch for during the demo</b>Spend your time on <b>what it must never do</b>. Teams always want to write the task; the guardrails are what make an agent safe to share.</div>
+          <div class="callout variants"><b>Try these variants</b><ul><li>“Narrow its knowledge to just this SharePoint folder.”</li><li>“Add a rule: always reply in the language it was asked in.”</li><li>“Give it a name the council will actually remember.”</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="prompts-lbl"><span>Prompts to run · الطلبات</span><div class="ln"></div></div>
+    <div class="station-main">
+        <article class="card" data-id="p25" data-sec="build">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Describe the agent you want — Agent Builder writes it</span>
+              <span class="label-ar" dir="rtl" lang="ar">صفي الوكيل الذي تريدينه</span>
+              <div class="meta-row"><span class="meta-chip">Beginner</span><span class="meta-chip">~4 min</span><span class="meta-chip">Agent Builder</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="do"><b>In the app</b><ol><li>In Copilot, open <kbd>Agents</kbd> and select <kbd>Create agent</kbd> to open Agent Builder.</li><li>Paste the description below into the <kbd>Describe</kbd> box — Agent Builder turns it into the agent’s name, instructions and starter prompts.</li><li>Switch to <kbd>Configure</kbd> to add knowledge sources, then test it in the preview pane on the right.</li><li>When it behaves, select <kbd>Create</kbd> and share it with your council.</li></ol></div>
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p25-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p25-en">I want to create an agent for the EHS Youth Council that turns a member’s rough idea into a properly structured initiative proposal. It should ask for the problem, who it affects and what success looks like, then produce a one-page proposal with background, approach, what we need, who approves it and three measures of success. It writes in clear, formal but plain language, in Arabic or English depending on how it was asked. It must never invent figures, never use patient or staff personal data, and always end by listing what it still needs from me.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p25-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p25-ar" class="ar" dir="rtl" lang="ar">أريد إنشاء وكيل لمجلس شباب المؤسسة يحوّل فكرة أولية من أحد الأعضاء إلى مقترح مبادرة منظّم. يسأل عن المشكلة والفئة المتأثرة ومعنى النجاح، ثم ينتج مقترحًا من صفحة واحدة يشمل الخلفية والمنهجية والمتطلبات وجهات الاعتماد وثلاثة مؤشرات للنجاح. يكتب بلغة واضحة رسمية ومباشرة، بالعربية أو الإنجليزية حسب لغة الطلب. ولا يختلق أرقامًا أبدًا، ولا يستخدم بيانات المرضى أو الموظفين الشخصية، وينهي كل مخرج بقائمة ما يحتاجه مني.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p26" data-sec="build">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Refine the instructions by hand</span>
+              <span class="label-ar" dir="rtl" lang="ar">اكتبي تعليمات وكيلك الخاص</span>
+              <div class="meta-row"><span class="meta-chip">Advanced</span><span class="meta-chip">~5 min</span><span class="meta-chip">Agent Builder</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p26-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p26-en">Help me tighten the instructions for a custom agent for our youth council. Its job: take a request from a council member and turn it into a properly structured initiative proposal in our house style. Cover who it serves, exactly what it produces, the tone, the structure it must always follow, what it should ask me when something is missing, and what it must never do — never invent figures, never use patient data, never send anything without review. Show the instructions as a numbered list I can paste in.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p26-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p26-ar" class="ar" dir="rtl" lang="ar">ساعديني في كتابة تعليمات وكيل مخصص لمجلس الشباب، مهمته تحويل طلب من أحد الأعضاء إلى مقترح مبادرة منظّم وفق نمطنا المعتمد. غطّي: من يخدم، وماذا ينتج تحديدًا، والأسلوب، والهيكل الثابت، وما يسألني عنه عند نقص المعلومات، وما يُمنع منه تمامًا: لا يختلق أرقامًا، ولا يستخدم بيانات المرضى، ولا يرسل شيئًا دون مراجعة. اعرضي التعليمات كقائمة مرقّمة جاهزة للنسخ.</pre></div>
+          </div>
+        </article>
+        <article class="card" data-id="p27" data-sec="build">
+          <div class="card-top">
+            <div class="title-wrap">
+              <span class="label">Test your agent before you trust it</span>
+              <span class="label-ar" dir="rtl" lang="ar">اختبري وكيلك قبل اعتماده</span>
+              <div class="meta-row"><span class="meta-chip">Advanced</span><span class="meta-chip">~3 min</span><span class="meta-chip">Agent Builder</span></div>
+            </div>
+            <label class="tick"><input type="checkbox"><span>Ran it</span></label>
+          </div>
+
+          <div class="do"><b>In the app</b><ol><li>Open your agent in Agent Builder and use the preview pane on the right.</li><li>Run each test below and judge the answer before you share it with anyone.</li></ol></div>
+          <div class="pblock">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="en" data-target="p27-en">Copy</button>
+            </div>
+            <div class="ptext"><pre id="p27-en">I have just built an agent. Before I share it with my team, act as a tester: give me five realistic requests it should handle well, three edge cases likely to break it, and two requests it should refuse outright. For each one, tell me what a good response looks like so I can judge whether it passed.</pre></div>
+          </div>
+          <div class="pblock" dir="rtl">
+            <div class="ptools">
+              <button class="copy-btn" type="button" data-lang="ar" data-target="p27-ar">نسخ</button>
+            </div>
+            <div class="ptext"><pre id="p27-ar" class="ar" dir="rtl" lang="ar">أنشأتُ للتو وكيلًا مخصصًا، وقبل مشاركته مع فريقي أريدك أن تعملي كمختبِرة: خمسة طلبات واقعية يفترض أن يتعامل معها بكفاءة، وثلاث حالات حدية قد تربكه، وطلبين يجب أن يرفضهما تمامًا، مع بيان الاستجابة الجيدة المتوقعة في كل حالة.</pre></div>
+          </div>
+        </article></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <b>Prepared by the Microsoft Youth Council · October 2026</b><br>
+  Prompts are examples — adapt them to your own work. Keep patient-identifiable and staff-personal
+  information out of every prompt, and always review AI output before it goes anywhere official.
+  Your ticks are saved in this browser only and are not shared with anyone.
+</div></footer>
+
+<script>
+(function(){
+  "use strict";
+  var KEY = "ehs-ycc-pack-v2";
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".card[data-id]"));
+  var total = cards.length;
+  var fill  = document.getElementById("progFill");
+  var txt   = document.getElementById("progTxt");
+  var reset = document.getElementById("progReset");
+
+  var done = {};
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) { JSON.parse(raw).forEach(function(id){ done[id] = true; }); }
+  } catch (e) { done = {}; }
+
+  function persist(){
+    try { localStorage.setItem(KEY, JSON.stringify(Object.keys(done))); } catch (e) {}
+  }
+
+  function count(){ return Object.keys(done).length; }
+
+  function refresh(){
+    var n = count();
+    if (fill) fill.style.width = (total ? (n / total) * 100 : 0) + "%";
+    if (txt)  txt.innerHTML = "<b>" + n + "</b> of " + total + " prompts run";
+    document.querySelectorAll("nav.tabs a[data-sec]").forEach(function(a){
+      var sec = a.getAttribute("data-sec");
+      var mine = cards.filter(function(c){ return c.getAttribute("data-sec") === sec; });
+      var c = mine.filter(function(x){ return done[x.getAttribute("data-id")]; }).length;
+      var el = a.querySelector(".cnt");
+      if (el) {
+        el.textContent = c + "/" + mine.length;
+        el.classList.toggle("full", mine.length > 0 && c === mine.length);
+      }
+    });
+  }
+
+  function setCard(card, on){
+    var id = card.getAttribute("data-id");
+    if (on) { done[id] = true; } else { delete done[id]; }
+    card.classList.toggle("done", on);
+    var box = card.querySelector(".tick input");
+    if (box) box.checked = on;
+    persist();
+    refresh();
+  }
+
+  document.addEventListener("change", function(e){
+    var box = e.target;
+    if (!box || box.type !== "checkbox" || !box.closest) return;
+    var card = box.closest(".card[data-id]");
+    if (!card) return;
+    setCard(card, box.checked);
+  });
+
+  if (reset) reset.addEventListener("click", function(){
+    done = {};
+    cards.forEach(function(c){
+      c.classList.remove("done");
+      var b = c.querySelector(".tick input");
+      if (b) b.checked = false;
+    });
+    persist();
+    refresh();
+  });
+
+  /* ---- copy ---- */
+  function flash(btn, ok){
+    var old = btn.getAttribute("data-label") || btn.textContent;
+    btn.setAttribute("data-label", old);
+    btn.classList.add("done");
+    btn.textContent = ok
+      ? (btn.getAttribute("data-lang") === "ar" ? "\u062a\u0645 \u0627\u0644\u0646\u0633\u062e" : "Copied")
+      : (btn.getAttribute("data-lang") === "ar" ? "\u062d\u062f\u062f \u0648\u0627\u0646\u0633\u062e" : "Select & copy");
+    setTimeout(function(){ btn.classList.remove("done"); btn.textContent = old; }, 1700);
+  }
+
+  function legacyCopy(text){
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.top = "0";
+    ta.style.left = "0";
+    ta.style.width = "1px";
+    ta.style.height = "1px";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest ? e.target.closest(".copy-btn") : null;
+    if (!btn) return;
+    e.preventDefault();
+    var sel = btn.getAttribute("data-target");
+    var pre = sel ? document.getElementById(sel) : null;
+    if (!pre) return;
+    var text = pre.textContent.trim();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        function(){ flash(btn, true); },
+        function(){ flash(btn, legacyCopy(text)); }
+      );
+    } else {
+      flash(btn, legacyCopy(text));
+    }
+  });
+
+  /* ---- restore + nav ---- */
+  cards.forEach(function(c){
+    if (done[c.getAttribute("data-id")]) {
+      c.classList.add("done");
+      var b = c.querySelector(".tick input");
+      if (b) b.checked = true;
+    }
+  });
+  refresh();
+
+  var links = Array.prototype.slice.call(document.querySelectorAll("nav.tabs a[data-sec]"));
+  if ("IntersectionObserver" in window) {
+    var obs = new window.IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        var id = en.target.id;
+        links.forEach(function(a){
+          a.classList.toggle("active", a.getAttribute("data-sec") === id);
+        });
+      });
+    }, { rootMargin: "-130px 0px -66% 0px" });
+    document.querySelectorAll("section[data-track]").forEach(function(s){ obs.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
