@@ -210,6 +210,7 @@
     .card[data-council="eand"]     { --c1: #f472b6; --c2: #fb923c; }
     .card[data-council="deloitte"] { --c1: #38bdf8; --c2: #818cf8; }
     .card[data-council="du"]       { --c1: #fbbf24; --c2: #f472b6; }
+    .card[data-council="ehs"]      { --c1: #34d399; --c2: #2dd4bf; }
 
     .card::before {
       content: '';
@@ -359,7 +360,7 @@
 <!-- ── Stats ── -->
 <div class="stats-strip">
   <div class="stat">
-    <div class="stat-value">5</div>
+    <div class="stat-value">1</div>
     <div class="stat-label">Councils</div>
   </div>
   <div class="stat">
@@ -377,8 +378,21 @@
   <p class="section-label">Explore Councils</p>
   <div class="cards">
 
-    <!-- SDD (visible) -->
-    <div class="card" data-council="sdd">
+    <!-- EHS (visible) -->
+    <div class="card" data-council="ehs">
+      <div class="card-bar"></div>
+      <div class="card-icon">🏥</div>
+      <h3>EHS Youth Council</h3>
+      <p class="card-desc">Emirates Health Services — exploring patient experience and youth council activities with practical AI use cases.</p>
+      <div class="actions">
+        <a class="primary" href="EHS%20Youth%20Council/EHS_YouthCouncil_Prompt_Pack.html">▶ View Prompt Pack</a>
+        <a class="secondary" href="EHS%20Youth%20Council/EHS_Practice_Data_Patient_Experience.xlsx">📊 Patient Experience</a>
+        <a class="secondary" href="EHS%20Youth%20Council/EHS_Practice_Data_Youth_Council_Activity.xlsx">📋 Council Activity</a>
+      </div>
+    </div>
+
+    <!-- SDD — hidden. To reactivate: remove class "hidden-section" -->
+    <div class="card hidden-section" data-council="sdd">
       <div class="card-bar"></div>
       <div class="card-icon">🏛️</div>
       <h3>SDD Youth Council</h3>
