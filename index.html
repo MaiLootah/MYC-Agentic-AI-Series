@@ -210,6 +210,12 @@
     .card[data-council="eand"]     { --c1: #f472b6; --c2: #fb923c; }
     .card[data-council="deloitte"] { --c1: #38bdf8; --c2: #818cf8; }
     .card[data-council="du"]       { --c1: #fbbf24; --c2: #f472b6; }
+    .card[data-council="ehs"]      { --c1: #00a39e; --c2: #b08d3f; }
+    .card[data-council="ehs"] .primary { color: #0f0c29; }
+    .card[data-council="ehs"] .actions a:focus-visible {
+      outline: 3px solid var(--c1);
+      outline-offset: 3px;
+    }
 
     .card::before {
       content: '';
@@ -359,7 +365,7 @@
 <!-- ── Stats ── -->
 <div class="stats-strip">
   <div class="stat">
-    <div class="stat-value">5</div>
+    <div class="stat-value">6</div>
     <div class="stat-label">Councils</div>
   </div>
   <div class="stat">
@@ -387,6 +393,19 @@
         <a class="primary" href="SDD%20Youth%20Council/SharjahDigitalDepartment_FutureLeaders_Demo_Pack.html">▶ View Demo</a>
         <a class="secondary" href="SDD%20Youth%20Council/SharjahDigitalDepartment_Digital_Services_Adoption.xlsx">📊 Services</a>
         <a class="secondary" href="SDD%20Youth%20Council/SharjahDigitalDepartment_Digital_Transformation_KPIs.xlsx">📈 KPIs</a>
+      </div>
+    </div>
+
+    <!-- EHS (visible) -->
+    <div class="card" data-council="ehs">
+      <div class="card-bar"></div>
+      <div class="card-icon">🩺</div>
+      <h3>EHS Youth Council</h3>
+      <p class="card-desc">Emirates Health Services — bilingual Copilot prompts for youth initiatives, healthcare, and data analysis.</p>
+      <div class="actions">
+        <a class="primary" href="EHS%20Youth%20Council/EHS_YouthCouncil_Prompt_Pack.html">▶ View Prompts</a>
+        <a class="secondary" href="EHS%20Youth%20Council/EHS_Practice_Data_Youth_Council_Activity.xlsx" download="EHS_Practice_Data_Youth_Council_Activity.xlsx">📊 Youth Council Activity</a>
+        <a class="secondary" href="EHS%20Youth%20Council/EHS_Practice_Data_Patient_Experience.xlsx" download="EHS_Practice_Data_Patient_Experience.xlsx">📈 Patient Experience</a>
       </div>
     </div>
 
