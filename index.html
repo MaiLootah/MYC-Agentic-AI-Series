@@ -211,6 +211,7 @@
     .card[data-council="deloitte"] { --c1: #38bdf8; --c2: #818cf8; }
     .card[data-council="du"]       { --c1: #fbbf24; --c2: #f472b6; }
     .card[data-council="ehs"]      { --c1: #34d399; --c2: #38bdf8; }
+    .card[data-council="enoc"]     { --c1: #00a651; --c2: #1f63c6; }
 
     .card::before {
       content: '';
@@ -378,8 +379,21 @@
   <p class="section-label">Explore Council</p>
   <div class="cards">
 
-    <!-- EHS (visible) -->
-    <div class="card" data-council="ehs">
+    <!-- ENOC (visible) -->
+    <div class="card" data-council="enoc">
+      <div class="card-bar"></div>
+      <div class="card-icon">⛽</div>
+      <h3>ENOC Youth Council</h3>
+      <p class="card-desc">Exploring youth council initiatives and station customer experience with Copilot and AI agents.</p>
+      <div class="actions">
+        <a class="primary" href="ENOC%20Youth%20Council/ENOC_YouthCouncil_Prompt_Pack.html">▶ View Prompt Pack</a>
+        <a class="secondary" href="ENOC%20Youth%20Council/ENOC_Practice_Data_Youth_Council_Activity.xlsx" download>📊 Council Activity</a>
+        <a class="secondary" href="ENOC%20Youth%20Council/ENOC_Practice_Data_Station_Customer_Experience.xlsx" download>⛽ Station Customer Experience</a>
+      </div>
+    </div>
+
+    <!-- EHS — hidden. To reactivate: remove class "hidden-section" -->
+    <div class="card hidden-section" data-council="ehs">
       <div class="card-bar"></div>
       <div class="card-icon">🏥</div>
       <h3>EHS Youth Council</h3>
